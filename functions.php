@@ -1,13 +1,49 @@
 <?php
 /***********************************************
+* REMOVE ADMIN BAR
+***********************************************/
+add_filter('show_admin_bar', '__return_false');
+
+/***********************************************
 * MENUS
 ***********************************************/
 if ( function_exists( 'add_theme_support' ) )
 add_theme_support( 'nav-menus' );
 
-	register_nav_menus(array(
-		'primary' => 'Primary Navigation'
-));
+    register_nav_menus( array(
+        'primary' => 'Primary Navigation',
+        'secondary' => 'Illustration Navigation',
+        'tertiary' => 'Design Navigation',
+        'quaternary' => 'Blog Navigation'
+) );
+/***********************************************
+* NAVIGATION
+***********************************************/
+function pc_category_link($name){
+    $c_id_blog = get_cat_ID( $name );
+    $c_link_blog = get_category_link( $c_id_blog );
+    return $c_link_blog;
+}
+add_filter('next_posts_link_attributes', 'next_posts_link_class');
+add_filter('previous_posts_link_attributes', 'previous_posts_link_class');
+
+function next_posts_link_class() {
+    return 'class="next-post"';
+}
+function previous_posts_link_class() {
+    return 'class="prev-post"';
+}
+add_filter('next_post_link', 'next_post_link_class');
+add_filter('previous_post_link', 'previous_post_link_class');
+ 
+function next_post_link_class($output) {
+    $code = 'class="prev-post"';
+    return str_replace('<a href=', '<a '.$code.' href=', $output);
+}
+function previous_post_link_class($output) {
+    $code = 'class="next-post"';
+    return str_replace('<a href=', '<a '.$code.' href=', $output);
+}
 
 /***********************************************
 * POST THUMBNAILS
@@ -15,15 +51,22 @@ add_theme_support( 'nav-menus' );
 if ( function_exists( 'add_theme_support' ) )
 add_theme_support( 'post-thumbnails' );
 
-/* Custom image sizes */
-add_image_size( 'custom-thumb', 470, 470, array( 'center', 'top' ) );
-add_image_size( 'custom-medium', 1200, 10000, false);
-add_image_size( 'custom-large', 1880, 15000, false);
+/* Illustration image sizes */
+add_image_size( 'illustration-thumb', 440, 410, array( 'center', 'top' ) );
+add_image_size( 'illustration-medium', 1200, 10000, false);
+add_image_size( 'illustration-large', 1880, 15000, false);
+
+/* Design image size */
+add_image_size( 'design-thumb', 730, 422, array( 'center', 'top' ) );
+add_image_size( 'design-image', 1880, 940, array( 'center', 'top' ) );
+
+/* Sketch image size */
+add_image_size( 'sketchbook-image', 550, 630, array( 'center', 'top' ) );
 
 /* URL THUMBNAILS */
 function url_thumbnail($tamagno){
-	$src = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), $tamagno);
-	return $src[0];
+    $src = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), $tamagno);
+    return $src[0];
 }
 
 // Override img caption shortcode to fix 10px issue.
@@ -40,6 +83,13 @@ function fix_img_caption_shortcode($val, $attr, $content = null) {
     return '<div id="' . $id . '" class="wp-caption ' . esc_attr($align) . '" style="max-width: ' . (0 + (int) $width) . 'px">' . do_shortcode( $content ) . '<p class="wp-caption-text">' . $caption . '</p></div>';
 }
 add_filter('img_caption_shortcode', 'fix_img_caption_shortcode', 10, 3);
+
+/***********************************************
+* Custom values
+***********************************************/
+function customVal($keyVal){
+    echo get_post_custom($post->ID)[$keyVal][0];
+}
 
 /***********************************************
 * CUSTOM LENGTH EXCERPT
@@ -107,6 +157,100 @@ function create_illustration_taxonomies() {
 add_action( 'init', 'create_illustration_taxonomies', 0 );
 
 /***********************************************
+* CUSTOM TYPE: SKETCH
+***********************************************/
+function create_sketch_type() {
+  $args = array(
+    'labels' => array(
+      'name' => 'Sketches',
+      'singular_name' => 'Sketch'
+    ),
+    'public' => true,
+    'publicly_queryable' => true,
+    'show_ui' => true, 
+    'show_in_menu' => true, 
+    'query_var' => true,
+    'rewrite' => true,
+    'capability_type' => 'post',
+    'has_archive' => true, 
+    'hierarchical' => false,
+    'show_tagcloud' => false,
+    'show_in_nav_menus' => true,
+    'menu_position' => 5,
+    'menu_icon' => 'dashicons-edit',
+    'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields' )
+  ); 
+  register_post_type('sketch',$args);
+}
+add_action( 'init', 'create_sketch_type' );
+
+// Sketch Types
+function create_sketch_taxonomies() {
+    register_taxonomy(
+        'sketch',
+        'sketch',
+        array(
+            'labels' => array(
+                'name' => 'Sketch Types',
+                'singular_name' => 'Sketch Type'
+            ),
+            'show_ui' => true,
+            'show_tagcloud' => false,
+            'hierarchical' => true,
+            'show_in_nav_menus' => true
+        )
+    );
+}
+add_action( 'init', 'create_sketch_taxonomies', 0 );
+
+/***********************************************
+* CUSTOM TYPE: DESING
+***********************************************/
+function create_design_type() {
+  $args = array(
+    'labels' => array(
+      'name' => 'Designs',
+      'singular_name' => 'Design'
+    ),
+    'public' => true,
+    'publicly_queryable' => true,
+    'show_ui' => true, 
+    'show_in_menu' => true, 
+    'query_var' => true,
+    'rewrite' => true,
+    'capability_type' => 'post',
+    'has_archive' => true, 
+    'hierarchical' => false,
+    'show_tagcloud' => false,
+    'show_in_nav_menus' => true,
+    'menu_position' => 6,
+    'menu_icon' => 'dashicons-desktop',
+    'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields' )
+  ); 
+  register_post_type('design',$args);
+}
+add_action( 'init', 'create_design_type' );
+
+// Design Types
+function create_design_taxonomies() {
+    register_taxonomy(
+        'design',
+        'design',
+        array(
+            'labels' => array(
+                'name' => 'Design Types',
+                'singular_name' => 'Design Type'
+            ),
+            'show_ui' => true,
+            'show_tagcloud' => false,
+            'hierarchical' => true,
+            'show_in_nav_menus' => true
+        )
+    );
+}
+add_action( 'init', 'create_design_taxonomies', 0 );
+
+/***********************************************
 * SIDEBAR
 ***********************************************/
 function sidebar_init() {
@@ -132,6 +276,13 @@ function sidebar_init() {
     ) );
 }
 add_action( 'widgets_init', 'sidebar_init' );
+
 add_theme_support( 'html5', array( 'search-form' ) );
+
+
+
+
+
+
 
 ?>

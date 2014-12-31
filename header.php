@@ -22,8 +22,9 @@
 	<meta http-equiv="content-language" content="en-us" />
 	<meta name="author" content="Pablo Cazorla" />
 	<meta name="contact" content="contact@pcazorla.com" />
-	<meta name="copyright" content="Designed by Pablo Cazorla - All rights reserved - <?php echo date('Y'); ?>." />	
-	
+	<meta name="copyright" content="Designed by Pablo Cazorla - All rights reserved - <?php echo date('Y'); ?>." />
+
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
 	<link href="<?php bloginfo('template_url'); ?>/style.css" rel="stylesheet" type="text/css" />	
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 	
@@ -41,15 +42,25 @@
 	<?php wp_head(); ?>	
 </head>
 <body>
-	<header id="main-header">
-		<div class="wrap">
-			<a href="<?php bloginfo( 'url' ); ?>" id="main-brand" class="brand clearfix">
-				<?php bloginfo( 'name' ); ?>
-				<?php bloginfo( 'description' ); ?>
-			</a>
-			<menu id="main-menu">
-				<?php wp_nav_menu();?>
-			</menu>
-		</div>
-		
+	<header id="header-main">
+		<a href="<?php bloginfo( 'url' ); ?>" class="brand clearfix">
+			<img src="http://localhost/pcazorla/wp-content/uploads/2014/12/Tower-ray-470x470.jpg"/>
+			<span class="brand-name"><?php bloginfo( 'name' ); ?></span>
+			<span class="brand-description"><?php bloginfo( 'description' ); ?></span>
+		</a>
+		<menu id="main-menu">
+				<div class="menu-work open">
+					<a href="" class="menu-work-toogle">Work</a>
+					<a href="<?php echo get_post_type_archive_link('illustration');?>">Illustration</a>
+					<a href="<?php echo get_post_type_archive_link('design');?>">Design</a>
+					<a class="current" href="<?php echo get_post_type_archive_link('sketch');?>">Sketches</a>
+				</div>
+					
+				<div class="menu-gap"></div>
+				<a href="<?php echo pc_category_link('Blog'); ?>">Blog</a>
+				<a href="<?php bloginfo( 'url' ); ?>/me">About Me</a>				
+				<a href="<?php bloginfo( 'url' ); ?>/me#contact-me">Contact</a>
+				
+		</menu>				
 	</header>
+	<div id="content-main">

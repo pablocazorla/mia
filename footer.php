@@ -1,6 +1,6 @@
 			<footer id="main-footer">
 				<div class="wrap">
-					All rights reserved - <?php echo date('Y'); ?>. 
+					Copyright <?php echo date('Y'); ?> Pablo Cazorla. All rights reserved.
 				</div>			
 			</footer>
 		</div> <!-- end of content-main -->

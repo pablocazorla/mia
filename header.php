@@ -24,7 +24,7 @@
 	<meta name="contact" content="contact@pcazorla.com" />
 	<meta name="copyright" content="Designed by Pablo Cazorla - All rights reserved - <?php echo date('Y'); ?>." />
 
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,600' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Lato:400' rel='stylesheet' type='text/css'>
 	<link href="<?php bloginfo('template_url'); ?>/style.css" rel="stylesheet" type="text/css" />	
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 	
@@ -43,24 +43,20 @@
 </head>
 <body>
 	<header id="header-main">
-		<a href="<?php bloginfo( 'url' ); ?>" class="brand clearfix">
-			<img src="http://localhost/pcazorla/wp-content/uploads/2014/12/Tower-ray-470x470.jpg"/>
-			<span class="brand-name"><?php bloginfo( 'name' ); ?></span>
-			<span class="brand-description"><?php bloginfo( 'description' ); ?></span>
-		</a>
-		<menu id="main-menu">
-				<div class="menu-work open">
-					<a href="" class="menu-work-toogle">Work</a>
-					<a href="<?php echo get_post_type_archive_link('illustration');?>">Illustration</a>
-					<a href="<?php echo get_post_type_archive_link('design');?>">Design</a>
-					<a class="current" href="<?php echo get_post_type_archive_link('sketch');?>">Sketches</a>
-				</div>
-					
-				<div class="menu-gap"></div>
+		<div style="display:none">
+			<a href="<?php bloginfo( 'url' ); ?>" class="brand clearfix">
+				
+				<span class="brand-name"><?php bloginfo( 'name' ); ?></span>
+				<span class="brand-description"><?php bloginfo( 'description' ); ?></span>
+			</a>
+			<menu id="main-menu">
+				<a href="<?php echo get_post_type_archive_link('illustration');?>">Illustration</a>
+				<a href="<?php echo get_post_type_archive_link('design');?>">Design</a>
+				<a class="current" href="<?php echo get_post_type_archive_link('sketch');?>">Sketches</a>
 				<a href="<?php echo pc_category_link('Blog'); ?>">Blog</a>
 				<a href="<?php bloginfo( 'url' ); ?>/me">About Me</a>				
-				<a href="<?php bloginfo( 'url' ); ?>/me#contact-me">Contact</a>
-				
-		</menu>				
+				<a href="<?php bloginfo( 'url' ); ?>/me#contact-me">Contact</a>				
+			</menu>	
+		</div>					
 	</header>
 	<div id="content-main">

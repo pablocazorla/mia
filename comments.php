@@ -15,7 +15,7 @@ if('comments.php' == basename($_SERVER['SCRIPT_FILENAME'])){
 <h2 id="commentlist-title"><?php comments_number('No comments yet', '1 comment', '% comments');?></h2>
 <ul id="commentlist">
 	<?php if($comments){ //INICIA COMENTARIOS?>
-		<?php wp_list_comments('avatar_size=48&type=comment&reply_text='); ?>
+		<?php wp_list_comments('avatar_size=64&type=comment&reply_text='); ?>
 	<?php };?>
 </ul>
 
@@ -54,7 +54,7 @@ if('comments.php' == basename($_SERVER['SCRIPT_FILENAME'])){
 		</fieldset>
 		
 		<fieldset class="submit-field">			
-			<input name="submit" type="submit" id="submit" tabindex="4" title="Send your comment" rel="Sending..." value="Send" />			
+			<input name="submit" type="submit" id="submit" tabindex="4" title="Send your comment" rel="Sending..." value="Send" class="button btn-submit"/>			
 			<a id="clearFields" href="">Clear fields</a>
 			<input type="hidden" name="comment_post_ID" value="<?php echo $id; ?>" />	
 		<?php do_action('comment_form', $post->ID); ?>

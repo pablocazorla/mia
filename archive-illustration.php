@@ -3,24 +3,21 @@
  */
 get_header(); ?>
 
-	<?php
-	 	$titleShare = 'Illustration';
-	 	$descriptionShare = 'My portfolio is my best presentation. In my work as an illustrator and artist you are going to find a variety of styles: conceptual, fantastic, literary, realistic, functional design, video games, etc.';
-	 	$urlImageShare = url_thumbnail('illustration-medium');
-	 ?>
-
-	<article class="article-main">		
-		<header class="header-article wrap">
-			<h1><?php echo $titleShare;?></h1>
-			<p><?php echo $descriptionShare;?></p>
-			<div class="gallery-menu">
-				<?php
-					echo '<span class="current">All</span>';
-					$categories = get_categories(array('taxonomy' => 'illustration','hide_empty' => false));
-					foreach ($categories as $category){
-					echo '<span>' . $category->name . '</span>';
-				} ?>
-			</div>			
+	<article class="article-main">
+		<header class="header-article header-article-illustration-list">
+			<div class="wrap header-article-content">
+				<h1>Illustration</h1>
+				<div class="red-line"></div>
+				<p class="cite">My portfolio is my best presentation. In my work as an illustrator and artist you are going to find a variety of styles: conceptual, fantastic, literary, realistic, functional design, video games, etc.</p>
+				<div class="gallery-menu">
+					<?php
+						echo '<span class="current">All</span>';
+						$categories = get_categories(array('taxonomy' => 'illustration','hide_empty' => false));
+						foreach ($categories as $category){
+						echo '<span>' . $category->name . '</span>';
+					} ?>
+				</div>	
+			</div>
 		</header>
 		<section class="gallery clearfix">
 		<?php

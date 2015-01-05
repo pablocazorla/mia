@@ -1,20 +1,25 @@
 <?php get_header(); ?>
-	<article class="article-main">		
-		<header class="header-article wrap">
-			<?php $cat_name = single_cat_title('',false);?>
-			<h1>
-				<?php if(is_category()):
-					echo $cat_name; 
-				elseif(is_tag()):
-					echo "Tag <i>".$cat_name."</i>"; 
-				elseif(is_author()):
-					echo "Author: <i>".$cat_name."<i>"; 
-				elseif(is_archive()):
-					echo "On archive <i>".$cat_name."<i>";
-				endif; ?>
-			</h1>
-				<p>My portfolio is my best presentation. In my work as an illustrator and artist you are going to find a variety of styles: conceptual, fantastic, literary, realistic, functional design, video games, etc.</p>		
-		</header>		
+	<article class="article-main">
+<?php desaturateImageStyle(); ?>
+		<header class="header-article header-article-blog-list">
+			<img class="header-article-img desaturate" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('large');} ?>"/>
+			<div class="wrap header-article-content">
+				<?php $cat_name = single_cat_title('',false);?>
+				<h1>
+					<?php if(is_category()):
+						echo $cat_name; 
+					elseif(is_tag()):
+						echo "Tag <i>".$cat_name."</i>"; 
+					elseif(is_author()):
+						echo "Author: <i>".$cat_name."<i>"; 
+					elseif(is_archive()):
+						echo "On archive <i>".$cat_name."<i>";
+					endif; ?>
+				</h1>
+				<div class="red-line"></div>
+				<p class="cite"><?php echo category_description(); ?> </p>
+			</div>
+		</header>
 		<section class="blog-list wrap">
 			<div class="row">
 				<?php if (have_posts()) :?>

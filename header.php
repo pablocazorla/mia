@@ -24,7 +24,7 @@
 	<meta name="contact" content="contact@pcazorla.com" />
 	<meta name="copyright" content="Designed by Pablo Cazorla - All rights reserved - <?php echo date('Y'); ?>." />
 
-	<link href='http://fonts.googleapis.com/css?family=Lato:400' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Raleway:300,400' rel='stylesheet' type='text/css'>
 	<link href="<?php bloginfo('template_url'); ?>/style.css" rel="stylesheet" type="text/css" />	
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 	
@@ -43,7 +43,7 @@
 </head>
 <body>
 	<header id="header-main">
-		<div style="display:none">
+		<div class="wrap">
 			<a href="<?php bloginfo( 'url' ); ?>" class="brand clearfix">
 				
 				<span class="brand-name"><?php bloginfo( 'name' ); ?></span>

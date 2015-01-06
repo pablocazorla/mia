@@ -6,7 +6,7 @@ desaturateImageStyle();
 if (have_posts()) : while (have_posts()) : the_post();
 $titleShare = get_the_title();
 $descriptionShare = get_the_excerpt();
-$urlImageShare = url_thumbnail('illustration-medium');
+$urlImageShare = url_thumbnail('illustration-large');
 $illustrationLink = get_post_type_archive_link('illustration');
 ?>
 
@@ -28,7 +28,7 @@ $illustrationLink = get_post_type_archive_link('illustration');
 		<img src="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>"/>
 	</figure>
 	<?php if(strlen(get_the_content()) >= 5){ ?>
-	<div class="wrap illustration-content">
+	<div class="wrap the_content illustration-content">
 		<?php the_content(); ?>
 	</div>
 	<?php } ?>

@@ -9,12 +9,12 @@ get_header(); ?>
 				<h1>Illustration</h1>
 				<div class="red-line"></div>
 				<p class="cite">My portfolio is my best presentation. In my work as an illustrator and artist you are going to find a variety of styles: conceptual, fantastic, literary, realistic, functional design, video games, etc.</p>
-				<div class="gallery-menu">
+				<div class="gallery-menu" id="gallery-menu">
 					<?php
-						echo '<span class="current">All</span>';
+						echo '<span class="gm-btn current">All</span>';
 						$categories = get_categories(array('taxonomy' => 'illustration','hide_empty' => false));
 						foreach ($categories as $category){
-						echo '<span>' . $category->name . '</span>';
+						echo '<span class="gm-btn">' . $category->name . '</span>';
 					} ?>
 				</div>	
 			</div>

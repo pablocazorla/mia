@@ -52,16 +52,15 @@ if ( function_exists( 'add_theme_support' ) )
 add_theme_support( 'post-thumbnails' );
 
 /* Illustration image sizes */
-add_image_size( 'illustration-thumb', 440, 410, array( 'center', 'top' ) );
-add_image_size( 'illustration-medium', 1200, 10000, false);
-add_image_size( 'illustration-large', 1880, 15000, false);
+add_image_size( 'illustration-thumb', 635, 320, array( 'center', 'top' ));
+add_image_size( 'illustration-large', 1200, 15000, false);
 
 /* Design image size */
-add_image_size( 'design-thumb', 730, 422, array( 'center', 'top' ) );
-add_image_size( 'design-image', 1880, 940, array( 'center', 'top' ) );
+add_image_size( 'design-thumb', 635, 320, array( 'center', 'top' ));
+add_image_size( 'design-large', 1200, 15000, false );
 
 /* Sketch image size */
-add_image_size( 'sketchbook-image', 550, 630, array( 'center', 'top' ) );
+add_image_size( 'sketchbook-image', 540, 620, array( 'center', 'top' ) );
 
 /* URL THUMBNAILS */
 function url_thumbnail($tamagno){

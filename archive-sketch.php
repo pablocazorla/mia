@@ -2,18 +2,15 @@
  /*Template Name: Sketch
  */
 get_header(); ?>
-
-	<?php
-	 	$titleShare = 'Sketchbook';
-	 	$descriptionShare = 'Some ideas, some drawings. Many of them fail to materialize into a final work, others do. But they are almost always the first and essential step in my workflow.';
-	 	$urlImageShare = url_thumbnail('sketchbook-image');
-	 ?>
-
 	<article class="article-main">
-		<div class="sketchbook-container">	
-			<header class="header-article wrap">
-				<h1><?php echo $titleShare;?></h1>
-				<p><?php echo $descriptionShare;?></p>					
+		<div class="sketchbook-container">
+			<header class="header-article header-article-sketch-list">
+				<div class="header-main-back"></div>
+				<div class="wrap header-article-content">
+					<h1>Sketchbook</h1>
+					<div class="red-line"></div>
+					<p class="cite">Some ideas, some drawings. Many of them fail to materialize into a final work, others do. But they are almost always the first and essential step in my workflow.</p>
+				</div>
 			</header>
 			<section class="wrap sketchbook">			
 					<div class="row">

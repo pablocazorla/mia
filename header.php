@@ -50,12 +50,12 @@
 				<span class="brand-description"><?php bloginfo( 'description' ); ?></span>
 			</a>
 			<menu id="main-menu">
-				<a href="<?php echo get_post_type_archive_link('illustration');?>">Illustration</a>
-				<a href="<?php echo get_post_type_archive_link('design');?>">Design</a>
-				<a class="current" href="<?php echo get_post_type_archive_link('sketch');?>">Sketches</a>
-				<a href="<?php echo pc_category_link('Blog'); ?>">Blog</a>
-				<a href="<?php bloginfo( 'url' ); ?>/me">About Me</a>				
-				<a href="<?php bloginfo( 'url' ); ?>/me#contact-me">Contact</a>				
+				<a href="<?php echo get_post_type_archive_link('illustration');?>"><span>Illustration</span></a>
+				<a href="<?php echo get_post_type_archive_link('design');?>"><span>Design</span></a>
+				<a class="current" href="<?php echo get_post_type_archive_link('sketch');?>"><span>Sketches</span></a>
+				<a href="<?php echo pc_category_link('Blog'); ?>"><span>Blog</span></a>
+				<a href="<?php bloginfo( 'url' ); ?>/me"><span>About Me</span></a>				
+				<a href="<?php bloginfo( 'url' ); ?>/me#contact-me"><span>Contact</span></a>				
 			</menu>	
 		</div>					
 	</header>

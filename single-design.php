@@ -1,71 +1,78 @@
 <?php get_header(); ?>
-	<script type="text/javascript">pageID = 'design-post';</script>
-	<style type="text/css">
-		.header-blog img {
-			filter: url('#blurfx');
-			-webkit-filter: blur(3px);
-			-moz-filter: blur(3px);
-			-o-filter: blur(3px);
-			-ms-filter: blur(3px);
-			filter: blur(3px);	
-			filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
-		}
-	</style>
-	<svg xmlns="http://www.w3.org/2000/svg" height="0" style="position:absolute">
-	   <filter height="116%" width="116%" y="-8%" x="-8%" id="blurfx">
-	       <feGaussianBlur stdDeviation="3" in="SourceGraphic"/>
-	   </filter>
-	</svg>	
-	<article class="blog-post design-post blog  page">
-		<div class="col-blog-row">
-			<div class="col-blog left">
-				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-				<header class="header-blog">
-					<?php if(has_post_thumbnail()){
-					the_post_thumbnail('thumbnail');
-					}else{ ?>
-					<img src="<?php bloginfo('template_url'); ?>/img/default-thumbnail.jpg" />
-					<?php } ?>
-					<div class="header-box-container">
-						<div class="header-container">
-							<h1><?php the_title(); ?></h1>
-							<div class="category alink-content">
-								<a href="#comments-panel" class="link-to-comments">Comments</a>	
-							</div>
-							<?php the_excerpt();?>
-						</div>
-					</div>												
-				</header>
-				<section class="blog-container">					
-					<div class="content">
-						<?php the_content(); ?>
-					</div>
-					<hr/>
-					<div class="comments-panel" id="comments-panel">					
-						<div class="comments-panel-box">
-							<?php comments_template(); ?>
-						</div>
-					</div>				
-				</section>
-				 <?php
-				 	$titleShare = get_the_title();
-				 	$descriptionShare = get_the_excerpt();
-				 	$urlImageShare = url_thumbnail('full');
-				 ?>
-				<?php endwhile; endif; ?>
-			</div>
+<article class="article-main">
+
+<?php 
+desaturateImageStyle();
+if (have_posts()) : while (have_posts()) : the_post();
+$titleShare = get_the_title();
+$descriptionShare = get_the_excerpt();
+$urlImageShare = url_thumbnail('design-large');
+$designLink = get_post_type_archive_link('design');
+?>
+
+	<header class="header-article header-article-design-post">		
+		<img class="header-article-img desaturate" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('design-large');} ?>"/>
+		<div class="wrap header-article-content">
+			<h1><?php echo $titleShare;?></h1>
+			<div class="red-line"></div>
+			<p class="subtitle"><a href="<?php echo $designLink; ?>">Design</a></p>	
 		</div>
-	</article>
-	<nav class="post-navigation in-left">
-		<a href="" class="share link-facebook" data-share="{'on':'facebook'}"><span class="link-title">Share on Facebook</span></a>
-		<a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"><span class="link-title">Share on Twitter</span></a>
-		<a href="" class="share link-google" data-share="{'on':'google'}"><span class="link-title">Share on Google+</span></a>
-		<a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"><span class="link-title">Share on Pinterest</span></a>				
+	</header>
+	<div class="wrap design-cite">		
+		<p class="cite"><?php echo $descriptionShare;?></p>			
+		<nav class="share-nav">	
+			<a href="" class="share link-facebook" data-share="{'on':'facebook'}"></a><a href="" class="share link-google" data-share="{'on':'google'}"></a><a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"></a><a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"></a>
+		</nav>				
+	</div>
+	<?php if(strlen(get_the_content()) >= 5){ ?>
+	<hr class="wrap"/>
+	<div class="wrap the_content design-content">
+		<?php the_content(); ?>
+	</div>
+	<?php } ?>
+	<nav class="wrap nav-more">
+		<hr/>
+		<h3 class="align-center">More <a href="<?php echo $designLink; ?>">Design</a></h3>	
+		<section class="gallery gallery-nav clearfix">
+			<?php
+				$prev_post = get_previous_post();
+				$srcImgPrev = wp_get_attachment_image_src( get_post_thumbnail_id($prev_post->ID), 'design-thumb');
+				$next_post = get_next_post();
+				$srcImgNext = wp_get_attachment_image_src( get_post_thumbnail_id($next_post->ID), 'design-thumb');
+			?>
+			<?php if (!empty( $next_post )){ ?>
+			<figure>
+		        <?php 
+				echo '<img class="design-thumb-img" src="' . $srcImgNext[0] .'">';
+				?>
+				<a href="<?php echo get_permalink($next_post->ID); ?>">
+					<figcaption>
+						<p>Previous:</p>
+						<h2><?php echo get_the_title($next_post->ID); ?></h2>
+					</figcaption>
+				</a>							
+			</figure>
+			<?php } else{ ?>
+				<div class="empty"></div>
+			<?php } ?>
+			<?php if (!empty( $prev_post )){ ?>
+			<figure>
+		        <?php 
+				echo '<img class="design-thumb-img" src="' . $srcImgPrev[0] .'">';
+				?>
+				<a href="<?php echo get_permalink($prev_post->ID); ?>">
+					<figcaption>
+						<p>Next:</p>
+						<h2><?php echo get_the_title($prev_post->ID); ?></h2>
+					</figcaption>
+				</a>							
+			</figure>
+			<?php } else{ ?>
+				<div class="empty"></div>
+			<?php } ?>	
+		</section>
 	</nav>
-	<nav class="post-navigation">
-		<a href="<?php echo get_post_type_archive_link('design'); ?>" class="back-to-grid"><span class="link-title">All Design</span></a>
-		<?php previous_post_link('%link', '<span class="link-title"><b>Next:</b> %title </span>', FALSE); ?>
-		<?php next_post_link('%link', '<span class="link-title"><b>Previous:</b> %title </span>', FALSE); ?>
-	</nav>
+<?php endwhile; endif; ?>
+</article>
 
 <?php get_footer(); ?>

@@ -56,7 +56,7 @@ add_image_size( 'illustration-thumb', 635, 320, array( 'center', 'top' ));
 add_image_size( 'illustration-large', 1200, 15000, false);
 
 /* Design image size */
-add_image_size( 'design-thumb', 635, 320, array( 'center', 'top' ));
+add_image_size( 'design-thumb', 522, 309, array( 'center', 'top' ));
 add_image_size( 'design-large', 1200, 15000, false );
 
 /* Sketch image size */

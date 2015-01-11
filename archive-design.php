@@ -6,10 +6,10 @@ get_header(); ?>
 		<header class="header-article header-article-design-list">
 			<div class="header-main-back"></div>
 			<div class="wrap header-article-content">
-				<h1>Design</h1>
-				<div class="red-line"></div>
-				<p class="cite">Just beautiful things.</p>
-				<div class="gallery-menu" id="gallery-menu">
+				<h1 class="soft-light">Design</h1>
+				<div class="red-line soft-light"></div>
+				<p class="cite soft-light">Just beautiful things.</p>
+				<div class="gallery-menu soft-light" id="gallery-menu">
 					<?php
 						echo '<span class="gm-btn current">All</span>';
 						$categories = get_categories(array('taxonomy' => 'design','hide_empty' => false));
@@ -34,14 +34,14 @@ get_header(); ?>
 					}
 				}
 			?>
-			<div class="clearfix design-pod <?php echo $classType; if($alt < 0){ echo ' alt';}?>">
+			<div class="clearfix design-pod <?php echo $classType; if($alt < 0){ echo ' alt';}?> soft-light">
 				<div class="design-box design-image">
 					<?php if($classType == ' webdesign'){ ?>
 					<img class="design-pc" src="<?php bloginfo('template_url'); ?>/img/design-pc.png"/>
 					<?php }?>
 					<figure class="<?php if($classType == ' webdesign'){echo 'wd-figure';}?>">
 				        <?php if(has_post_thumbnail()){
-						echo '<img class="design-thumb-img" rc="" src="' . url_thumbnail('design-thumb') .'">';
+						echo '<img class="design-thumb-img srcwait" src="" srcwait="' . url_thumbnail('design-thumb') .'">';
 						} ?>
 						<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" >
 							<figcaption><span>More</span></figcaption>

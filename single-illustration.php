@@ -11,21 +11,21 @@ $illustrationLink = get_post_type_archive_link('illustration');
 ?>
 
 	<header class="header-article header-article-illustration-post">		
-		<img class="header-article-img desaturate" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>"/>
+		<img class="header-article-img desaturate wait-complete" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>"/>
 		<div class="wrap header-article-content">
-			<h1><?php echo $titleShare;?></h1>
-			<div class="red-line"></div>
-			<p class="subtitle"><a href="<?php echo $illustrationLink; ?>">Illustration</a></p>	
+			<h1 class="soft-light"><?php echo $titleShare;?></h1>
+			<div class="red-line soft-light"></div>
+			<p class="subtitle soft-light"><a href="<?php echo $illustrationLink; ?>">Illustration</a></p>	
 		</div>
 	</header>
 	<figure class="wrap illustration-large">
 		<figcaption>
-			<p class="cite"><?php echo $descriptionShare;?></p>			
-			<nav class="share-nav">	
+			<p class="cite soft-light"><?php echo $descriptionShare;?></p>			
+			<nav class="share-nav soft-light">	
 				<a href="" class="share link-facebook" data-share="{'on':'facebook'}"></a><a href="" class="share link-google" data-share="{'on':'google'}"></a><a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"></a><a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"></a>
 			</nav>
 		</figcaption>				
-		<img src="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>"/>
+		<img class="wait-complete soft-light" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>"/>
 	</figure>
 	<?php if(strlen(get_the_content()) >= 5){ ?>
 	<div class="wrap the_content illustration-content">
@@ -34,7 +34,7 @@ $illustrationLink = get_post_type_archive_link('illustration');
 	<?php } ?>
 	<nav class="wrap nav-more">
 		<hr/>
-		<h3 class="align-center">More <a href="<?php echo $illustrationLink; ?>">Illustration</a></h3>	
+		<h3 class="align-center soft-light">More <a href="<?php echo $illustrationLink; ?>">Illustration</a></h3>	
 		<section class="gallery gallery-nav clearfix">
 			<?php
 				$prev_post = get_previous_post();
@@ -43,9 +43,9 @@ $illustrationLink = get_post_type_archive_link('illustration');
 				$srcImgNext = wp_get_attachment_image_src( get_post_thumbnail_id($next_post->ID), 'illustration-thumb');
 			?>
 			<?php if (!empty( $next_post )){ ?>
-			<figure>
+			<figure class="soft-light">
 		        <?php 
-				echo '<img class="illustration-thumb-img" src="' . $srcImgNext[0] .'">';
+				echo '<img class="illustration-thumb-img wait-complete" src="' . $srcImgNext[0] .'">';
 				?>
 				<a href="<?php echo get_permalink($next_post->ID); ?>">
 					<figcaption>
@@ -58,9 +58,9 @@ $illustrationLink = get_post_type_archive_link('illustration');
 				<div class="empty"></div>
 			<?php } ?>
 			<?php if (!empty( $prev_post )){ ?>
-			<figure>
+			<figure class="soft-light">
 		        <?php 
-				echo '<img class="illustration-thumb-img" src="' . $srcImgPrev[0] .'">';
+				echo '<img class="illustration-thumb-img wait-complete" src="' . $srcImgPrev[0] .'">';
 				?>
 				<a href="<?php echo get_permalink($prev_post->ID); ?>">
 					<figcaption>

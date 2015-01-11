@@ -2,10 +2,10 @@
 	<article class="article-main">
 <?php desaturateImageStyle(); ?>
 		<header class="header-article header-article-blog-list">
-			<img class="header-article-img desaturate" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('large');} ?>"/>
+			<img class="header-article-img desaturate wait-complete" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('large');} ?>"/>
 			<div class="wrap header-article-content">
 				<?php $cat_name = single_cat_title('',false);?>
-				<h1>
+				<h1 class="soft-light">
 					<?php if(is_category()):
 						echo $cat_name; 
 					elseif(is_tag()):
@@ -16,19 +16,19 @@
 						echo "On archive <i>".$cat_name."<i>";
 					endif; ?>
 				</h1>
-				<div class="red-line"></div>
-				<p class="cite"><?php echo category_description(); ?> </p>
+				<div class="red-line soft-light"></div>
+				<p class="cite soft-light"><?php echo category_description(); ?> </p>
 			</div>
 		</header>
 		<section class="blog-list wrap">
 			<div class="row">
 				<?php if (have_posts()) :?>
 				<?php while (have_posts()) : the_post();?>
-				<div class="col">
+				<div class="col soft-light">
 					<div class="post-in-list" id="post-<?php the_ID();?>">
 						<figure>
 							<?php if(has_post_thumbnail()){
-								the_post_thumbnail('thumbnail');
+								echo '<img class="srcwait" src="" srcwait="' . url_thumbnail('thumbnail') .'">';
 								}else{ ?>
 									<img src="<?php bloginfo('template_url'); ?>/img/default-thumbnail.jpg" />		
 								<?php } ?>							

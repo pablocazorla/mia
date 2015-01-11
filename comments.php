@@ -12,8 +12,8 @@ if('comments.php' == basename($_SERVER['SCRIPT_FILENAME'])){
 }
 ?>
 <a id="comments" name="comments" class="anchor"></a>
-<h2 id="commentlist-title"><?php comments_number('No comments yet', '1 comment', '% comments');?></h2>
-<ul id="commentlist">
+<h2 class="soft-light" id="commentlist-title"><?php comments_number('No comments yet', '1 comment', '% comments');?></h2>
+<ul class="soft-light" id="commentlist">
 	<?php if($comments){ //INICIA COMENTARIOS?>
 		<?php wp_list_comments('avatar_size=64&type=comment&reply_text='); ?>
 	<?php };?>
@@ -29,8 +29,8 @@ if('comments.php' == basename($_SERVER['SCRIPT_FILENAME'])){
 <?php if ('open' == $post->comment_status){ //INICIA FORMULARIO PARA COMENTARIOS - Si estan abiertos ?>
 		
 		
-<form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
-	<h3>Add comment</h3>
+<form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform" class="soft-light">
+	<h3 class="">Add comment</h3>
 	<?php if ( $user_ID ){ //Si SI esta logueado ?>
 
 		<p>You are logged as <a href="<?php echo get_option('siteurl'); ?>/wp-admin/profile.php"><?php echo $user_identity; ?></a> | <a href="<?php echo get_option('siteurl'); ?>/wp-login.php?action=logout" title="Logout">Logout »</a></p>

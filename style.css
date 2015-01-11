@@ -758,8 +758,17 @@ figure.wd-figure{
 	box-shadow: none;
 }
 
+/* HOME **************************************************/
 
+.home-background{
+	position: fixed;
+	top: 0;bottom: 0;
+	left: 0;right: 0;
+}
 
+.home-presentation{
+
+}
 
 
 
@@ -832,6 +841,26 @@ figure.wd-figure{
 	padding: 40px 0;
 }
 
+/* SOFT LIGHT *************************************************************/
+.soft-light-anim{	
+	-webkit-transition: all .5s ease-out;
+	-moz-transition: all .5s ease-out;
+	transition: all .5s ease-out;
+}
+.soft-light{	
+	opacity: 0;
+	transform : translateY(100px);
+}
+
+/* SRCWAIT ***********************************/
+img.wait-complete-anim{	
+	-webkit-transition: all .3s;
+	-moz-transition: all .3s;
+	transition: all .3s;
+}
+img.wait-complete{
+	opacity: 0 !important;
+}
 
 
 /* MEDIA QUERIES ************************************************************************************************************/

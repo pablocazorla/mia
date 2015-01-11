@@ -1,6 +1,10 @@
 <?php get_header(); ?>
-	<article id="main-article" class="wrap home">
-		Home
-		<div style="background:#CCC;height:250px"></div>
+	<article id="article-main" class="wrap home">
+		<section class="wrap home-presentation">
+
+		</section>
+		<figure class="home-background">
+
+		</figure>
 	</article>
 <?php get_footer(); ?>

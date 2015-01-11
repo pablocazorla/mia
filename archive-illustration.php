@@ -2,14 +2,13 @@
  /*Template Name: Illustration
  */
 get_header(); ?>
-
 	<article class="article-main">
 		<header class="header-article header-article-illustration-list">
 			<div class="wrap header-article-content">
-				<h1>Illustration</h1>
-				<div class="red-line"></div>
-				<p class="cite">My portfolio is my best presentation. In my work as an illustrator and artist you are going to find a variety of styles: conceptual, fantastic, literary, realistic, functional design, video games, etc.</p>
-				<div class="gallery-menu" id="gallery-menu">
+				<h1 class="soft-light">Illustration</h1>
+				<div class="red-line soft-light"></div>
+				<p class="cite soft-light">My portfolio is my best presentation. In my work as an illustrator and artist you are going to find a variety of styles: conceptual, fantastic, literary, realistic, functional design, video games, etc.</p>
+				<div class="gallery-menu soft-light" id="gallery-menu">
 					<?php
 						echo '<span class="gm-btn current">All</span>';
 						$categories = get_categories(array('taxonomy' => 'illustration','hide_empty' => false));
@@ -32,9 +31,9 @@ get_header(); ?>
 					}
 				}
 			?>
-			<figure class="<?php echo $classType;?>">
+			<figure class="<?php echo $classType;?> soft-light">
 		        <?php if(has_post_thumbnail()){
-				echo '<img class="illustration-thumb-img" rc="" src="' . url_thumbnail('illustration-thumb') .'">';
+				echo '<img class="illustration-thumb-img srcwait" src="" srcwait="' . url_thumbnail('illustration-thumb') .'">';
 				} ?>
 				<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" >
 					<figcaption>

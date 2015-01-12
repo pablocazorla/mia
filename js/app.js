@@ -1,9 +1,91 @@
 // PCAZORLA
-;
-(function($) {
+var pcazorla = function() {
+
 	'use strict';
 
-	var softLight = {
+	/* BROWSER : Object
+	 * Store browser type
+	 */
+	var BROWSER = {},
+		uAgent = navigator.userAgent || navigator.vendor || window.opera,
+		ua = uAgent.toLowerCase();
+	BROWSER.mozilla = /mozilla/.test(ua) && !/webkit/.test(ua);
+	BROWSER.webkit = /webkit/.test(ua);
+	BROWSER.opera = /opera/.test(ua);
+	BROWSER.msie = /msie/.test(ua);
+	BROWSER.ios = (ua.match(/ipad/i) || ua.match(/iphone/i) || ua.match(/ipod/i));
+	BROWSER.android = ua.match(/android/i);
+
+	// STORE JQUERY SELECTIONS
+	var $window = $(window),
+		$html = $('html'),
+		$body = $('body'),
+		$scroll = (BROWSER.webkit) ? $window : $html;
+
+	/* HEADER : Object
+	 * Header show and hide behavior
+	 */
+	var HEADER = {
+		$header: $('#header-main'),
+		showed: true,
+		transparent: true,
+		prevScroll: 99999999,
+		currentScroll: 0,
+		init: function() {
+			this.setStatus().setEv(this);
+		},
+		show: function() {
+			if (!this.showed) {
+				this.$header.removeClass('hide');
+				this.showed = true;
+			}
+		},
+		hide: function() {
+			if (this.showed) {
+				this.$header.addClass('hide');
+				this.showed = false;
+			}
+		},
+		backTransparent: function() {
+			if (!this.transparent) {
+				this.$header.removeClass('backcolor');
+				this.transparent = true;
+			}
+		},
+		backColor: function() {
+			if (this.transparent) {
+				this.$header.addClass('backcolor');
+				this.transparent = false;
+			}
+		},
+		setStatus: function() {
+			this.currentScroll = $scroll.scrollTop();
+			if (this.prevScroll < this.currentScroll) { // Down
+				this.hide();
+			} else if (this.prevScroll > this.currentScroll) { // Up
+				this.show();
+			}
+
+			if (this.currentScroll < 20) {
+				this.backTransparent();
+			} else {
+				this.backColor();
+			}
+
+			this.prevScroll = this.currentScroll;
+			return this;
+		},
+		setEv: function(self) {
+			$window.scroll(function() {
+				self.setStatus();
+			});
+		}
+	};
+
+	/* SOFTLIGHT : Object
+	 * Show elements while scroll down
+	 */
+	var SOFTLIGHT = {
 		ready: false,
 		limit: 5,
 		init: function(custom) {
@@ -58,11 +140,11 @@
 			this.l = 0;
 			return this;
 		},
-		set: function(selection) {
+		set: function() {
 			var self = this;
 			this.reset();
 
-			this.elem = $(selection).toArray();
+			this.elem = $('.soft-light').toArray();
 			this.l = this.elem.length;
 
 			var newArray = [];
@@ -82,11 +164,11 @@
 			this.elem = newArray;
 			this.l = newArray.length;
 
-			setTimeout(function(){
+			setTimeout(function() {
 				self.ready = true;
 				self.test(70);
-			},100);
-			
+			}, 100);
+
 			return this;
 		},
 		test: function(dc) {
@@ -127,135 +209,66 @@
 		}
 	};
 
-	var onCompleteImage = function(selection) {
-		var $img = $(selection).addClass('wait-complete-anim'),
-			length = $img.length,
-			show = function($i) {
-				$i.removeClass('wait-complete');
-				(function($t) {
-					setTimeout(function() {
-						$t.removeClass('wait-complete-anim');
-					}, 400);
-				})($i);
-			};
-		setTimeout(function() {
-			for (var i = 0; i < length; i++) {
-				if ($img.eq(i)[0].complete) {
-					show($img.eq(i));
+	var IMAGESOFTLOAD = {
+		set: function() {
+			this.srcwait('.srcwait').onCompleteImage('.wait-complete');
+		},
+		/* onCompleteImage : Function
+		 * Show image after load
+		 */
+		onCompleteImage: function(selection) {
+			var $img = $(selection).addClass('wait-complete-anim'),
+				length = $img.length,
+				show = function($i) {
+					$i.removeClass('wait-complete');
+					(function($t) {
+						setTimeout(function() {
+							$t.removeClass('wait-complete-anim');
+						}, 400);
+					})($i);
+				};
+			setTimeout(function() {
+				for (var i = 0; i < length; i++) {
+					if ($img.eq(i)[0].complete) {
+						show($img.eq(i));
+					}
 				}
-			}
-		}, 50);
+			}, 50);
 
-		$img.load(function() {
-			show($(this));
-		}).error(function() {
-			show($(this));
-		});
+			$img.load(function() {
+				show($(this));
+			}).error(function() {
+				show($(this));
+			});
+			return this;
+		},
+		/* srcwait : Function
+		 * Load images in secuence; uses onCompleteImage to show every image
+		 */
+		srcwait: function(selection) {
+			var $img = $(selection).addClass('wait-complete wait-complete-anim'),
+				length = $img.length,
+				current = -1,
+				next = function() {
+					current++;
+					if (current < length) {
+						var $this = $img.eq(current),
+							s = $this.attr('srcwait');
+						$this.load(next).error(next);
+						$this.attr('srcwait', '');
+						$this.attr('src', s);
+					}
+				}
+			next();
+			return this;
+		}
 	};
 
-	var srcwait = function(selection) {
-		var $img = $(selection).addClass('wait-complete wait-complete-anim'),
-			length = $img.length,
-			current = -1,
-			next = function() {
-				current++;
-				if (current < length) {
-					var $this = $img.eq(current),
-						s = $this.attr('srcwait');
-					$this.load(next).error(next);
-					$this.attr('srcwait', '');
-					$this.attr('src', s);
-				}
-			}
-		next();
-	};
-
-	var pcazorla = function() {
-
-		// BROWSER DETECTION
-		var browser = {},
-			uAgent = navigator.userAgent || navigator.vendor || window.opera,
-			ua = uAgent.toLowerCase();
-		browser.mozilla = /mozilla/.test(ua) && !/webkit/.test(ua);
-		browser.webkit = /webkit/.test(ua);
-		browser.opera = /opera/.test(ua);
-		browser.msie = /msie/.test(ua);
-		browser.ios = (ua.match(/ipad/i) || ua.match(/iphone/i) || ua.match(/ipod/i));
-		browser.android = ua.match(/android/i);
-
-		// STORE
-		var $window = $(window),
-			$html = $('html'),
-			$body = $('body'),
-			$scroll = (browser.webkit) ? $window : $html;
-
-
-		// OBJECTS
-		var HEADER = {
-			$header: $('#header-main'),
-			showed: true,
-			transparent: true,
-			prevScroll: 99999999,
-			currentScroll: 0,
-			init: function() {
-				this.setStatus().setEv(this);
-			},
-			show: function() {
-				if (!this.showed) {
-					this.$header.removeClass('hide');
-					this.showed = true;
-				}
-			},
-			hide: function() {
-				if (this.showed) {
-					this.$header.addClass('hide');
-					this.showed = false;
-				}
-			},
-			backTransparent: function() {
-				if (!this.transparent) {
-					this.$header.removeClass('backcolor');
-					this.transparent = true;
-				}
-			},
-			backColor: function() {
-				if (this.transparent) {
-					this.$header.addClass('backcolor');
-					this.transparent = false;
-				}
-			},
-			setStatus: function() {
-				this.currentScroll = $scroll.scrollTop();
-				if (this.prevScroll < this.currentScroll) { // Down
-					this.hide();
-				} else if (this.prevScroll > this.currentScroll) { // Up
-					this.show();
-				}
-
-				if (this.currentScroll < 20) {
-					this.backTransparent();
-				} else {
-					this.backColor();
-				}
-
-				this.prevScroll = this.currentScroll;
-				return this;
-			},
-			setEv: function(self) {
-				$window.scroll(function() {
-					self.setStatus();
-				});
-			}
-		};
-		HEADER.init();
-
-		softLight.init();
-
-		// FUNCTIONS
-		var onComplete = function(async) {
-
-
-			// Gallery Illustration
+	/* GALLERY : Object
+	 * Galery menu of sub-categories
+	 */
+	var GALLERY = {
+		set: function() {
 			$('#gallery-menu').each(function() {
 
 				var $menu = $(this),
@@ -297,17 +310,23 @@
 				});
 
 			});
+		}
+	}
 
-			softLight.set('.soft-light');
-
-			srcwait('.srcwait');
-			onCompleteImage('.wait-complete');
-
-		};
-		onComplete(false);
-
-
-
+	/* onComplete : Function
+	 * It runs when load article content
+	 */
+	var onComplete = function(async) {
+		IMAGESOFTLOAD.set();
+		GALLERY.set();
+		SOFTLIGHT.set();
 	};
-	$('document').ready(pcazorla);
-})(jQuery);
+
+	/*
+	 * INIT
+	 */
+	HEADER.init();
+	SOFTLIGHT.init();
+	onComplete(false);
+};
+$('document').ready(pcazorla);

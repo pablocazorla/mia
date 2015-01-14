@@ -1,5 +1,6 @@
 <?php get_header(); ?>
 	<article class="article-main">
+		<div class="invisible" id="page-data" data-menu="" data-page="page"></div>
 <?php
 desaturateImageStyle();
 if (have_posts()) : while (have_posts()) : the_post(); 

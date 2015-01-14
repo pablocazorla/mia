@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <article class="article-main">
-
+	<div class="invisible" id="page-data" data-menu="" data-page="single-design"></div>
 <?php 
 desaturateImageStyle();
 if (have_posts()) : while (have_posts()) : the_post();
@@ -13,14 +13,14 @@ $designLink = get_post_type_archive_link('design');
 	<header class="header-article header-article-design-post">		
 		<img class="header-article-img desaturate wait-complete" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('design-large');} ?>"/>
 		<div class="wrap header-article-content">
-			<h1 class="soft-light"><?php echo $titleShare;?></h1>
-			<div class="red-line soft-light"></div>
-			<p class="subtitle soft-light"><a href="<?php echo $designLink; ?>">Design</a></p>	
+			<h1 class="soft-light slg-bottom"><?php echo $titleShare;?></h1>
+			<div class="red-line soft-light slg-bottom"></div>
+			<p class="subtitle soft-light slg-bottom"><a href="<?php echo $designLink; ?>">Design</a></p>	
 		</div>
 	</header>
 	<div class="wrap design-cite">		
-		<p class="cite soft-light"><?php echo $descriptionShare;?></p>			
-		<nav class="share-nav soft-light">	
+		<p class="cite soft-light slg-bottom"><?php echo $descriptionShare;?></p>			
+		<nav class="share-nav soft-light slg-bottom">	
 			<a href="" class="share link-facebook" data-share="{'on':'facebook'}"></a><a href="" class="share link-google" data-share="{'on':'google'}"></a><a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"></a><a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"></a>
 		</nav>				
 	</div>
@@ -32,7 +32,7 @@ $designLink = get_post_type_archive_link('design');
 	<?php } ?>
 	<nav class="wrap nav-more">
 		<hr/>
-		<h3 class="align-center soft-light">More <a href="<?php echo $designLink; ?>">Design</a></h3>	
+		<h3 class="align-center soft-light slg-bottom">More <a href="<?php echo $designLink; ?>">Design</a></h3>	
 		<section class="gallery gallery-nav clearfix">
 			<?php
 				$prev_post = get_previous_post();
@@ -41,7 +41,7 @@ $designLink = get_post_type_archive_link('design');
 				$srcImgNext = wp_get_attachment_image_src( get_post_thumbnail_id($next_post->ID), 'design-thumb');
 			?>
 			<?php if (!empty( $next_post )){ ?>
-			<figure class="soft-light">
+			<figure class="soft-light slg-bottom">
 		        <?php 
 				echo '<img class="design-thumb-img wait-complete" src="' . $srcImgNext[0] .'">';
 				?>
@@ -56,7 +56,7 @@ $designLink = get_post_type_archive_link('design');
 				<div class="empty"></div>
 			<?php } ?>
 			<?php if (!empty( $prev_post )){ ?>
-			<figure class="soft-light">
+			<figure class="soft-light slg-bottom">
 		        <?php 
 				echo '<img class="design-thumb-img wait-complete" src="' . $srcImgPrev[0] .'">';
 				?>

@@ -3,12 +3,15 @@
  */
 get_header(); ?>
 	<article class="article-main">
+
+		<div class="invisible" id="page-data" data-menu="illustration" data-page="archive-illustration"></div>
+
 		<header class="header-article header-article-illustration-list">
 			<div class="wrap header-article-content">
-				<h1 class="soft-light">Illustration</h1>
-				<div class="red-line soft-light"></div>
-				<p class="cite soft-light">My portfolio is my best presentation. In my work as an illustrator and artist you are going to find a variety of styles: conceptual, fantastic, literary, realistic, functional design, video games, etc.</p>
-				<div class="gallery-menu soft-light" id="gallery-menu">
+				<h1 class="soft-light slg-bottom">Illustration</h1>
+				<div class="red-line soft-light slg-bottom"></div>
+				<p class="cite soft-light slg-bottom">My portfolio is my best presentation. In my work as an illustrator and artist you are going to find a variety of styles: conceptual, fantastic, literary, realistic, functional design, video games, etc.</p>
+				<div class="gallery-menu soft-light slg-bottom" id="gallery-menu">
 					<?php
 						echo '<span class="gm-btn current">All</span>';
 						$categories = get_categories(array('taxonomy' => 'illustration','hide_empty' => false));
@@ -18,7 +21,7 @@ get_header(); ?>
 				</div>	
 			</div>
 		</header>
-		<section class="gallery clearfix">
+		<section id="gallery" class="gallery clearfix">
 		<?php
 			$list = new WP_Query('post_type=illustration&posts_per_page=64');
 			if ($list->have_posts()): while ($list->have_posts()): $list->the_post(); ?>			
@@ -31,7 +34,7 @@ get_header(); ?>
 					}
 				}
 			?>
-			<figure class="<?php echo $classType;?> soft-light">
+			<figure class="gallery-fig <?php echo $classType;?> soft-light slg-bottom">
 		        <?php if(has_post_thumbnail()){
 				echo '<img class="illustration-thumb-img srcwait" src="" srcwait="' . url_thumbnail('illustration-thumb') .'">';
 				} ?>

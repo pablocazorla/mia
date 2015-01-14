@@ -22,16 +22,24 @@ var pcazorla = function() {
 		$body = $('body'),
 		$scroll = (BROWSER.webkit) ? $window : $html;
 
+	//Window Events
+	var onWindowResize = {},
+		onWindowScroll = {};
+
+
 	/* HEADER : Object
 	 * Header show and hide behavior
 	 */
 	var HEADER = {
+
 		$header: $('#header-main'),
 		showed: true,
 		transparent: true,
 		prevScroll: 99999999,
 		currentScroll: 0,
 		init: function() {
+			// Clear
+			onWindowScroll.headerStatus = null;
 			this.setStatus().setEv(this);
 		},
 		show: function() {
@@ -75,10 +83,27 @@ var pcazorla = function() {
 			this.prevScroll = this.currentScroll;
 			return this;
 		},
-		setEv: function(self) {
-			$window.scroll(function() {
-				self.setStatus();
-			});
+		setEv: function() {
+			onWindowScroll.headerStatus = function() {
+				HEADER.setStatus();
+			};
+		}
+	};
+
+	/* MENU : Object
+	 *
+	 */
+	var MENU = {
+		current: '',
+		init: function() {
+			this.$a = $('#main-menu a');
+		},
+		set: function(str) {
+			var c = str || this.current;
+			if (c !== this.current) {
+				this.$a.removeClass('current').filter('.' + c + '-menu').addClass('current');
+				this.current = c;
+			}
 		}
 	};
 
@@ -89,7 +114,8 @@ var pcazorla = function() {
 		ready: false,
 		limit: 5,
 		init: function(custom) {
-			this.$window = $(window);
+			// Clear
+			onWindowScroll.softLightTest = onWindowResize.softLightTest = null;
 			this.reset().setEvents(this);
 			return this;
 		},
@@ -127,14 +153,16 @@ var pcazorla = function() {
 			}
 		},
 		top: function(el) {
-			var winHeight = this.$window.height(),
+			var winHeight = $window.height(),
 				elemRect = el.getBoundingClientRect();
 			return {
 				'top': parseInt(winHeight - elemRect.top),
-				'visible': (elemRect.top > 10)
+				'visible': (elemRect.top > 10),
+				'windowHeight': winHeight
 			}
 		},
 		reset: function() {
+
 			this.ready = false;
 			this.elem = [];
 			this.l = 0;
@@ -153,7 +181,6 @@ var pcazorla = function() {
 			for (var i = 0; i < this.l; i++) {
 				var el = this.elem[i],
 					visible = this.top(el).visible;
-				console.log(visible);
 				if (visible) {
 					this.cl.add(el, 'soft-light-anim');
 					newArray.push(el);
@@ -199,12 +226,11 @@ var pcazorla = function() {
 			}
 			return this;
 		},
-		setEvents: function(self) {
-			this.$window.scroll(function() {
-				self.test();
-			}).resize(function() {
-				self.test();
-			});
+		setEvents: function() {
+			onWindowScroll.softLightTest = onWindowResize.softLightTest = function() {
+				SOFTLIGHT.test();
+			};
+
 			return this;
 		}
 	};
@@ -268,65 +294,199 @@ var pcazorla = function() {
 	 * Galery menu of sub-categories
 	 */
 	var GALLERY = {
-		set: function() {
-			$('#gallery-menu').each(function() {
+			init: function() {
+				$('#gallery-menu').each(function() {
 
-				var $menu = $(this),
-					$a = $menu.find('.gm-btn'),
-					$figures = $('.gallery figure'),
-					current = 'all',
-					enabled = true,
-					// functions
-					select = function(cl, $aLink) {
-						if (cl != current && enabled) {
-							enabled = false;
+					var $menu = $(this),
+						$a = $menu.find('.gm-btn'),
+						$figures = $('#gallery .gallery-fig'),
+						current = 'all',
+						enabled = true,
+						// functions
+						select = function(cl, $aLink) {
+							if (cl != current && enabled) {
+								enabled = false;
 
-							if (cl == 'all') {
-								$figures.removeClass('hidden');
-							} else {
-								if (current == 'all') {
-									$figures.not('.' + cl).addClass('hidden');
+								if (cl == 'all') {
+									$figures.removeClass('hidden');
 								} else {
-									$figures.filter('.' + current).addClass('hidden');
-									$figures.filter('.' + cl).removeClass('hidden');
+									if (current == 'all') {
+										$figures.not('.' + cl).addClass('hidden');
+									} else {
+										$figures.filter('.' + current).addClass('hidden');
+										$figures.filter('.' + cl).removeClass('hidden');
+									}
 								}
+								current = cl;
+								setTimeout(function() {
+									enabled = true;
+									if (typeof SOFTLIGHT !== 'undefined') {
+										SOFTLIGHT.test();
+									}
+								}, 600);
+								$a.removeClass('current');
+								$aLink.addClass('current');
 							}
-							current = cl;
-							setTimeout(function() {
-								enabled = true;
-							}, 600);
-							$a.removeClass('current');
-							$aLink.addClass('current');
+						};
+
+					$a.click(function() {
+						var $this = $(this),
+							cl = $this.text().toLowerCase().replace(/ /g, '-');
+						if (cl.indexOf('all-') != -1) {
+							cl = 'all';
 						}
-					};
+						select(cl, $this);
+					});
 
-				$a.click(function() {
-					var $this = $(this),
-						cl = $this.text().toLowerCase().replace(/ /g, '-');
-					if (cl.indexOf('all-') != -1) {
-						cl = 'all';
-					}
-					select(cl, $this);
 				});
+			}
+		}
+		/* HOME : Object
+		 *
+		 */
+	var HOME = {
+		timerTitle: null,
+		init: function() {
+			// Clear
+			if (this.timerTitle != null) {
+				clearInterval(this.timerTitle);
+				this.timerTitle = null;
+			}
+			onWindowResize.homeResize = null;
 
+			this.$headerHome = $('.header-home');
+			this.$slideTitle = $('#slide-title')
+
+			this.setHeight().setTitle().setScrollBtn().homeCreate().setEvents();
+			return this;
+		},
+		setScrollBtn: function() {
+			var self = this;
+			this.scrollBtnShow = false;
+			this.$scrollBtn = $('#h-scroll');console.log($html.scrollTop());
+			if($html.scrollTop() < 80){
+				this.scrollBtnShow = true;
+				this.$scrollBtn.show();
+			}
+			this.$scrollBtn.click(function(){
+				$scroll.animate({
+					'scrollTop': 500
+				},600);
 			});
+
+			onWindowScroll.scrollBtnEvent = function() {
+				HOME.scrollBtnEvent();
+			}
+
+			return this;
+		},
+		scrollBtnEvent : function(){
+			if(this.scrollBtnShow){		
+				this.scrollBtnShow = false;
+				this.$scrollBtn.fadeOut(400);
+			}
+		},
+		homeCreate: function() {
+			this.pabloPic = $('.pablo-pic')[0];
+			this.$sections = $('.home-welcome, .home-create');
+			this.homeCreateReady = false;
+
+			this.testHomeCreate();
+
+			onWindowScroll.homeCreateScroll = function() {
+				HOME.testHomeCreate();
+			}
+			return this;
+		},
+		testHomeCreate: function() {
+			if (!this.homeCreateReady) {
+				var position = SOFTLIGHT.top(this.pabloPic);
+
+				//console.log(position.top);
+
+				if (position.top > ((2 / 3) * position.windowHeight)) {
+					this.$sections.removeClass('pc-init');
+					this.homeCreateReady = true;
+				}
+			}
+		},
+		setHeight: function() {
+			this.$headerHome.height($window.height() - 60);
+			return this;
+		},
+		setTitle: function() {
+			var current = 1,
+				l = this.$slideTitle.find('span').length,
+				duration = 3200,
+				self = this,
+				change = function() {
+					self.$slideTitle.removeClass('show-' + current);
+					current++;
+					if (current > l) {
+						current = 1;
+					}
+					self.$slideTitle.addClass('show-' + current);
+				};
+			this.timerTitle = setInterval(change, duration);
+			return this;
+		},
+		setEvents: function() {
+			onWindowResize.homeResize = function() {
+				HOME.setHeight();
+			};
 		}
 	}
+
 
 	/* onComplete : Function
 	 * It runs when load article content
 	 */
 	var onComplete = function(async) {
+		var $data = $('#page-data'),
+			dataMenu = $data.attr('data-menu'),
+			pageId = $data.attr('data-page');
+
+
+
+		MENU.set(dataMenu);
 		IMAGESOFTLOAD.set();
-		GALLERY.set();
 		SOFTLIGHT.set();
+
+		switch (pageId) {
+			case 'home':
+				HOME.init();
+				break;
+			case 'archive-illustration':
+				GALLERY.init();
+				break;
+			case 'archive-design':
+				GALLERY.init();
+				break;
+			default:
+				//
+		}
 	};
 
 	/*
 	 * INIT
 	 */
 	HEADER.init();
+	MENU.init();
 	SOFTLIGHT.init();
 	onComplete(false);
+
+	$window.resize(function() {
+		for (var a in onWindowResize) {
+			if (typeof onWindowResize[a] === 'function') {
+				onWindowResize[a]();
+			}
+		}
+	}).scroll(function() {
+		for (var a in onWindowScroll) {
+			if (typeof onWindowScroll[a] === 'function') {
+				onWindowScroll[a]();
+			}
+		}
+	});
 };
 $('document').ready(pcazorla);

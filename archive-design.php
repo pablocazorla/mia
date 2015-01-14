@@ -2,14 +2,17 @@
  /*Template Name: Design
  */
 get_header(); ?>
-	<article class="article-main">	
+	<article class="article-main">
+
+		<div class="invisible" id="page-data" data-menu="design" data-page="archive-design"></div>
+
 		<header class="header-article header-article-design-list">
 			<div class="header-main-back"></div>
 			<div class="wrap header-article-content">
-				<h1 class="soft-light">Design</h1>
-				<div class="red-line soft-light"></div>
-				<p class="cite soft-light">Just beautiful things.</p>
-				<div class="gallery-menu soft-light" id="gallery-menu">
+				<h1 class="soft-light slg-bottom">Design</h1>
+				<div class="red-line soft-light slg-bottom"></div>
+				<p class="cite soft-light slg-bottom">Just beautiful things.</p>
+				<div class="gallery-menu soft-light slg-bottom" id="gallery-menu">
 					<?php
 						echo '<span class="gm-btn current">All</span>';
 						$categories = get_categories(array('taxonomy' => 'design','hide_empty' => false));
@@ -19,7 +22,7 @@ get_header(); ?>
 				</div>	
 			</div>
 		</header>
-		<section class="wrap gallery-design">
+		<section id="gallery" class="clearfix wrap gallery-design">
 		<?php
 			$alt = -1;
 			$list = new WP_Query('post_type=design&posts_per_page=64');
@@ -34,7 +37,7 @@ get_header(); ?>
 					}
 				}
 			?>
-			<div class="clearfix design-pod <?php echo $classType; if($alt < 0){ echo ' alt';}?> soft-light">
+			<div class="gallery-fig clearfix design-pod <?php echo $classType; if($alt < 0){ echo ' alt';}?> soft-light slg-bottom">
 				<div class="design-box design-image">
 					<?php if($classType == ' webdesign'){ ?>
 					<img class="design-pc" src="<?php bloginfo('template_url'); ?>/img/design-pc.png"/>

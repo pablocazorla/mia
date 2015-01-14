@@ -5,6 +5,7 @@ Template Name: About me
 ?>
 <?php get_header(); ?>
 	<article class="article-main">
+		<div class="invisible" id="page-data" data-menu="about" data-page="single-design"></div>
 <?php
 desaturateImageStyle();
 if (have_posts()) : while (have_posts()) : the_post(); 

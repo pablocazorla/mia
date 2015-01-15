@@ -1,11 +1,15 @@
-<?php
+<?php 
  /*Template Name: Illustration
  */
-get_header(); ?>
+$async = $_GET['async'];
+if (!$async){
+	get_header();
+} ?>
 	<article class="article-main">
-
+		<?php if ($async){?>
+			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
+		<?php } ?>
 		<div class="invisible" id="page-data" data-menu="illustration" data-page="archive-illustration"></div>
-
 		<header class="header-article header-article-illustration-list">
 			<div class="wrap header-article-content">
 				<h1 class="soft-light slg-bottom">Illustration</h1>
@@ -24,8 +28,8 @@ get_header(); ?>
 		<section id="gallery" class="gallery clearfix">
 		<?php
 			$list = new WP_Query('post_type=illustration&posts_per_page=64');
-			if ($list->have_posts()): while ($list->have_posts()): $list->the_post(); ?>			
-			<?php
+			if ($list->have_posts()): while ($list->have_posts()): $list->the_post();		
+			
 				$types = get_the_terms( $post->ID, 'illustration' );
 				$classType = '';										
 				if ( $types && ! is_wp_error( $types ) ) {
@@ -44,11 +48,14 @@ get_header(); ?>
 					</figcaption>
 				</a>							
 			</figure>			
-			<?php endwhile; ?>
-			<?php wp_reset_postdata(); ?>
-			<?php else :?>
+			<?php endwhile;
+			wp_reset_postdata();
+			else :?>
 			<h2>Sorry, works not found</h2>
 			<?php endif; ?>
 		</section>		
 	</article>	
-<?php get_footer(); ?>
+<?php
+if (!$async){
+	get_footer();
+} ?>

@@ -1,8 +1,14 @@
-<?php get_header(); ?>
+<?php $async = $_GET['async'];
+if (!$async){
+	get_header();
+} ?>
+
 <article class="article-main">
+	<?php if ($async){?>
+		<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
+	<?php } ?>
 	<div class="invisible" id="page-data" data-menu="" data-page="single-illustration"></div>
 <?php 
-desaturateImageStyle();
 if (have_posts()) : while (have_posts()) : the_post();
 $titleShare = get_the_title();
 $descriptionShare = get_the_excerpt();
@@ -77,4 +83,7 @@ $illustrationLink = get_post_type_archive_link('illustration');
 <?php endwhile; endif; ?>
 </article>
 
-<?php get_footer(); ?>
+<?php
+if (!$async){
+	get_footer();
+} ?>

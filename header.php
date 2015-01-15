@@ -4,15 +4,7 @@
 <!--[if IE 9]>    <html class="ie9 ie-lt-10" lang="en"> <![endif]-->
 <!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
 <head>	
-	<title><?php
-	global $page, $paged;
-	wp_title( '|', true, 'right' );
-	bloginfo( 'name' );
-	$site_description = get_bloginfo( 'description', 'display' );
-	echo ", $site_description";
-	if ( $paged >= 2 || $page >= 2 )
-		echo ' - ' . sprintf( 'Page %s', max( $paged, $page ) );
-	?></title>
+	<title><?php get_page_title(); ?></title>
 		
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">	
 	<meta charset="utf-8">
@@ -59,4 +51,5 @@
 			</menu>	
 		</div>					
 	</header>
+	<?php desaturateImageStyle(); ?>
 	<div id="content-main">

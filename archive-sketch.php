@@ -1,11 +1,15 @@
 <?php
  /*Template Name: Sketch
  */
-get_header(); ?>
+$async = $_GET['async'];
+if (!$async){
+	get_header();
+} ?>
 	<article class="article-main">
-
+		<?php if ($async){?>
+			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
+		<?php } ?>
 		<div class="invisible" id="page-data" data-menu="sketches" data-page="archive-sketch"></div>
-
 		<div class="sketchbook-container">
 			<header class="header-article header-article-sketch-list">
 				<div class="header-main-back"></div>
@@ -43,4 +47,7 @@ get_header(); ?>
 			</section>
 		</div>
 	</article>	
-<?php get_footer(); ?>
+<?php
+if (!$async){
+	get_footer();
+} ?>

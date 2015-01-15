@@ -1,5 +1,11 @@
-<?php get_header(); ?>
+<?php $async = $_GET['async'];
+if (!$async){
+	get_header();
+} ?>
 	<article class="article-main">
+		<?php if ($async){?>
+			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
+		<?php } ?>
 		<div class="invisible" id="page-data" data-menu="blog" data-page="archive"></div>
 <?php desaturateImageStyle(); ?>
 		<header class="header-article header-article-blog-list">
@@ -71,4 +77,7 @@
 		</nav>
 		<?php } ?>
 	</article>	
-<?php get_footer(); ?>
+<?php
+if (!$async){
+	get_footer();
+} ?>

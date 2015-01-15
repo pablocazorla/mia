@@ -1,5 +1,11 @@
-<?php get_header(); ?>
+<?php $async = $_GET['async'];
+if (!$async){
+	get_header();
+} ?>
 	<article id="article-main" class="home">
+		<?php if ($async){?>
+			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
+		<?php } ?>
 		<div class="invisible" id="page-data" data-menu="" data-page="home"></div>
 		<header class="header-home">
 			<div class="header-home-content">
@@ -48,8 +54,52 @@
 				<img class="pablo-pic-img-1" src="<?php bloginfo('template_url'); ?>/img/pablo.png">
 			</figure>
 		</section>
+		<section class="home-last-work">
+			<div class="wrap">
+				<h2 class="soft-light slg-bottom">My last work</h2>
+				<p class="soft-light slg-bottom">What I've done the last time</p>			
+				<div class="gallery gallery-nav clearfix">
+					<?php
+					$list = new WP_Query('post_type=illustration&posts_per_page=1');
+					if ($list->have_posts()): while ($list->have_posts()): $list->the_post(); ?>
+					<figure class="soft-light slg-bottom">
+				        <?php if(has_post_thumbnail()){
+							echo '<img class="illustration-thumb-img srcwait" src="" srcwait="' . url_thumbnail('illustration-thumb') .'">';
+						} ?>
+						<a href="<?php the_permalink(); ?>">
+							<figcaption>
+								<p>Illustration</p>
+								<h2><?php the_title(); ?></h2>
+							</figcaption>
+						</a>							
+					</figure>
+					<?php endwhile; 
+					wp_reset_postdata(); 
+					endif;
+					$list = new WP_Query('post_type=design&posts_per_page=1');
+					if ($list->have_posts()): while ($list->have_posts()): $list->the_post(); ?>
+					<figure class="soft-light slg-bottom">
+				        <?php if(has_post_thumbnail()){
+							echo '<img class="illustration-thumb-img srcwait" src="" srcwait="' . url_thumbnail('illustration-thumb') .'">';
+						} ?>
+						<a href="<?php the_permalink(); ?>">
+							<figcaption>
+								<p>Design</p>
+								<h2><?php the_title(); ?></h2>
+							</figcaption>
+						</a>							
+					</figure>
+					<?php endwhile; 
+					wp_reset_postdata(); 
+					endif; ?>
+				</div>
+			</div>
+		</section>
 		<section class="home-photo">
 
 		</section>
 	</article>
-<?php get_footer(); ?>
+<?php
+if (!$async){
+	get_footer();
+} ?>

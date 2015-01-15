@@ -1,5 +1,12 @@
-<?php get_header(); ?>
+<?php $async = $_GET['async'];
+if (!$async){
+	get_header();
+} ?>
+
 <article class="article-main">
+	<?php if ($async){?>
+		<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
+	<?php } ?>
 	<div class="invisible" id="page-data" data-menu="" data-page="single-design"></div>
 <?php 
 desaturateImageStyle();
@@ -75,4 +82,7 @@ $designLink = get_post_type_archive_link('design');
 <?php endwhile; endif; ?>
 </article>
 
-<?php get_footer(); ?>
+<?php
+if (!$async){
+	get_footer();
+} ?>

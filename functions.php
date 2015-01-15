@@ -5,6 +5,19 @@
 add_filter('show_admin_bar', '__return_false');
 
 /***********************************************
+* GET PAGE TITLE
+***********************************************/
+function get_page_title(){
+    global $page, $paged;
+    wp_title( '|', true, 'right' );
+    bloginfo( 'name' );
+    $site_description = get_bloginfo( 'description', 'display' );
+    echo ", $site_description";
+    if ( $paged >= 2 || $page >= 2 )
+        echo ' - ' . sprintf( 'Page %s', max( $paged, $page ) );
+}
+
+/***********************************************
 * MENUS
 ***********************************************/
 if ( function_exists( 'add_theme_support' ) )
@@ -87,7 +100,7 @@ add_filter('img_caption_shortcode', 'fix_img_caption_shortcode', 10, 3);
 * Desaturate Image Style
 ***********************************************/
 function desaturateImageStyle(){
-      echo '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="invisible"><filter id="greyscale"><feColorMatrix in="SourceGraphic" type="saturate" values="0.5" /></filter></svg><style type="text/css">img.desaturate {-webkit-filter: grayscale(0.5);-webkit-filter: grayscale(50%);-moz-filter: grayscale(50%);filter: gray; filter: grayscale(50%);filter: url(#greyscale);}</style>';
+      echo '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="invisible"><filter id="greyscale"><feColorMatrix in="SourceGraphic" type="saturate" values="0.5" /></filter></svg><style type="text/css">img.desaturate {filter: url(#greyscale);-webkit-filter: grayscale(0.5);-webkit-filter: grayscale(50%);-moz-filter: grayscale(50%);filter: gray; filter: grayscale(50%);}</style>';
 }
 
 /***********************************************

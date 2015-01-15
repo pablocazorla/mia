@@ -1,9 +1,14 @@
 <?php
- /*Template Name: Design
+/* Template Name: Design
  */
-get_header(); ?>
+$async = $_GET['async'];
+if (!$async){
+	get_header();
+} ?>
 	<article class="article-main">
-
+		<?php if ($async){?>
+			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
+		<?php } ?>
 		<div class="invisible" id="page-data" data-menu="design" data-page="archive-design"></div>
 
 		<header class="header-article header-article-design-list">
@@ -66,4 +71,7 @@ get_header(); ?>
 			<?php endif; ?>
 		</section>
 	</article>	
-<?php get_footer(); ?>
+<?php
+if (!$async){
+	get_footer();
+} ?>

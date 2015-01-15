@@ -98,8 +98,7 @@ var pcazorla = function() {
 		init: function() {
 			this.$a = $('#main-menu a');
 		},
-		set: function(str) {
-			var c = str || this.current;
+		set: function(c) {			
 			if (c !== this.current) {
 				this.$a.removeClass('current').filter('.' + c + '-menu').addClass('current');
 				this.current = c;

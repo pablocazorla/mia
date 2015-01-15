@@ -59,8 +59,8 @@ hr.hr-grey{
 /* FORM */
 form{display: block;margin-top: 20px}
 fieldset{margin:0 0 18px;}
-input[type=text],input[type=email],input[type=search],textarea{width:100%;margin:0;border: none;padding:0 15px;line-height: 46px;resize: none;box-shadow:none;background-color: #E2E2E2;border:solid 1px #E2E2E2;}
-input[type=text],input[type=email],input[type=search]{height: 46px;}
+input[type=text],input[type=email],input[type=search],input[type=submit],textarea{width:100%;margin:0;border: none;padding:0 15px;line-height: 46px;resize: none;box-shadow:none;background-color: #E2E2E2;border:solid 1px #E2E2E2;}
+input[type=text],input[type=email],input[type=search],input[type=submit]{height: 46px;}
 
 input[disabled],textarea[disabled]{opacity:.6;}
 fieldset.error input,
@@ -438,6 +438,65 @@ fieldset.error .errorMessage{color:#D00;font-size: 14px;line-height: 20px;displa
 .header-article-blog-list .cite{
 	color: #DDD
 }
+
+
+.blog-list-side{
+
+}
+.search-form{
+	text-align:right;
+	position: relative;
+	display: block;
+	width: 100%;
+}
+
+input.search-field{
+	max-width: 210px;
+	display: inline-block;
+	padding-right: 52px;
+}
+input.search-submit{
+	position: absolute;
+	top:0;
+	right:0;
+	background: red;
+	width: 48px;height: 48px;padding: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .blog-list{
 	min-height: 800px;
 	margin-top: 50px;

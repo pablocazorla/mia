@@ -20,16 +20,16 @@ if (!$async){
 			<div id="about-text" class="soft-light slg-bottom">
 				<div class="wrap">
 					<div class="about-col">
-						<p>I'm digital artist, illustrator, and webdesigner.</p>
+						<?php the_content(); ?>
+						<!--<p>I'm digital artist, illustrator, and webdesigner.</p>
 						<p>I love fantasy illustration, concept art, movies, web apps,  3D animation and everything about the world of the image.</p>
-						<p>I live and work as a professional freelance in Mendoza, Argentina.</p>
-					</div>
-					
+						<p>I live and work as a professional freelance in Mendoza, Argentina.</p>-->
+					</div>					
 				</div>
 			</div>
 		</section>
-		<section class="wrap-min the-content page-content">			
-			<?php the_content(); ?>
+		<section class="wrap-min">			
+			<p>Nada todavia</p>
 		</section>
 		<section class="map-contact">
 			<div id="map-goo"></div>

@@ -24,10 +24,25 @@ if (!$async){
 					endif; ?>
 				</h1>
 				<div class="red-line soft-light slg-bottom"></div>
+				<?php 
+				if($cat_name != 'Blog'){
+					echo '<p class="subtitle soft-light slg-bottom"><a href="' . pc_category_link('Blog') . '">Blog</a></p>';
+				}
+				?>
 				<p class="cite soft-light slg-bottom"><?php echo category_description(); ?> </p>
 			</div>
 		</header>
-		<section class="blog-list wrap">
+		<section class="wrap blog-list-side">
+			<div class="row">
+				<div class="col col-6">
+					cats
+				</div>
+				<div class="col col-6">
+					<?php get_search_form(); ?>
+				</div>
+			</div>
+		</section>
+		<section class="wrap blog-list">
 			<div class="row">
 				<?php if (have_posts()) :?>
 				<?php while (have_posts()) : the_post();?>

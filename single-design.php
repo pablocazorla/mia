@@ -17,7 +17,7 @@ $urlImageShare = url_thumbnail('design-large');
 $designLink = get_post_type_archive_link('design');
 ?>
 
-	<header class="header-article header-article-design-post">		
+	<header class="header-article header-article-design-post in-single">		
 		<img class="header-article-img desaturate wait-complete" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('design-large');} ?>"/>
 		<div class="wrap header-article-content">
 			<h1 class="soft-light slg-bottom"><?php echo $titleShare;?></h1>

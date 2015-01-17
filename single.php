@@ -2,7 +2,7 @@
 if (!$async){
 	get_header();
 } ?>
-	<article class="article-main">
+	<article class="article-main" data-id="<?php the_ID();?>">
 		<?php if ($async){?>
 			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
 		<?php } ?>
@@ -15,7 +15,7 @@ $descriptionShare = get_the_excerpt();
 $urlImageShare = url_thumbnail('large');
 $blogLink = pc_category_link('Blog');
 ?>
-		<header class="header-article header-article-blog-post">		
+		<header class="header-article header-article-blog-post in-single">		
 			<img class="header-article-img desaturate wait-complete" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('large');} ?>"/>
 			<div class="wrap header-article-content">
 				<h1 class="soft-light slg-bottom"><?php echo $titleShare;?></h1>
@@ -28,13 +28,45 @@ $blogLink = pc_category_link('Blog');
 				</nav>
 			</div>
 		</header>
-		<section class="wrap-min the-content blog-post-content">			
-			<?php the_content(); ?>
-			<hr class="hr-grey"/>
-		</section>
-		<section class="wrap-min comments-section blog-post-comments">
-			<?php comments_template(); ?>
-		</section>
+		<div class="wrap clearfix blog-row">
+			<div class="blog-col col-right">
+				<?php get_sidebar(); ?>
+			</div>
+			<div class="blog-col col-left">
+				<section class="the-content blog-post-content">			
+					<?php the_content(); ?>
+					<hr class="hr-grey"/>
+				</section>
+				<section class="comments-section blog-post-comments">
+
+				<div id="disqus_thread"></div>
+				<script type="text/javascript">
+					
+				</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<?php //comments_template(); ?>
+				</section>
+			</div>			
+		</div>	
 
 		<?php endwhile; else :?>
 		<div class="wrap-min soft-light slg-bottom">

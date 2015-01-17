@@ -283,16 +283,6 @@ function sidebar_init() {
         'before_title' => '<h3 class="widget-title">',
         'after_title' => '</h3>',
     ) );
-    // Area 2, located below the Primary Widget Area in the sidebar. Empty by default.
-    register_sidebar( array(
-        'name' => 'Secondary Widget',
-        'id' => 'secondary-widget-area',
-        'description' => 'The secondary widget area',
-        'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
-        'after_widget' => '</li>',
-        'before_title' => '<h3 class="widget-title">',
-        'after_title' => '</h3>',
-    ) );
 }
 add_action( 'widgets_init', 'sidebar_init' );
 

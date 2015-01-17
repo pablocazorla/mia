@@ -32,10 +32,10 @@ if (!$async){
 				<p class="cite soft-light slg-bottom"><?php echo category_description(); ?> </p>
 			</div>
 		</header>
-		<section class="wrap blog-list-side">
+		<section class="wrap blog-list-side soft-light slg-bottom">
 			<div class="row">
 				<div class="col col-6">
-					cats
+					<?php include (TEMPLATEPATH . '/menublog.php'); ?>
 				</div>
 				<div class="col col-6">
 					<?php get_search_form(); ?>

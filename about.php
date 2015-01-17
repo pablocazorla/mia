@@ -16,14 +16,14 @@ if (!$async){
 		?>
 		
 		<section class="about-presentation">
-			<img id="about-img" src="<?php bloginfo('template_url'); ?>/img/about.jpg"/>
+			<img id="about-img" class="wait-complete" src="<?php bloginfo('template_url'); ?>/img/about.jpg"/>
 			<div id="about-text" class="soft-light slg-bottom">
 				<div class="wrap">
 					<div class="about-col">
 						<?php the_content(); ?>
-						<!--<p>I'm digital artist, illustrator, and webdesigner.</p>
+						<p>I'm digital artist, illustrator, and webdesigner.</p>
 						<p>I love fantasy illustration, concept art, movies, web apps,  3D animation and everything about the world of the image.</p>
-						<p>I live and work as a professional freelance in Mendoza, Argentina.</p>-->
+						<p>I live and work as a professional freelance in Mendoza, Argentina.</p>
 					</div>					
 				</div>
 			</div>

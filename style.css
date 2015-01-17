@@ -15,7 +15,10 @@ Tags: pablo, cazorla, illustration, webdesign
 .clearfix,.row{zoom:1}
 
 /* BASICS **********************************************************************************************************/
-body{color:#555;min-width: 320px;overflow-x: hidden;overflow-y: scroll}
+html,body{
+	background-color: #000;
+}
+body{color:#555;min-width: 280px;overflow-x: hidden;overflow-y: scroll}
 
 body,input,textarea{font: 18px/1.5em 'Raleway', sans-serif;}
 
@@ -123,7 +126,8 @@ fieldset.error .errorMessage{color:#D00;font-size: 14px;line-height: 20px;displa
 
 /* SPRITE ***************************************************/
 .sprite,
-.share-nav a{
+.share-nav a,
+input.search-submit{
 	background-image: url('img/sprite.png');
 	background-repeat: no-repeat;
 }
@@ -136,6 +140,8 @@ fieldset.error .errorMessage{color:#D00;font-size: 14px;line-height: 20px;displa
 	z-index: 1;
 	top: 0;left:0;
 	width:100%;
+	background-color: #FFF;
+	border-bottom: solid 1px #2f3336;
 }
 
 #content-main.frozen{
@@ -307,7 +313,7 @@ fieldset.error .errorMessage{color:#D00;font-size: 14px;line-height: 20px;displa
 	border:solid 2px rgba(255,255,255,.1);	
 	border-radius: 3px;
 	cursor: pointer;
-	margin:0 2px;
+	margin:0 2px 10px;
 	-webkit-transition:all .2s;
 	-moz-transition:all .2s;
 	transition:all .2s;
@@ -441,13 +447,17 @@ fieldset.error .errorMessage{color:#D00;font-size: 14px;line-height: 20px;displa
 
 
 .blog-list-side{
-
+	margin-top:40px;
+	padding-bottom: 15px;
+	border-bottom: solid 1px #CCC;
+	margin-bottom:35px;
 }
 .search-form{
 	text-align:right;
 	position: relative;
 	display: block;
 	width: 100%;
+	margin:0;
 }
 
 input.search-field{
@@ -459,47 +469,78 @@ input.search-submit{
 	position: absolute;
 	top:0;
 	right:0;
-	background: red;
+	background-color: transparent;
+	background-position: -99px 11px;
 	width: 48px;height: 48px;padding: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.category-menu,
+.category-menu-sel,
+.category-menu-span{height:48px;line-height: 48px}
+.category-menu{
+	position: relative;
+	width:284px;
+}
+.category-menu-sel{
+	cursor:pointer;
+}
+.category-menu-span{
+	background-color: #e2e2e2;
+	display: block;
+	float: left;
+	-webkit-transition: all .2s;
+	-moz-transition: all .2s;
+	transition: all .2s;
+}
+.category-menu-title{
+	padding: 0 15px;
+	width:228px;
+}
+.category-menu-btn{
+	width:48px;
+	margin-left: 3px;
+	position: relative;
+}
+.category-menu-btn .arrow-down{
+	display: block;
+	width:0;height:0;
+	border-style: solid;
+	border-width: 9px 8px;
+	border-color: #999 transparent transparent;
+	position: absolute;
+	top: 50%;left: 50%;
+	margin: -3px 0 0 -8px;
+	-webkit-transition: border-color .2s;
+	-moz-transition: border-color .2s;
+	transition: border-color .2s;
+}
+.category-menu:hover .category-menu-span{
+	background-color: #dd4b38;
+	color: #FFF
+}
+.category-menu:hover .category-menu-btn .arrow-down{
+	border-color: #FFF transparent transparent;
+}
+.category-menu .menu-blog-menu-container{
+	position: absolute; z-index: 100;
+	top:48px;left:0;
+	background-color: #FFF;
+	box-shadow: 0 2px 10px rgba(0,0,0,.75);
+	display: block;
+	width:278px;
+	padding: 15px 0;
+	display: none;
+}
+.category-menu .menu-blog-menu-container a{
+	display: block;
+	font-size: 16px;line-height: 2em;
+	padding: 0 15px;
+}
+.category-menu:hover .menu-blog-menu-container{
+	display: block;
+}
 
 .blog-list{
 	min-height: 800px;
-	margin-top: 50px;
 	margin-bottom: 25px;
 }
 .post-in-list{
@@ -577,10 +618,33 @@ input.search-submit{
 .header-article-blog-post .header-article-content{
 	padding-bottom: 120px;
 }
-.blog-post-content{
+
+.blog-row{
 	margin-top: 50px
 }
 
+.blog-col.col-right{
+	float: right;
+	width:310px;
+	padding-left: 30px;
+
+}
+.blog-col.col-left{
+	margin-right:310px;
+	padding-right: 30px;
+	border-right: solid 1px #CCC;
+}
+
+.sidebar .search-form{
+	float:none;
+	text-align: left;
+	margin-bottom: 20px;
+}
+
+.widget-container{
+	padding-bottom:20px;
+	border-bottom: solid 1px #CCC;
+}
 
 /* THE CONTENT ***************************************************/
 
@@ -643,6 +707,7 @@ input.search-submit{
 .button.btn-submit{
 	font-size: 24px;line-height: 36px;
 	width:200px;margin:0;
+	background-color: #dd4b38;
 }
 
 #clearFields{
@@ -1190,13 +1255,162 @@ h5.infomap{
 }
 /* Tablet Landscape */
 @media only screen and (max-width:1050px){
+	body,input,textarea{font-size: 16px; line-height:1.5em}
+	h1{font-size: 48px;margin-bottom: 30px;}
+	h2{font-size: 36px}
+	h3{font-size: 26px}
+	h4{font-size: 20px}
+	h5{font-size: 16px}
+	h6{font-size: 10px}
+	.cite {font-size: 18px}
+	h1,h2,h3,h4,h5,h6,.cite{line-height:1.5em}
+	.cite {font-size: 18px}
 
+	/* Illustration List *******************************/
+	.header-article-illustration-list .header-article-content {
+	    padding: 145px 0 50px;
+	}
+	.gallery figure a figcaption {margin-top: -18px}
+	.gallery figure a figcaption h2 {font-size: 26px}
+
+	/* Illustration Post *******************************/
+	.header-article-content {padding: 165px 0 120px}
+	.wrap.illustration-large{width:100%;}
+	.wrap.illustration-large figcaption {width:92%;margin-left: auto;margin-right: auto}
+
+	/* Design List *******************************/
+	.header-article-design-list .header-article-content {padding: 100px 0 40px}
+	.design-pod {padding: 36px 0}
+
+	/* Design Post *******************************/
+	.header-article-design-post .header-article-content {padding: 165px 0 120px}
+
+	/* Sketches List *******************************/
+	.header-article-sketch-list .header-article-content {padding: 100px 0 50px}
+	.sk-page {margin-bottom: 20px}
+
+	/* Blog List *******************************/
+	.post-in-list {height: 392px}
+	.blog-list .post-caption {min-height: 198px}
+
+	/* Blog Post *******************************/
+	.header-article-blog-post .header-article-content {padding: 154px 0 90px}
+	.blog-col.col-left {margin-right: 260px;padding-right: 20px}
+	.blog-col.col-right {padding-left: 20px;width: 260px}
+	.category-menu-title {width: 189px}
+	.category-menu .menu-blog-menu-container {width: 238px}
+	input.search-field {max-width: 170px}
+
+	/* Footer *******************************/
+	#main-footer {padding: 20px 0}
 }
 /* Tablet Portrait */
 @media only screen and (max-width:800px){
+	.soft-light {opacity: inherit}
+	.soft-light.slg-bottom {-webkit-transform: inherit;-moz-transform: inherit;transform: inherit}
+	.soft-light-anim{-webkit-transition: inherit;-moz-transition: inherit;transition: inherit}
 
+	body,input,textarea{font-size: 14px; line-height:1.5em}
+	h1{font-size: 44px;margin-bottom: 30px;}
+	h2{font-size: 32px}
+	h3{font-size: 24px}
+	h4{font-size: 18px}
+	h5{font-size: 16px}
+	h6{font-size: 10px}
+	.cite {font-size: 16px}
+	h1,h2,h3,h4,h5,h6,.cite {line-height:1.5em}
+	.col {width: 50%}
+
+	#header-main{display: none}
+	/* Post ******************************/
+	.header-article.in-single {background-color: transparent;}
+	.header-article.in-single .red-line {display: none}
+	.header-article.in-single .header-article-img {display: none}
+	.header-article.in-single .header-article-content,.header-article.in-single .header-article-content h1{color: inherit;}
+	.header-article.in-single .header-article-content a {color: #dd4b38;}
+	.header-article.in-single .header-article-content {padding: 38px 0 0}
+
+	.header-main-back{display: none}
+
+
+	/* Illustration List *******************************/
+	.header-article-illustration-list .header-article-content {padding: 75px 0 50px}
+	.gallery figure, .gallery .empty {width: 50%;}
+	.gallery figure a figcaption h2 {
+	    font-size: 20px;
+	}
+
+	/* Illustration Post *******************************/
+	.illustration-large {margin-top: 0;margin-bottom: 25px}
+
+	/* Design List *******************************/
+	.header-article-design-list .header-article-content {padding: 50px 0 30px}
+	.design-text {padding-top: 0}
+	.design-text h2 {font-size: 28px;line-height: 1.2em;padding: 0 0 10px}
+
+	/* Design Post *******************************/
+	.design-cite {margin-top: 0;margin-bottom: 25px}
+
+	/* Blog List *******************************/
+	.header-article-blog-list .header-article-content {padding: 75px 0 50px}
+	.blog-list .post-caption {min-height: 169px}
+
+	/* Blog Post *******************************/
+	.blog-row {
+	    margin-top: 30px;
+	}
+	.blog-col.col-right {display: none}
+	.blog-col.col-left {border-right: none;margin-right: 0;padding-right: 0;}
+
+
+
+
+
+
+
+
+
+
+
+
+}
+/* Some Phone Landscape */
+@media only screen and (max-width:660px){
+	.gallery-menu {display: none;}
+	.blog-list .post-caption {min-height: 209px}
+	#main-footer {padding: 15px 0;font-size: 12px;line-height: 1.5em;}
 }
 /* Phone Landscape */
 @media only screen and (max-width:500px){
+	body,input,textarea{font-size: 12px; line-height:1.5em}
+	h1{font-size: 36px;margin-bottom: 30px;}
+	h2{font-size: 28px}
+	h3{font-size: 22px}
+	h4{font-size: 16px}
+	h5{font-size: 14px}
+	h6{font-size: 10px}
+	.cite {font-size: 14px}
+	h1,h2,h3,h4,h5,h6,.cite {line-height:1.5em}
+	.col {width: 100%}
+	.nav-more {margin-bottom: 25px;margin-top: 50px}
 
+
+	/* Illustration List *******************************/
+	.header-article-illustration-list .header-article-content {padding: 50px 0 25px;}
+	.gallery.gallery-nav figure,.gallery figure,.gallery.gallery-nav .empty,.gallery .empty {width: 100%;float: none}
+
+
+	/* Design List *******************************/
+	.design-pod {padding: 0 0 1px;margin: 0 0 24px}
+	.design-box {float: none}
+	.design-gap {display: none}
+	.design-image,.design-text{width: 100%}
+	.design-text h2 {border-bottom: none;padding: 16px 0 0; font-size: 22px;line-height: 1.2em;}
+	.design-image figure {box-shadow: none}
+
+	/* Blog List *******************************/
+	.blog-list-side {margin-bottom: 20px;margin-top: 20px;}
+	.category-menu {width: 240px;margin: 0 auto 15px}
+	.search-form {text-align: left;width: 240px;margin: 0 auto}
+	.post-in-list {margin-bottom: 15px}
 }

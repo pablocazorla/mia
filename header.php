@@ -30,7 +30,16 @@
 	<script type="text/javascript">
 		baseURL = "<?php bloginfo( 'url' ); ?>";
 		baseTemplateURL = "<?php bloginfo('template_url'); ?>";
+
+var disqus_developer = 1; // this would set it to developer mode
+
+
 	</script>	
+
+
+
+
+	
 	<?php wp_head(); ?>	
 </head>
 <body>
@@ -46,8 +55,8 @@
 				<a class="design-menu" href="<?php echo get_post_type_archive_link('design');?>"><span>Design</span></a>
 				<a class="sketches-menu" href="<?php echo get_post_type_archive_link('sketch');?>"><span>Sketches</span></a>
 				<a class="blog-menu" href="<?php echo pc_category_link('Blog'); ?>"><span>Blog</span></a>
-				<a class="about-menu" href="<?php bloginfo( 'url' ); ?>/me"><span>About Me</span></a>				
-				<a class="contact-menu" href="<?php bloginfo( 'url' ); ?>/me#contact-me"><span>Contact</span></a>				
+				<a class="about-menu" href="<?php bloginfo( 'url' ); ?>/me/"><span>About Me</span></a>				
+				<a class="contact-menu" href="<?php bloginfo( 'url' ); ?>/me/#contact-me"><span>Contact</span></a>				
 			</menu>	
 		</div>					
 	</header>

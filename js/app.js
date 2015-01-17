@@ -98,7 +98,7 @@ var pcazorla = function() {
 		init: function() {
 			this.$a = $('#main-menu a');
 		},
-		set: function(c) {			
+		set: function(c) {
 			if (c !== this.current) {
 				this.$a.removeClass('current').filter('.' + c + '-menu').addClass('current');
 				this.current = c;
@@ -494,7 +494,7 @@ var pcazorla = function() {
 					self.hideBlank(self);
 
 					// On Complete
-					onComplete(true);
+					onComplete(true, url);
 				};
 			if (url !== this.currentUrl) {
 				this.showBlank(this);
@@ -652,7 +652,7 @@ var pcazorla = function() {
 			});
 		}
 	};
-
+/*
 	var GMAPS = {
 		init: function() {
 			$.getScript(baseTemplateURL + '/js/libs/gmaps.min.js', function() {
@@ -663,7 +663,7 @@ var pcazorla = function() {
 					zoom: 5,
 					zoomControl: true,
 					zoomControlOpt: {
-					//	style: 'SMALL',
+						//	style: 'SMALL',
 						position: 'TOP_LEFT'
 					},
 					scrollwheel: false,
@@ -692,68 +692,97 @@ var pcazorla = function() {
 			});
 		}
 	};
-
+*/
 	var ABOUT = {
-		init:function(){
+		init: function() {
 			// Clear
 			onWindowResize.aboutResize = null;
 			this.$aboutPresentation = $('.about-presentation');
 			this.$aboutText = $('#about-text');
 			this.$aboutImg = $('#about-img');
-			this.imgMod = 192/94;
-			this.setSizePresentation().setEvents();			
+			this.imgMod = 192 / 94;
+			this.setEvents();
 		},
-		setSizePresentation: function(){
+		setSizePresentation: function() {
 			var w = $window.width(),
-				h = parseInt($window.height()-40),
-				mod = w/h,
-				imgW,imgH,top,left;
+				h = parseInt($window.height() - 40),
+				mod = w / h,
+				imgW, imgH, top, left;
 
-			if(mod >= this.imgMod){
-				imgW = '100%';
-				imgH = 'auto';
-			}else{
-				imgW = parseInt(this.imgMod * h) + 'px',
-				imgH = h + 'px';
-			}
-			this.$aboutImg.css({
-				width:imgW,
-				height:imgH
-			});
-			if(mod >= this.imgMod){
-				top = (h - this.$aboutImg.height())/2 +'px';
+			if (mod >= this.imgMod) {
+				imgW = w;
+				imgH = parseInt(w/this.imgMod);
+
+				top = (h - imgH) / 2;
 				left = '0';
-			}else{
+			} else {
+				imgW = parseInt(this.imgMod * h);
+				imgH = h;
 				top = '0';
-				left = (w - this.$aboutImg.width())/2 +'px';
+				left = (w - imgW) / 2;
 			}
 			this.$aboutImg.css({
-				top:top,
-				left:left
+				width: imgW + 'px',
+				height: imgH + 'px',
+				top: top + 'px',
+				left: left + 'px'
 			});
 			this.$aboutPresentation.height(h);
-			var mar = this.$aboutText.height()/2 - 30;
-			this.$aboutText.css('margin-top','-'+mar+'px');
+			var mar = this.$aboutText.height() / 2 - 30;
+			this.$aboutText.css('margin-top', '-' + mar + 'px');
 
 			return this;
 		},
 		setEvents: function() {
+			if(this.$aboutImg[0].complete){
+				this.setSizePresentation();
+			}else{
+				var self = this;
+				this.$aboutImg.load(function(){
+					self.setSizePresentation();
+				});
+			}
+
+
 			onWindowResize.aboutResize = function() {
 				ABOUT.setSizePresentation();
 			};
 		}
 	};
 
+	var DISQCOMMENTS = {
+		set: function(url) {
+			if (typeof DISQUS !== 'undefined') {
+				var idPost = $('.article-main').attr('data-id');
+				DISQUS.reset({
+					reload: true,
+					config: function() {
+						this.page.identifier = idPost;
+						this.page.url = url;
+					}
+				});
+			} else {
+				var dsq = document.createElement('script');
+				dsq.type = 'text/javascript';
+				dsq.async = true;
+				dsq.src = '//pcazorla.disqus.com/embed.js';
+				(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			}
+		}
+	}
+
 	/* onComplete : Function
 	 * It runs when load article content
 	 */
-	var onComplete = function(async) {
+	var onComplete = function(async, url) {
 		var $data = $('#page-data'),
 			dataMenu = $data.attr('data-menu'),
 			pageId = $data.attr('data-page');
 
+		if (async) {
+			LOADER.setLinks('#content-main ');
+		}
 
-		LOADER.setLinks('#content-main ');
 		MENU.set(dataMenu);
 		IMAGESOFTLOAD.set();
 		SOFTLIGHT.set();
@@ -770,15 +799,19 @@ var pcazorla = function() {
 				GALLERY.init();
 				break;
 			case 'single':
-				COMMENTS.validate();
+				//COMMENTS.validate();
+				DISQCOMMENTS.set(url);
 				break;
 			case 'about':
 				ABOUT.init();
-				GMAPS.init();
 				break;
 			default:
 				//
 		}
+		if (async) {
+			//DISQUS.reset();
+		}
+
 	};
 
 	/*
@@ -788,7 +821,7 @@ var pcazorla = function() {
 	HEADER.init();
 	MENU.init();
 	SOFTLIGHT.init();
-	onComplete(false);
+	onComplete(false,window.location.href);
 
 	$window.resize(function() {
 		for (var a in onWindowResize) {

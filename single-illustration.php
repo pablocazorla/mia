@@ -16,7 +16,7 @@ $urlImageShare = url_thumbnail('illustration-large');
 $illustrationLink = get_post_type_archive_link('illustration');
 ?>
 
-	<header class="header-article header-article-illustration-post">		
+	<header class="header-article header-article-illustration-post in-single">		
 		<img class="header-article-img desaturate wait-complete" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>"/>
 		<div class="wrap header-article-content">
 			<h1 class="soft-light slg-bottom"><?php echo $titleShare;?></h1>

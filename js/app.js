@@ -20,7 +20,8 @@ var pcazorla = function() {
 	var $window = $(window),
 		$html = $('html'),
 		$body = $('body'),
-		$scroll = (BROWSER.webkit) ? $window : $html;
+		$scroll = (BROWSER.webkit) ? $window : $html,
+		$contentMain = $('#content-main');
 
 	//Window Events
 	var onWindowResize = {},
@@ -33,6 +34,9 @@ var pcazorla = function() {
 	var HEADER = {
 
 		$header: $('#header-main'),
+		$btnResMenu: $('#res-menu-btn'),
+		resOpen: false,
+		overResMenu: false,
 		showed: true,
 		transparent: true,
 		prevScroll: 99999999,
@@ -66,6 +70,19 @@ var pcazorla = function() {
 				this.transparent = false;
 			}
 		},
+		resMenuOpen: function() {
+			if (!this.resOpen) {
+				this.$header.addClass('res-open');
+				this.resOpen = true;
+			}
+		},
+		resMenuClose: function() {
+			if (this.resOpen) {
+				this.$header.removeClass('res-open');
+				this.resOpen = false;
+			}
+			self.overResMenu = false;
+		},
 		setStatus: function() {
 			this.currentScroll = $scroll.scrollTop();
 			if (this.prevScroll < this.currentScroll) { // Down
@@ -73,17 +90,30 @@ var pcazorla = function() {
 			} else if (this.prevScroll > this.currentScroll) { // Up
 				this.show();
 			}
-
 			if (this.currentScroll < 20) {
 				this.backTransparent();
 			} else {
 				this.backColor();
 			}
-
 			this.prevScroll = this.currentScroll;
 			return this;
 		},
 		setEv: function() {
+			var self = this;
+			this.$btnResMenu.click(function() {
+				self.resMenuOpen();
+				self.overResMenu = true;
+			});
+			$window.click(function() {
+				if (!self.overResMenu) {
+					self.resMenuClose();
+				}
+				self.overResMenu = false;
+			});
+			this.$header.click(function() {
+				self.overResMenu = true;
+			});
+
 			onWindowScroll.headerStatus = function() {
 				HEADER.setStatus();
 			};
@@ -496,7 +526,9 @@ var pcazorla = function() {
 					// On Complete
 					onComplete(true, url);
 				};
+
 			if (url !== this.currentUrl) {
+				HEADER.resMenuClose();
 				this.showBlank(this);
 				if (this.pushSt && url.indexOf(this.hostUrl) !== -1) {
 					changed = false;
@@ -652,47 +684,47 @@ var pcazorla = function() {
 			});
 		}
 	};
-/*
-	var GMAPS = {
-		init: function() {
-			$.getScript(baseTemplateURL + '/js/libs/gmaps.min.js', function() {
-				var map = new GMaps({
-					el: '#map-goo',
-					lat: -32.8730775,
-					lng: -68.8373294,
-					zoom: 5,
-					zoomControl: true,
-					zoomControlOpt: {
-						//	style: 'SMALL',
-						position: 'TOP_LEFT'
-					},
-					scrollwheel: false,
-					mapTypeControl: false,
-					streetViewControl: false,
-					panControl: false,
-					styles: [{
-						"featureType": "all",
-						"stylers": [{
-							"saturation": -60
-						}, {
-							"gamma": 0.8
+	/*
+		var GMAPS = {
+			init: function() {
+				$.getScript(baseTemplateURL + '/js/libs/gmaps.min.js', function() {
+					var map = new GMaps({
+						el: '#map-goo',
+						lat: -32.8730775,
+						lng: -68.8373294,
+						zoom: 5,
+						zoomControl: true,
+						zoomControlOpt: {
+							//	style: 'SMALL',
+							position: 'TOP_LEFT'
+						},
+						scrollwheel: false,
+						mapTypeControl: false,
+						streetViewControl: false,
+						panControl: false,
+						styles: [{
+							"featureType": "all",
+							"stylers": [{
+								"saturation": -60
+							}, {
+								"gamma": 0.8
+							}]
 						}]
-					}]
+					});
+					map.addMarker({
+						lat: -32.8730775,
+						lng: -68.8373294,
+						title: 'My home',
+						icon: baseTemplateURL + '/img/map-marker.png',
+						infoWindow: {
+							content: '<h5 class="infomap">This is <b>Mendoza, Argentina</b></h5><p class="infomap">I work and live here, the most beautiful city in the world ;-)</p>',
+							maxWidth: 720
+						}
+					});
 				});
-				map.addMarker({
-					lat: -32.8730775,
-					lng: -68.8373294,
-					title: 'My home',
-					icon: baseTemplateURL + '/img/map-marker.png',
-					infoWindow: {
-						content: '<h5 class="infomap">This is <b>Mendoza, Argentina</b></h5><p class="infomap">I work and live here, the most beautiful city in the world ;-)</p>',
-						maxWidth: 720
-					}
-				});
-			});
-		}
-	};
-*/
+			}
+		};
+	*/
 	var ABOUT = {
 		init: function() {
 			// Clear
@@ -711,7 +743,7 @@ var pcazorla = function() {
 
 			if (mod >= this.imgMod) {
 				imgW = w;
-				imgH = parseInt(w/this.imgMod);
+				imgH = parseInt(w / this.imgMod);
 
 				top = (h - imgH) / 2;
 				left = '0';
@@ -734,11 +766,11 @@ var pcazorla = function() {
 			return this;
 		},
 		setEvents: function() {
-			if(this.$aboutImg[0].complete){
+			if (this.$aboutImg[0].complete) {
 				this.setSizePresentation();
-			}else{
+			} else {
 				var self = this;
-				this.$aboutImg.load(function(){
+				this.$aboutImg.load(function() {
 					self.setSizePresentation();
 				});
 			}
@@ -769,7 +801,21 @@ var pcazorla = function() {
 				(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 			}
 		}
-	}
+	};
+
+	var PRETTYPRE = {
+		set: function() {
+			var somePre = false;
+			$('pre').not('.no-print').each(function() {
+				var $this = $(this).addClass('prettyprint');
+				$this.text($this.html());
+				somePre = true;
+			});
+			if (somePre) {
+				$.getScript('//google-code-prettify.googlecode.com/svn/loader/run_prettify.js?skin=desert');
+			}
+		}
+	};
 
 	/* onComplete : Function
 	 * It runs when load article content
@@ -782,6 +828,7 @@ var pcazorla = function() {
 		if (async) {
 			LOADER.setLinks('#content-main ');
 		}
+		$contentMain.append('<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="invisible"><filter id="greyscale"><feColorMatrix in="SourceGraphic" type="saturate" values="0.5" /></filter></svg><style type="text/css">img.desaturate {filter: url(#greyscale);-webkit-filter: grayscale(0.5);-webkit-filter: grayscale(50%);-moz-filter: grayscale(50%);filter: gray; filter: grayscale(50%);}</style>');
 
 		MENU.set(dataMenu);
 		IMAGESOFTLOAD.set();
@@ -798,8 +845,12 @@ var pcazorla = function() {
 			case 'archive-design':
 				GALLERY.init();
 				break;
+			case 'single-design':
+				PRETTYPRE.set();
+				break;
 			case 'single':
 				//COMMENTS.validate();
+				PRETTYPRE.set();
 				DISQCOMMENTS.set(url);
 				break;
 			case 'about':
@@ -821,7 +872,7 @@ var pcazorla = function() {
 	HEADER.init();
 	MENU.init();
 	SOFTLIGHT.init();
-	onComplete(false,window.location.href);
+	onComplete(false, window.location.href);
 
 	$window.resize(function() {
 		for (var a in onWindowResize) {

@@ -45,7 +45,7 @@ var disqus_developer = 1; // this would set it to developer mode
 <body>
 	<header id="header-main">
 		<div class="wrap">
-			<a href="<?php bloginfo( 'url' ); ?>" class="brand clearfix">
+			<a href="<?php bloginfo( 'url' ); ?>" class="brand">
 				
 				<span class="brand-name"><?php bloginfo( 'name' ); ?></span>
 				<span class="brand-description"><?php bloginfo( 'description' ); ?></span>
@@ -60,5 +60,10 @@ var disqus_developer = 1; // this would set it to developer mode
 			</menu>	
 		</div>					
 	</header>
+	<div id="res-menu-btn">
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
 	<?php desaturateImageStyle(); ?>
 	<div id="content-main">

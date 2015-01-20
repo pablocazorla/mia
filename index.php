@@ -24,7 +24,7 @@ if (!$async){
 			</div>
 		</header>
 		<section class="home-welcome pc-init">
-			<div id="h-scroll" title="Follow me"><img src="<?php bloginfo('template_url'); ?>/img/h-down.png"></div>
+			<div id="h-scroll" title="Scroll down" class="bubble"><img src="<?php bloginfo('template_url'); ?>/img/h-down.png"></div>
 			
 			<div class="wrap">
 				<p class="p-welcome soft-light slg-bottom">Welcome to my site-portfolio.</p>

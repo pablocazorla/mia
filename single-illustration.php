@@ -27,13 +27,13 @@ $illustrationLink = get_post_type_archive_link('illustration');
 		<figcaption>
 			<p class="cite soft-light slg-bottom"><?php echo $descriptionShare;?></p>			
 			<nav class="share-nav soft-light slg-bottom">	
-				<a href="" class="share link-facebook" data-share="{'on':'facebook'}"></a><a href="" class="share link-google" data-share="{'on':'google'}"></a><a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"></a><a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"></a>
+				<a href="" class="share link-facebook bubble" title="Share on Facebook" data-share="{'on':'facebook'}"></a><a href="" class="share link-google bubble" title="Share on Google+" data-share="{'on':'google'}"></a><a href="" class="share link-twitter bubble" title="Share on Twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"></a><a href="" class="share link-pinterest bubble" title="Share on Pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"></a>
 			</nav>
 		</figcaption>				
 		<img class="wait-complete soft-light slg-bottom" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>"/>
 	</figure>
 	<?php if(strlen(get_the_content()) >= 5){ ?>
-	<div class="wrap the_content illustration-content">
+	<div class="wrap the-content illustration-content">
 		<?php the_content(); ?>
 	</div>
 	<?php } ?>

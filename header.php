@@ -56,10 +56,11 @@ var disqus_developer = 1; // this would set it to developer mode
 				<a class="sketches-menu" href="<?php echo get_post_type_archive_link('sketch');?>"><span>Sketches</span></a>
 				<a class="blog-menu" href="<?php echo pc_category_link('Blog'); ?>"><span>Blog</span></a>
 				<a class="about-menu" href="<?php bloginfo( 'url' ); ?>/me/"><span>About Me</span></a>				
-				<a class="contact-menu" href="<?php bloginfo( 'url' ); ?>/me/#contact-me"><span>Contact</span></a>				
+				<a class="contact-menu resMenuClose" href="#contact"><span>Contact</span></a>				
 			</menu>	
 		</div>					
 	</header>
+	<div id="dim-header"></div>
 	<div id="res-menu-btn">
 		<span></span>
 		<span></span>

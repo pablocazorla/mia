@@ -1,3 +1,25 @@
+/* Bubble Plugin
+ * @author: Pablo Cazorla
+ * @date: 20/01/2015
+ */
+(function($) {
+	$.fn.bubble = function() {
+		return this.each(function() {
+			var $this = $(this),
+				title = $this.attr('title');
+
+			if (typeof title !== 'undefined' && title !== '') {
+				var position = $this.css('position'),
+					$msg = $('<span class="bubble-msg">' + title + '</span>');
+				$this.attr('title', '').append($msg);
+				if (position === 'static') {
+					$this.css('position', 'relative');
+				}
+			}
+		});
+	};
+})(jQuery);
+
 // PCAZORLA
 var pcazorla = function() {
 
@@ -36,7 +58,6 @@ var pcazorla = function() {
 		$header: $('#header-main'),
 		$btnResMenu: $('#res-menu-btn'),
 		resOpen: false,
-		overResMenu: false,
 		showed: true,
 		transparent: true,
 		prevScroll: 99999999,
@@ -44,6 +65,7 @@ var pcazorla = function() {
 		init: function() {
 			// Clear
 			onWindowScroll.headerStatus = null;
+			this.$resHeader = this.$header.add($('#dim-header'));
 			this.setStatus().setEv(this);
 		},
 		show: function() {
@@ -72,16 +94,15 @@ var pcazorla = function() {
 		},
 		resMenuOpen: function() {
 			if (!this.resOpen) {
-				this.$header.addClass('res-open');
+				this.$resHeader.addClass('res-open');
 				this.resOpen = true;
 			}
 		},
 		resMenuClose: function() {
 			if (this.resOpen) {
-				this.$header.removeClass('res-open');
+				this.$resHeader.removeClass('res-open');
 				this.resOpen = false;
 			}
-			self.overResMenu = false;
 		},
 		setStatus: function() {
 			this.currentScroll = $scroll.scrollTop();
@@ -102,16 +123,9 @@ var pcazorla = function() {
 			var self = this;
 			this.$btnResMenu.click(function() {
 				self.resMenuOpen();
-				self.overResMenu = true;
 			});
-			$window.click(function() {
-				if (!self.overResMenu) {
-					self.resMenuClose();
-				}
-				self.overResMenu = false;
-			});
-			this.$header.click(function() {
-				self.overResMenu = true;
+			$('#dim-header, .resMenuClose').click(function() {
+				self.resMenuClose();
 			});
 
 			onWindowScroll.headerStatus = function() {
@@ -506,6 +520,7 @@ var pcazorla = function() {
 			var self = this,
 				timer = null,
 				changed = false,
+				hash = null,
 				s = (url.indexOf('?') === -1) ? '?' : '&',
 				defaultChange = function() {
 					window.location.href = url;
@@ -520,14 +535,22 @@ var pcazorla = function() {
 						document.title = title;
 					}
 					history.pushState(null, title, url);
+					if (hash !== null) {
+						url += '#' + hash;
+					}
 					self.currentUrl = url;
 					self.hideBlank(self);
 
 					// On Complete
-					onComplete(true, url);
+					onComplete(true, url, hash);
 				};
 
 			if (url !== this.currentUrl) {
+				if (url.indexOf('#') !== -1) {
+					var arr = url.split('#');
+					url = arr[0];
+					hash = arr[1];
+				}
 				HEADER.resMenuClose();
 				this.showBlank(this);
 				if (this.pushSt && url.indexOf(this.hostUrl) !== -1) {
@@ -644,7 +667,7 @@ var pcazorla = function() {
 			}
 		}
 	};
-
+	/*
 	var COMMENTS = {
 		validate: function() {
 			var $fieldsets = $('#commentform fieldset.validate'),
@@ -684,6 +707,7 @@ var pcazorla = function() {
 			});
 		}
 	};
+	*/
 	/*
 		var GMAPS = {
 			init: function() {
@@ -725,6 +749,76 @@ var pcazorla = function() {
 			}
 		};
 	*/
+
+	var SOFTSCROLL = {
+		$h: $('html,body'),
+		$goTop: $('#goto-top'),
+		goTopVisible: false,
+		moving: false,
+		init: function() {
+			onWindowScroll.softScrollScroll = function() {
+				SOFTSCROLL.detectTopBtn();
+			};
+			var self = this;
+			this.$goTop.click(function() {
+				self.anim(0, 750);
+			});
+
+
+
+			return this.set();
+		},
+		detectTopBtn: function() {
+			var s = $scroll.scrollTop(),
+				h = $window.height();
+			if (!this.goTopVisible && s > h) {
+				this.$goTop.fadeIn(260);
+				this.goTopVisible = true;
+			}
+			if (this.goTopVisible && s <= h) {
+				this.$goTop.fadeOut(260);
+				this.goTopVisible = false;
+			}
+		},
+		set: function(context) {
+			this.detectTopBtn();
+			var ctx = context || '',
+				self = this;
+			$(ctx + 'a').click(function(e) {
+				var url = $(this).attr('href');
+				if (url.indexOf('#') === 0) {
+					e.preventDefault();
+					self.moveTo(url);
+				}
+			});
+			return this;
+		},
+		moveTo: function(sel) {
+			var self = this;
+			if (!this.moving) {
+				$(sel).eq(0).each(function() {
+					var offY = parseInt($(this).offset().top);
+					self.anim(offY, 1200, sel);
+				});
+			}
+		},
+		anim: function(posY, vel, sel) {
+			var self = this,
+				sl = sel || '';
+			this.moving = true;
+			this.$h.animate({
+				'scrollTop': posY + 'px'
+			}, vel, function() {
+				self.moving = false;
+				window.location.hash = sl;
+
+			});
+		},
+		startFrom: function(sel) {
+			window.location.hash = sel;
+		}
+	};
+
 	var ABOUT = {
 		init: function() {
 			// Clear
@@ -737,7 +831,7 @@ var pcazorla = function() {
 		},
 		setSizePresentation: function() {
 			var w = $window.width(),
-				h = parseInt($window.height() - 40),
+				h = parseInt($window.height() - 0),
 				mod = w / h,
 				imgW, imgH, top, left;
 
@@ -817,18 +911,36 @@ var pcazorla = function() {
 		}
 	};
 
+	var WIPSLIDER = {
+		init: function() {
+			var $wip = $('.wipSlider');
+			if ($wip.length > 0) {
+				$.getScript(baseTemplateURL + '/js/libs/jquery.wipSlider.min.js', function() {
+					$wip.wipSlider();
+				});
+			}
+		}
+	};
+
 	/* onComplete : Function
 	 * It runs when load article content
 	 */
-	var onComplete = function(async, url) {
+	var onComplete = function(async, url, hash) {
 		var $data = $('#page-data'),
 			dataMenu = $data.attr('data-menu'),
 			pageId = $data.attr('data-page');
 
 		if (async) {
 			LOADER.setLinks('#content-main ');
+			SOFTSCROLL.set('#content-main ');
+
+			$('#content-main .bubble').bubble();
 		}
 		$contentMain.append('<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="invisible"><filter id="greyscale"><feColorMatrix in="SourceGraphic" type="saturate" values="0.5" /></filter></svg><style type="text/css">img.desaturate {filter: url(#greyscale);-webkit-filter: grayscale(0.5);-webkit-filter: grayscale(50%);-moz-filter: grayscale(50%);filter: gray; filter: grayscale(50%);}</style>');
+
+		if (hash !== null) {
+			SOFTSCROLL.startFrom(hash);
+		}
 
 		MENU.set(dataMenu);
 		IMAGESOFTLOAD.set();
@@ -850,6 +962,7 @@ var pcazorla = function() {
 				break;
 			case 'single':
 				//COMMENTS.validate();
+				WIPSLIDER.init();
 				PRETTYPRE.set();
 				DISQCOMMENTS.set(url);
 				break;
@@ -859,20 +972,19 @@ var pcazorla = function() {
 			default:
 				//
 		}
-		if (async) {
-			//DISQUS.reset();
-		}
-
 	};
 
 	/*
 	 * INIT
 	 */
 	LOADER.init().setLinks();
+	SOFTSCROLL.init();
 	HEADER.init();
 	MENU.init();
 	SOFTLIGHT.init();
-	onComplete(false, window.location.href);
+	onComplete(false, window.location.href, window.location.hash.substring(1));
+
+	$('.bubble').bubble();
 
 	$window.resize(function() {
 		for (var a in onWindowResize) {

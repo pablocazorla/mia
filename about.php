@@ -21,24 +21,11 @@ if (!$async){
 				<div class="wrap">
 					<div class="about-col">
 						<?php the_content(); ?>
-						<p>I'm digital artist, illustrator, and webdesigner.</p>
-						<p>I love fantasy illustration, concept art, movies, web apps,  3D animation and everything about the world of the image.</p>
-						<p>I live and work as a professional freelance in Mendoza, Argentina.</p>
 					</div>					
 				</div>
 			</div>
 		</section>
-		<section class="wrap-min">			
-			<p>Nada todavia</p>
-		</section>
-		<section class="map-contact">
-			<div id="map-goo"></div>
-		</section>
-		<?php endwhile; else :?>
-		<div class="wrap-min">
-			<h2>Sorry, post not found</h2>
-		</div>		
-		<?php endif; ?>
+		<?php endwhile; endif;?>
 	</article>	
 <?php
 if (!$async){

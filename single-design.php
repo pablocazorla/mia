@@ -28,12 +28,12 @@ $designLink = get_post_type_archive_link('design');
 	<div class="wrap design-cite">		
 		<p class="cite soft-light slg-bottom"><?php echo $descriptionShare;?></p>			
 		<nav class="share-nav soft-light slg-bottom">	
-			<a href="" class="share link-facebook" data-share="{'on':'facebook'}"></a><a href="" class="share link-google" data-share="{'on':'google'}"></a><a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"></a><a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"></a>
+			<a href="" class="share link-facebook bubble" title="Share on Facebook" data-share="{'on':'facebook'}"></a><a href="" class="share link-google bubble" title="Share on Google+" data-share="{'on':'google'}"></a><a href="" class="share link-twitter bubble" title="Share on Twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"></a><a href="" class="share link-pinterest bubble" title="Share on Pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"></a>
 		</nav>				
 	</div>
 	<?php if(strlen(get_the_content()) >= 5){ ?>
 	<hr class="wrap"/>
-	<div class="wrap the_content design-content">
+	<div class="wrap the-content design-content">
 		<?php the_content(); ?>
 	</div>
 	<?php } ?>

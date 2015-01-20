@@ -21,10 +21,10 @@ $blogLink = pc_category_link('Blog');
 				<h1 class="soft-light slg-bottom"><?php echo $titleShare;?></h1>
 				<div class="red-line soft-light slg-bottom"></div>			
 				<p class="subtitle soft-light slg-bottom">
-						<?php the_category(', '); ?>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#comments"><?php comments_number('Comments', '1 comment', '% comments');?></a>
+						<?php the_category(', '); ?>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#disq-comments">Comments</a>
 				</p>
 				<nav class="share-nav soft-light slg-bottom">	
-					<a href="" class="share link-facebook" data-share="{'on':'facebook'}"></a><a href="" class="share link-google" data-share="{'on':'google'}"></a><a href="" class="share link-twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"></a><a href="" class="share link-pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"></a>
+					<a href="" class="share link-facebook bubble" title="Share on Facebook" data-share="{'on':'facebook'}"></a><a href="" class="share link-google bubble" title="Share on Google+" data-share="{'on':'google'}"></a><a href="" class="share link-twitter bubble" title="Share on Twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"></a><a href="" class="share link-pinterest bubble" title="Share on Pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"></a>
 				</nav>
 			</div>
 		</header>
@@ -37,32 +37,8 @@ $blogLink = pc_category_link('Blog');
 					<?php the_content(); ?>
 					<hr class="hr-grey"/>
 				</section>
-				<section class="comments-section blog-post-comments">
-
-				<div id="disqus_thread"></div>
-				<script type="text/javascript">
-					
-				</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+				<section class="comments-section blog-post-comments" id="disq-comments">
+					<div id="disqus_thread"></div>
 					<?php //comments_template(); ?>
 				</section>
 			</div>			

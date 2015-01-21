@@ -6,7 +6,7 @@ $async = $_GET['async'];
 if (!$async){
 	get_header();
 } ?>
-	<article class="article-main">
+	<article class="article-main article-page article-about">
 		<?php if ($async){?>
 			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
 		<?php } ?>

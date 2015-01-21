@@ -2,7 +2,7 @@
 if (!$async){
 	get_header();
 } ?>
-	<article class="article-main" data-id="<?php the_ID();?>">
+	<article class="article-main article-blog article-post" data-id="<?php the_ID();?>">
 		<?php if ($async){?>
 			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
 		<?php } ?>

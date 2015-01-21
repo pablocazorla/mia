@@ -9,7 +9,6 @@ if (!$async){
 	<?php } ?>
 	<div class="invisible" id="page-data" data-menu="" data-page="single-design"></div>
 <?php 
-desaturateImageStyle();
 if (have_posts()) : while (have_posts()) : the_post();
 $titleShare = get_the_title();
 $descriptionShare = get_the_excerpt();
@@ -18,7 +17,7 @@ $designLink = get_post_type_archive_link('design');
 ?>
 
 	<header class="header-article header-article-design-post in-single">		
-		<img class="header-article-img desaturate wait-complete" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('design-large');} ?>"/>
+		<img class="header-article-img blur wait-complete" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('design-large');} ?>"/>
 		<div class="wrap header-article-content">
 			<h1 class="soft-light slg-bottom"><?php echo $titleShare;?></h1>
 			<div class="red-line soft-light slg-bottom"></div>

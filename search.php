@@ -9,7 +9,7 @@ if (!$async){
 		<div class="invisible" id="page-data" data-menu="blog" data-page="archive"></div>
 
 		<header class="header-article header-article-blog-list">
-			<img class="header-article-img" src="<?php bloginfo('template_url'); ?>/img/search.jpg"/>
+			<img class="header-article-img blur wait-complete" src="<?php bloginfo('template_url'); ?>/img/search.jpg"/>
 			<div class="wrap header-article-content">
 				<?php $cat_name = single_cat_title('',false);?>
 				<h1 class="soft-light slg-bottom">

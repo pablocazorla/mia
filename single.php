@@ -8,7 +8,6 @@ if (!$async){
 		<?php } ?>
 		<div class="invisible" id="page-data" data-menu="" data-page="single"></div>
 <?php
-desaturateImageStyle();
 if (have_posts()) : while (have_posts()) : the_post(); 
 $titleShare = get_the_title();
 $descriptionShare = get_the_excerpt();
@@ -16,7 +15,7 @@ $urlImageShare = url_thumbnail('large');
 $blogLink = pc_category_link('Blog');
 ?>
 		<header class="header-article header-article-blog-post in-single">		
-			<img class="header-article-img desaturate wait-complete" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('large');} ?>"/>
+			<img class="header-article-img blur wait-complete" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('large');} ?>"/>
 			<div class="wrap header-article-content">
 				<h1 class="soft-light slg-bottom"><?php echo $titleShare;?></h1>
 				<div class="red-line soft-light slg-bottom"></div>			

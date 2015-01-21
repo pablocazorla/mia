@@ -2,9 +2,9 @@
 		<div id="contact">
 			<div class="get-in-touch">
 				<div class="wrap">
-					<h2>Get in touch!</h2>
-					<p>Please send me a message via email if you have any questions, idea, or comment for me.</p>
-					<p><a href="mailto:contact@pcazorla.com" target="_blank" class="button big bubble" title="Send me an e-mail"><span class="em-icon"></span>contact@pcazorla.com</a></p>
+					<h2 class="soft-light slg-bottom">Get in touch!</h2>
+					<p class="soft-light slg-bottom">Please send me a message via email if you have any questions, idea, or comment for me.</p>
+					<p class="soft-light slg-bottom"><a href="mailto:contact@pcazorla.com" target="_blank" class="button big bubble" title="Send me an e-mail"><span class="em-icon"></span>contact@pcazorla.com</a></p>
 				</div>
 			</div>
 			<div class="contact-links">

@@ -155,10 +155,13 @@ var pcazorla = function() {
 	 */
 	var SOFTLIGHT = {
 		ready: false,
-		limit: 5,
+		limitToShow: 25,
 		init: function(custom) {
 			// Clear
 			onWindowScroll.softLightTest = onWindowResize.softLightTest = null;
+
+			this.limit = this.limitToShow - 100;
+
 			this.reset().setEvents(this);
 			return this;
 		},
@@ -921,6 +924,31 @@ var pcazorla = function() {
 			}
 		}
 	};
+	var IMAGEFILTERS = {
+		desaturate: .2,
+		blur: 4,
+		set: function() {
+			var filters = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="invisible">';
+
+			// SVG DESATURATE
+			//filters += '<filter id="greyscale"><feColorMatrix in="SourceGraphic" type="saturate" values="' + this.desaturate + '" /></filter>';
+
+			// SVG BLUR
+			filters += '<filter id="blur"> <feGaussianBlur stdDeviation="'+ this.blur +'" /> </filter>';
+
+			filters += '</svg><style type="text/css">';
+
+			// STYLE DESATURATE
+			//filters += 'img.desaturate {filter: url(#greyscale);-webkit-filter: grayscale(' + this.desaturate + '),blur('+this.blur+'px);-webkit-filter: grayscale(' + (100 * this.desaturate) + '%),blur('+this.blur+'px);-moz-filter: grayscale(' + (100 * this.desaturate) + '%),blur('+this.blur+'px);filter: gray, blur; filter: grayscale(' + (100 * this.desaturate) + '%),;}';
+
+			// STYLE BLUR
+			filters += 'img.blur { filter: url(#blur); -webkit-filter: blur('+this.blur+'px); -moz-filter: blur('+this.blur+'px); filter: blur('+this.blur+'px); filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius="'+this.blur+'"); }';
+
+			filters += '</style>';
+
+			$contentMain.append(filters);
+		}
+	};
 
 	/* onComplete : Function
 	 * It runs when load article content
@@ -936,7 +964,8 @@ var pcazorla = function() {
 
 			$('#content-main .bubble').bubble();
 		}
-		$contentMain.append('<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="invisible"><filter id="greyscale"><feColorMatrix in="SourceGraphic" type="saturate" values="0.5" /></filter></svg><style type="text/css">img.desaturate {filter: url(#greyscale);-webkit-filter: grayscale(0.5);-webkit-filter: grayscale(50%);-moz-filter: grayscale(50%);filter: gray; filter: grayscale(50%);}</style>');
+
+		IMAGEFILTERS.set();
 
 		if (hash !== null) {
 			SOFTSCROLL.startFrom(hash);

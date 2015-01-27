@@ -832,7 +832,7 @@ input.search-submit{
 }
 
 .header-article-design-list .header-article-content{
-	padding:165px 0 75px;
+	padding:94px 0 67px;
 }
 
 .header-article-design-list .header-article-content h1,
@@ -860,28 +860,44 @@ input.search-submit{
 	color:#FFF;
 }
 
-.gallery-design{
-	max-width: 1010px;
-}
+
 .design-pod{
 	padding: 68px 0;
-	border-bottom: solid 1px #CCC;
-	-webkit-transition: opacity .5s;
-	-moz-transition: opacity .5s;
-	transition: opacity .5s;
+	xborder-bottom: solid 1px #CCC;
+	
 	width:100%;
-	float: left;
 	overflow: hidden;
+	max-width: 1010px;
 }
-.design-pod.hidden{
+
+.gallery-design .gallery-fig{
+	background-color: #CCC;
+	background-image: url('img/design-slide-bg.png');
+	background-repeat: repeat-x;
+	-webkit-transition: opacity .5s,max-height .5s;
+	-moz-transition: opacity .5s,max-height .5s;
+	transition: opacity .5s,max-height .5s;
+	overflow: hidden;
+	max-height: 600px
+}
+
+.gallery-design .gallery-fig.backcolor1{background-color: #756a80;}
+.gallery-design .gallery-fig.backcolor2{background-color: #5a7880;}
+.gallery-design .gallery-fig.backcolor3{background-color: #5a8074;}
+.gallery-design .gallery-fig.backcolor4{background-color: #76805a;}
+.gallery-design .gallery-fig.backcolor5{background-color: #806c56;}
+.gallery-design .gallery-fig.backcolor6{background-color: #3B7A8B;}
+.gallery-design .gallery-fig.backcolor7{background-color: #4B916D;}
+.gallery-design .gallery-fig.backcolor8{background-color: #81824A;}
+
+
+
+
+
+
+.gallery-design .gallery-fig.hidden{
 	opacity: 0;
-	/*-webkit-transform: scale(0);
-	-moz-transform: scale(0);
-	transform: scale(0);*/
-	height:0;
-	padding:0;
-	margin: 0;
-	border:none;
+	max-height:0;
 }
 .design-box{
 	float:left;
@@ -938,20 +954,24 @@ input.search-submit{
 .design-image figure a:hover{
 	opacity: 1;
 }
+.design-text{
+	text-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
 
 .design-text h2{
 	font-size: 34px;line-height: 1.2em;
-	border-bottom: solid 1px #CCC;
+
 	padding: 10px 0;
 }
 .design-text h2,
-.design-text h2 a{
-	color: #000;
+.design-text h2 a,
+.design-text p{
+	color: #FFF;
 }
 
-.design-category{
+.design-text p.design-category{
 	font-size: 14px;line-height: 1.3em;
-	color: #999;
+	color: rgba(0,0,0,.5);
 }
 
 .design-pc{

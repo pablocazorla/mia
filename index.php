@@ -2,6 +2,123 @@
 if (!$async){
 	get_header();
 } ?>
+
+<article class="article-main">
+	<section id="presentation">
+		<div class="presentation-img">
+			<img class="auto" src="<?php bloginfo('template_url'); ?>/img/presentation.jpg">
+		</div>
+		<div class="presentation-text">
+			<div class="wrap">
+				Beautiful Things
+			</div>
+		</div>	
+	</section>
+	<section id="profile-hand">
+		<div class="clearfix">
+			<div class="profile-hand-col">
+				<div class="profile-hand-text">
+					My name is Pablo Cazorla,<br>
+					I'm illustrator and designer
+				</div>
+			</div>
+			<div class="profile-hand-col">
+				<img class="auto" src="<?php bloginfo('template_url'); ?>/img/profile-hand.jpg">
+			</div>
+		</div>
+		<img id="profile-hand-triang" src="<?php bloginfo('template_url'); ?>/img/profile-hand-triang.png">
+	</section>
+	<section id="what-i-do">
+		<div class="wrap-min">
+			<h2>What I do</h2>
+			<div class="row">
+				<div class="col col-6">
+					<h3>Illustration</h3>
+					<p>Digital painting, fantasy illustration, concept art, matte-painting, traditional media art (oils, watercolors), books, games, logos, icons.</p>
+				</div>
+				<div class="col col-6">
+					<h3>Design</h3>
+					<p>Web design and UX improvement, UI development (HTML5, CSS3, Javascript), mobile design, e-commerce, infographics, identity and branding</p>
+				</div>
+			</div>
+		</div>		
+	</section>
+	<section id="illustration">
+		<header class="wrap header-section">
+			<h1>Illustration</h1>
+			<div class="red-line"></div>
+			<p>Conceptual, fantastic, literary, realistic, functional, games...</p>
+		</header>
+		<div id="illustration-gallery" class="clearfix">
+<?php $list = new WP_Query('post_type=illustration&posts_per_page=6');
+if ($list->have_posts()): while ($list->have_posts()): $list->the_post(); ?>
+
+			<figure class="illustration-figure selected">
+		        <?php if(has_post_thumbnail()){
+					echo '<img class="auto srcwait" xsrc="" src="' . url_thumbnail('illustration-thumb') .'">';
+				} ?>
+				<a href="<?php the_permalink(); ?>">
+					<figcaption>						
+						<h2><?php the_title(); ?></h2>
+						<p>Concept art</p>
+					</figcaption>
+				</a>							
+			</figure>
+
+<?php endwhile; 
+wp_reset_postdata(); 
+endif;
+?>
+		</div>
+		<div class="view-all">
+			<a href="">View all Illustration</a>
+		</div>		
+	</section>
+	<section id="design">
+		<header class="wrap header-section">
+			<h1>Design</h1>
+			<div class="red-line"></div>
+			<p>Conceptual, fantastic, literary, realistic, functional, games...</p>
+		</header>
+		<div id="design-gallery" class=" wrap-max clearfix">
+<?php $list = new WP_Query('post_type=design&posts_per_page=4');
+if ($list->have_posts()): while ($list->have_posts()): $list->the_post(); ?>
+		<a class="clearfix design-figure selected" href="">
+			<div class="design-figure-col">
+				<?php if(has_post_thumbnail()){
+					echo '<img class="auto srcwait" xsrc="" src="' . url_thumbnail('design-thumb') .'">';
+				} ?>
+			</div>
+			<div class="design-figure-text">
+				<h2><?php the_title(); ?></h2>
+				<p class="category">Webdesign</p>
+				<?php the_excerpt(); ?>				
+			</div>
+		</a>
+<?php endwhile; 
+wp_reset_postdata(); 
+endif;
+?>
+		</div>
+		<div class="view-all">
+			<a href="">View all Design</a>
+		</div>		
+	</section>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<!--
 	<article id="article-main" class="home">
 		<?php if ($async){?>
 			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
@@ -99,6 +216,7 @@ if (!$async){
 
 		</section>
 	</article>
+-->
 <?php
 if (!$async){
 	get_footer();

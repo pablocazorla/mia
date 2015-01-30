@@ -45,14 +45,7 @@
 				<span class="brand-name"><?php bloginfo( 'name' ); ?></span>
 				<span class="brand-description"><?php bloginfo( 'description' ); ?></span>
 			</a>
-			<menu id="main-menu">
-				<a class="illustration-menu" href="<?php echo get_post_type_archive_link('illustration');?>"><span>Illustration</span></a>
-				<a class="design-menu" href="<?php echo get_post_type_archive_link('design');?>"><span>Design</span></a>
-				<a class="sketches-menu" href="<?php echo get_post_type_archive_link('sketch');?>"><span>Sketches</span></a>
-				<a class="blog-menu" href="<?php echo pc_category_link('Blog'); ?>"><span>Blog</span></a>
-				<a class="about-menu" href="<?php bloginfo( 'url' ); ?>/me/"><span>About Me</span></a>				
-				<a class="contact-menu resMenuClose" href="#contact"><span>Contact</span></a>				
-			</menu>	
+			<?php render_menu(is_home()); ?>
 		</div>					
 	</header>
 	<div id="dim-header"></div>
@@ -61,6 +54,6 @@
 		<span></span>
 		<span></span>
 	</div>
-	-->
-
+	
+-->
 	<div id="content-main">

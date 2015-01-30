@@ -4,14 +4,15 @@ if (!$async){
 } ?>
 
 <article class="article-main">
+	<div class="invisible" id="page-data" data-menu="" data-page="home"></div>
 	<section id="presentation">
 		<div id="presentation-text">
 			<div class="presentation-brand">
 				<div class="presentation-brand-title">Pablo Cazorla</div>
-				<div class="presentation-brand-subtitle">I'm illustrator, designer, digital artist</div>
+				<div class="presentation-brand-subtitle">I&#8216;m illustrator, web designer and graphic artist</div>
 			</div>
 			<div class="presentation-menu">
-				<?php render_menu(); ?>
+				<?php render_menu(true); ?>
 			</div>
 		</div>
 		<img id="presentation-triang" src="<?php bloginfo('template_url'); ?>/img/profile-hand-triang.png">
@@ -115,7 +116,7 @@ endif;
 		<?php if ($async){?>
 			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
 		<?php } ?>
-		<div class="invisible" id="page-data" data-menu="" data-page="home"></div>
+		
 		<header class="header-home">
 			<div class="header-home-content">
 				<div class="wrap">

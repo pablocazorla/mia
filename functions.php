@@ -33,8 +33,33 @@ add_theme_support( 'nav-menus' );
 /***********************************************
 * MENU RENDERER
 ***********************************************/
-function render_menu(){
-    echo get_post_type_archive_link('illustration');
+function render_menu($isHome){
+  
+    if($isHome){
+        $illustLink = '#illustration';
+        $designLink = '#design';
+        $blogLink = '#blog';
+        $aboutLink = '#about-me';
+        $contactLink = '#contact';
+    }else{
+        $url = get_bloginfo( 'url' );
+
+        $illustLink = get_post_type_archive_link('illustration');
+        $designLink = get_post_type_archive_link('design');
+        $blogLink = pc_category_link('Blog');
+        $aboutLink = $url . '/me/';
+        $contactLink = $url . '/contact/';
+    }
+    
+    $mainMenu = '<menu class="main-menu">';
+    $mainMenu .= '<a class="illustration-menu" href="' . $illustLink . '"><span>Illustration</span></a>';
+    $mainMenu .= '<a class="design-menu" href="' . $designLink . '"><span>Design</span></a>';
+    $mainMenu .= '<a class="blog-menu" href="' . $blogLink . '"><span>Blog</span></a>';
+    $mainMenu .= '<a class="about-menu" href="' . $aboutLink . '"><span>About Me</span></a>';         
+    $mainMenu .= '<a class="contact-menu resMenuClose" href="' . $contactLink . '"><span>Contact</span></a>';     
+    $mainMenu .= '</menu>';
+
+    echo $mainMenu;
 }
 
 

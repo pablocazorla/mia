@@ -187,27 +187,76 @@ img.auto{
 .col-6{width:50%}
 .col-12{float:none;width:100%}
 
+/* MENU MAIN ********************************/
+
+.main-menu{
+	font-size: 18px;line-height: 30px
+}
+.main-menu a{
+	display: inline-block;
+	padding: 20px 18px;
+}
+
+.main-menu a span{
+	display: inline-block;
+}
 
 /* HOME ********************************/
 
 /* presentation */
 #presentation{
-	background: #0091a7 url('img/profile-hand.jpg') center 0 no-repeat fixed;
-	height:800px;
+	background: #0091a7 url('img/profile-hand.jpg') center 0 no-repeat;
+	height:1000px;
 	overflow: hidden;
 	text-align: center;
 }
 #presentation-text{
 	position: absolute;z-index: 11;
 	top:50%;left: 0;right: 0;
+	margin-top: -115px;
 	color: #FFF;
+	background-color: #0091a7;
+	box-shadow: 0 0 6px 12px #0091a7;
 }
+
+.presentation-brand{
+	max-width: 525px;
+	margin:0 auto;
+	border-bottom: solid 1px #3dabbc;
+	padding-bottom: 40px;
+}
+
+.presentation-brand-title{
+	font-size: 70px;line-height: 70px;margin-bottom: 30px
+}
+.presentation-brand-subtitle{
+	font-size: 21px;line-height: 21px;
+}
+
+
+#presentation-text .main-menu a{
+	color:#002337;
+}
+#presentation-text .main-menu a:hover span{
+	border-bottom: solid 1px #002337;
+}
+
+
+
+
+
+
+
+
+
+
+
 #presentation-triang{
 	display: block;
 	position: absolute;z-index: 10;
 	left: 50%;
 	bottom: 0;
-	margin-left: -214px;
+	margin-left: -137px;
 }
 
 /* what-i-do */

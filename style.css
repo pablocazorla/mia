@@ -205,18 +205,33 @@ img.auto{
 
 /* presentation */
 #presentation{
-	background: #0091a7 url('img/profile-hand.jpg') center 0 no-repeat;
+	background-color: #0091a7;
 	height:1000px;
 	overflow: hidden;
-	text-align: center;
+	text-align: center;	
 }
+
+#presentation-hand{
+	display: block;
+	position: absolute;z-index: 101;
+	left: 50%;
+	top: -440px;
+	margin-left: -441px;
+	opacity: 0;
+	-webkit-transition: top .6s ease-out 1s, opacity 1s 1s;
+	-moz-transition: top .6s ease-out 1s, opacity 1s 1s;
+	transition: top .6s ease-out 1s, opacity 1s 1s;
+}
+
+
 #presentation-text{
-	position: absolute;z-index: 11;
+	background-color: #0091a7;
+	position: absolute;z-index: 102;
 	top:50%;left: 0;right: 0;
 	margin-top: -115px;
 	color: #FFF;
-	background-color: #0091a7;
-	box-shadow: 0 0 6px 12px #0091a7;
+	
+	box-shadow: 0 0 7px 10px #0091a7;
 }
 
 .presentation-brand{
@@ -227,7 +242,7 @@ img.auto{
 }
 
 .presentation-brand-title{
-	font-size: 70px;line-height: 70px;margin-bottom: 30px
+	font-size: 70px;line-height: 100px;
 }
 .presentation-brand-subtitle{
 	font-size: 21px;line-height: 21px;
@@ -242,18 +257,9 @@ img.auto{
 }
 
 
-
-
-
-
-
-
-
-
-
 #presentation-triang{
 	display: block;
-	position: absolute;z-index: 10;
+	position: absolute;z-index: 100;
 	left: 50%;
 	bottom: 0;
 	margin-left: -137px;

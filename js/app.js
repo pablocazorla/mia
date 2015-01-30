@@ -7,7 +7,6 @@ PANDORA.open(function($) {
 		pageId = $pageData.attr('data-page'),
 		resizeSection = function($sec, marginBottom, callback) {
 			var mBottom = marginBottom || 0,
-
 				h = PANDORA.$window.height();
 			$sec.height(h - mBottom);
 			if (typeof callback !== 'undefined') {
@@ -18,20 +17,22 @@ PANDORA.open(function($) {
 
 		HOMEPAGE = function() {
 			var $presentation = $('#presentation'),
+				$presentationHand = $('#presentation-hand'),
 				resizeHomeSections = function() {
 					resizeSection($presentation, 20, function(h) {
 
-						var posBg = h / 2 - 570;
+						var top = h / 2 - 570;
 
-						posBg = (posBg > 0) ? 0 : posBg;
+						top = (top > 0) ? 0 : top;
 
-						$presentation.css('background-position', 'center ' + posBg + 'px');
-
+						$presentationHand.css('top', top + 'px');
+						
 
 
 					});
 				};
 
+			$presentationHand.css('opacity', '1');
 			resizeHomeSections();
 			PANDORA.ASYNC.resize(resizeHomeSections);
 		},

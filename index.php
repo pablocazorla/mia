@@ -6,6 +6,7 @@ if (!$async){
 <article class="article-main">
 	<div class="invisible" id="page-data" data-menu="" data-page="home"></div>
 	<section id="presentation">
+		<img id="presentation-hand" src="<?php bloginfo('template_url'); ?>/img/profile-hand.jpg">
 		<div id="presentation-text">
 			<div class="presentation-brand">
 				<div class="presentation-brand-title">Pablo Cazorla</div>
@@ -17,10 +18,6 @@ if (!$async){
 		</div>
 		<img id="presentation-triang" src="<?php bloginfo('template_url'); ?>/img/profile-hand-triang.png">
 	</section>
-	
-	
-
-
 	<section id="what-i-do">
 		<div class="wrap-min">
 			<h2>What I do</h2>

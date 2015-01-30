@@ -5,29 +5,21 @@ if (!$async){
 
 <article class="article-main">
 	<section id="presentation">
-		<div class="presentation-img">
-			<img class="auto" src="<?php bloginfo('template_url'); ?>/img/presentation.jpg">
-		</div>
-		<div class="presentation-text">
-			<div class="wrap">
-				Beautiful Things
+		<div id="presentation-text">
+			<div class="presentation-brand">
+				<div class="presentation-brand-title">Pablo Cazorla</div>
+				<div class="presentation-brand-subtitle">I'm illustrator, designer, digital artist</div>
 			</div>
-		</div>	
-	</section>
-	<section id="profile-hand">
-		<div class="clearfix">
-			<div class="profile-hand-col">
-				<div class="profile-hand-text">
-					My name is Pablo Cazorla,<br>
-					I'm illustrator and designer
-				</div>
-			</div>
-			<div class="profile-hand-col">
-				<img class="auto" src="<?php bloginfo('template_url'); ?>/img/profile-hand.jpg">
+			<div class="presentation-menu">
+				<?php render_menu(); ?>
 			</div>
 		</div>
-		<img id="profile-hand-triang" src="<?php bloginfo('template_url'); ?>/img/profile-hand-triang.png">
+		<img id="presentation-triang" src="<?php bloginfo('template_url'); ?>/img/profile-hand-triang.png">
 	</section>
+	
+	
+
+
 	<section id="what-i-do">
 		<div class="wrap-min">
 			<h2>What I do</h2>

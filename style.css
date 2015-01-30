@@ -144,6 +144,8 @@ fieldset.error .errorMessage{color:#D00;font-size: 14px;line-height: 20px;displa
 .wrap-min{max-width:900px}
 .wrap-max{max-width:100%}
 
+/* COMMON ***************************************************/
+
 section{
 	position: relative;
 }
@@ -190,46 +192,25 @@ img.auto{
 
 /* presentation */
 #presentation{
-	background-color: #222;
-	height:600px;
+	background: #0091a7 url('img/profile-hand.jpg') center 0 no-repeat fixed;
+	height:800px;
 	overflow: hidden;
-}
-
-.presentation-text{
-	position: absolute;
-	top:50%;left: 0;right: 0;
 	text-align: center;
+}
+#presentation-text{
+	position: absolute;z-index: 11;
+	top:50%;left: 0;right: 0;
 	color: #FFF;
 }
-
-/* profile-hand */
-#profile-hand{
-	background-color: #0091a7;
-	padding: 60px 0 70px;
-}
-.profile-hand-col{
-	position: relative;
-	float: left;
-	width: 50%
-}
-.profile-hand-text{
-	color: #FFF;
-	text-align: right;
-	margin-left: 8%;
-}
-.profile-hand-col img{
-	width: auto;
-	max-width: 100%;
-}
-
-#profile-hand-triang{
+#presentation-triang{
 	display: block;
-	position: absolute;
+	position: absolute;z-index: 10;
 	left: 50%;
 	bottom: 0;
 	margin-left: -214px;
 }
 
+/* what-i-do */
 #what-i-do{
 	background-color: #222;
 	color: #FFF;

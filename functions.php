@@ -29,6 +29,15 @@ add_theme_support( 'nav-menus' );
         'tertiary' => 'Design Navigation',
         'quaternary' => 'Blog Navigation'
 ) );
+
+/***********************************************
+* MENU RENDERER
+***********************************************/
+function render_menu(){
+    echo get_post_type_archive_link('illustration');
+}
+
+
 /***********************************************
 * NAVIGATION
 ***********************************************/

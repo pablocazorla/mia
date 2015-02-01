@@ -7,48 +7,41 @@ if (!$async){
 			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
 		<?php } ?>
 		<div class="invisible" id="page-data" data-page="blog"></div>
-
 		<section id="blog" class="wrap blog-list">
-		<header class="wrap header-section">
-		<?php $cat_name = single_cat_title('',false);?>
-			<h1 class="soft-light slg-bottom">
-				<?php if(is_category()):
-					echo $cat_name; 
-				elseif(is_tag()):
-					echo "Tag <i>".$cat_name."</i>"; 
-				elseif(is_author()):
-					echo "Author: <i>".$cat_name."<i>"; 
-				elseif(is_archive()):
-					echo "On archive <i>".$cat_name."<i>";
-				endif; ?>
-			</h1>
-			<div class="red-line softlight"></div>
-			<p class="softlight">
-			<?php 
-				if($cat_name != 'Blog'){
-					echo '<p class="subtitle soft-light slg-bottom"><a href="' . pc_category_link('Blog') . '">Blog</a></p>';
-				}else{
-					echo category_description();
-				}
-				?>
-			</p>
-		</header>		
-		<div class="wrap blog-list-side soft-light slg-bottom">
-			<div class="row">
-				<div class="col col-6">
-					<?php include (TEMPLATEPATH . '/menublog.php'); ?>
-				</div>
-				<div class="col col-6">
-					<?php get_search_form(); ?>
+			<header class="wrap header-section">
+			<?php $cat_name = single_cat_title('',false);?>
+				<h1 class="soft-light slg-bottom">
+					<?php if(is_category()):
+						echo $cat_name; 
+					elseif(is_tag()):
+						echo "Tag <i>".$cat_name."</i>"; 
+					elseif(is_author()):
+						echo "Author: <i>".$cat_name."<i>"; 
+					elseif(is_archive()):
+						echo "On archive <i>".$cat_name."<i>";
+					endif; ?>
+				</h1>
+				<div class="red-line softlight"></div>
+				<p class="softlight">
+				<?php 
+					if($cat_name != 'Blog'){
+						echo '<p class="subtitle soft-light slg-bottom"><a href="' . pc_category_link('Blog') . '">Blog</a></p>';
+					}else{
+						echo category_description();
+					}
+					?>
+				</p>
+			</header>		
+			<div class="blog-list-side soft-light slg-bottom">
+				<div class="row">
+					<div class="col col-6">
+						<?php include (TEMPLATEPATH . '/menublog.php'); ?>
+					</div>
+					<div class="col col-6">
+						<?php get_search_form(); ?>
+					</div>
 				</div>
 			</div>
-		</div>
-
-
-
-
-		<section class="wrap blog-list">
-			<div class="row">
 			<div class="row">
 	<?php if (have_posts()) :?>
 					<?php while (have_posts()) : the_post();?>
@@ -83,20 +76,20 @@ if (!$async){
 					<h2>Sorry, posts not found</h2>
 				</div>				
 				<?php endif; ?>
-			</div>
-			<?php if ( $wp_query->max_num_pages > 1 ){ ?>
-			<nav class="blog-pagination">
-				<div class="wrap clearfix">
-					<div class="blog-pagination-arrow to-left">
-						<?php previous_posts_link('&lt; Previous Posts'); ?>
-					</div>
-					<div class="blog-pagination-arrow to-right">				
-						<?php next_posts_link('Next Posts &gt;');	?>
-					</div>
+			</div>			
+		</section>
+		<?php if ( $wp_query->max_num_pages > 1 ){ ?>
+		<nav class="blog-pagination">
+			<div class="wrap clearfix">
+				<div class="blog-pagination-arrow to-left">
+					<?php previous_posts_link('&lt; Previous Posts'); ?>
 				</div>
-			</nav>
-			<?php } ?>	
-		</section>		
+				<div class="blog-pagination-arrow to-right">				
+					<?php next_posts_link('Next Posts &gt;');	?>
+				</div>
+			</div>
+		</nav>
+		<?php } ?>		
 	</article>	
 <?php
 if (!$async){

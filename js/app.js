@@ -112,6 +112,44 @@ PANDORA.open(function($) {
 			}
 		},
 
+		setLocalMenu = (function() {
+			var menuComplete = ['brand', 'illustration', 'design', 'blog', 'about-me'],
+				l = menuComplete.length,
+				urlCache = {
+					'brand': $('.brand').attr('href')
+				};
+			for (var i = 1; i < l; i++) {
+				var n = menuComplete[i]
+				urlCache[n] = $('.' + n + '-menu').attr('href');
+			}
+			var recoverUrl = function() {
+				$('.brand').attr('href', urlCache.brand);
+				for (var i = 1; i < l; i++) {
+					var n = menuComplete[i]
+					$('.' + n + '-menu').attr('href', urlCache[n]);
+				}
+			};
+			return function(menuList, noHash) {			
+				if (menuList.length == 0) {
+					recoverUrl();
+				} else {
+					for (var i = 0; i < menuList.length; i++) {
+						var curr = menuList[i],
+							$elem;
+						if (curr === 'brand') {
+							$elem = $('.brand').attr('href', '#content-main');
+						} else {
+							$elem = $('.' + curr + '-menu').attr('href', '#' + curr);
+						}
+						$elem.removeClass('no-hash');
+						if (noHash) {
+							$elem.addClass('no-hash');
+						}
+					}
+				}
+			};
+		})(),
+
 		resizeSection = function($sec, marginBottom, callback, minHeight) {
 			var mBottom = marginBottom || 0,
 				mHeight = minHeight || false,
@@ -147,6 +185,18 @@ PANDORA.open(function($) {
 			detect();
 			PANDORA.$window.scroll(detect).resize(detect);
 		},
+		ILLUSTRATION = function() {
+			// Set Menu to local
+			setLocalMenu(['illustration'], true);
+		},
+		DESIGN = function() {
+			// Set Menu to local
+			setLocalMenu(['design'], true);
+		},
+		BLOG = function() {
+			// Set Menu to local
+			setLocalMenu(['blog'], true);
+		},
 		ABOUTME = {
 			init: function() {
 				$('#about-to-contact').show();
@@ -158,6 +208,8 @@ PANDORA.open(function($) {
 					$image: $('#about-img'),
 					$container: this.$aboutMe
 				});
+				// Set Menu to local
+				setLocalMenu(['about-me'], true);
 				return this;
 			},
 			resize: function() {
@@ -170,9 +222,9 @@ PANDORA.open(function($) {
 				});
 				return this;
 			},
-			setEvent : function(){
+			setEvent: function() {
 				var self = this;
-				PANDORA.ASYNC.resize(function(){
+				PANDORA.ASYNC.resize(function() {
 					self.resize();
 				});
 				return this;
@@ -187,7 +239,7 @@ PANDORA.open(function($) {
 
 				$illustration = $('#illustration'),
 				$blog = $('#blog');
-				ABOUTME.init();
+			ABOUTME.init();
 
 			var resizeHomeSections = function() {
 				resizeSection($presentation, 20, function(h) {
@@ -215,11 +267,7 @@ PANDORA.open(function($) {
 			resizeHomeSections();
 
 			// Set Menu to local
-			$('.brand').attr('href', '#content-main');
-			var menuList = ['illustration', 'design', 'blog', 'about-me'];
-			for (var i = 0; i < menuList.length; i++) {
-				$('.' + menuList[i] + '-menu').attr('href', '#' + menuList[i]);
-			}
+			setLocalMenu(['brand', 'illustration', 'design', 'blog', 'about-me'], false);
 
 			PANDORA.ASYNC.resize(resizeHomeSections);
 		},
@@ -235,12 +283,22 @@ PANDORA.open(function($) {
 
 			PANDORA.SOFTLIGHT.select(context);
 			PANDORA.IMAGESEQUENCE.load();
+			setLocalMenu([]);
 
 			$(context + '.bubble').bubble();
 
 			switch (pageId) {
 				case 'home':
 					HOMEPAGE();
+					break;
+				case 'illustration':
+					ILLUSTRATION();
+					break;
+				case 'design':
+					DESIGN();
+					break;
+				case 'blog':
+					BLOG();
 					break;
 				case 'about-me':
 					ABOUTME.init().resize().setEvent();

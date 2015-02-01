@@ -33,30 +33,20 @@ add_theme_support( 'nav-menus' );
 /***********************************************
 * MENU RENDERER
 ***********************************************/
-function render_menu($isHome){
-  
-    if($isHome){
-        $illustLink = '#illustration';
-        $designLink = '#design';
-        $blogLink = '#blog';
-        $aboutLink = '#about-me';
-        $contactLink = '#contact';
-    }else{
-        $url = get_bloginfo( 'url' );
-
-        $illustLink = get_post_type_archive_link('illustration');
-        $designLink = get_post_type_archive_link('design');
-        $blogLink = pc_category_link('Blog');
-        $aboutLink = $url . '/me/';
-        $contactLink = $url . '/contact/';
-    }
+function render_menu(){
+    
+    $url = get_bloginfo( 'url' );
+    $illustLink = get_post_type_archive_link('illustration');
+    $designLink = get_post_type_archive_link('design');
+    $blogLink = pc_category_link('Blog');
+    $aboutLink = $url . '/me/';   
     
     $mainMenu = '<menu class="main-menu">';
     $mainMenu .= '<a class="illustration-menu" href="' . $illustLink . '"><span>Illustration</span></a>';
     $mainMenu .= '<a class="design-menu" href="' . $designLink . '"><span>Design</span></a>';
     $mainMenu .= '<a class="blog-menu" href="' . $blogLink . '"><span>Blog</span></a>';
-    $mainMenu .= '<a class="about-menu" href="' . $aboutLink . '"><span>About Me</span></a>';         
-    $mainMenu .= '<a class="contact-menu resMenuClose" href="' . $contactLink . '"><span>Contact</span></a>';     
+    $mainMenu .= '<a class="about-me-menu" href="' . $aboutLink . '"><span>About Me</span></a>';         
+    $mainMenu .= '<a class="contact-menu resMenuClose" href="#contact"><span>Contact</span></a>';     
     $mainMenu .= '</menu>';
 
     echo $mainMenu;
@@ -129,6 +119,15 @@ function fix_img_caption_shortcode($val, $attr, $content = null) {
     return '<div id="' . $id . '" class="wp-caption ' . esc_attr($align) . '" style="max-width: ' . (0 + (int) $width) . 'px">' . do_shortcode( $content ) . '<p class="wp-caption-text">' . $caption . '</p></div>';
 }
 add_filter('img_caption_shortcode', 'fix_img_caption_shortcode', 10, 3);
+
+/***********************************************
+* Show post content
+***********************************************/
+function show_post_content($path) {
+  $post = get_page_by_path($path);
+  $content = apply_filters('the_content', $post->post_content);
+  echo $content;
+}
 
 /***********************************************
 * Desaturate Image Style

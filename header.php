@@ -45,7 +45,7 @@
 				<span class="brand-name"><?php bloginfo( 'name' ); ?></span>
 				<span class="brand-description"><?php bloginfo( 'description' ); ?></span>
 			</a>
-			<?php render_menu(is_home()); ?>
+			<?php render_menu(); ?>
 		</div>					
 	</header>
 	<div id="dim-header"></div>

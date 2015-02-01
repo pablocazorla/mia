@@ -2,10 +2,23 @@
 var PANDORA = (function() {
 	'use strict';
 	// Private
-	var opened = false,
+	var opened = false;
 
-		// Utils 
-		parseData = function(data) {
+	// Utils
+	/* BROWSER : Object
+	 * Store browser type
+	 */
+	var BROWSER = {},
+		uAgent = navigator.userAgent || navigator.vendor || window.opera,
+		ua = uAgent.toLowerCase();
+		BROWSER.mozilla = /mozilla/.test(ua) && !/webkit/.test(ua);
+		BROWSER.webkit = /webkit/.test(ua);
+		BROWSER.opera = /opera/.test(ua);
+		BROWSER.msie = /msie/.test(ua);
+		BROWSER.ios = (ua.match(/ipad/i) || ua.match(/iphone/i) || ua.match(/ipod/i));
+		BROWSER.android = ua.match(/android/i);
+
+	var parseData = function(data) {
 			var obj = {},
 				arr, len, i, attr, prop, val;
 			if (data !== '' && data !== undefined && data !== null) {
@@ -14,7 +27,7 @@ var PANDORA = (function() {
 				for (i = 0; i < len; i++) {
 					attr = arr[i].split(':');
 					prop = $.trim(attr[0]);
-					val = parseInt(attr[1]);
+					val = parseFloat(attr[1]);
 					obj[prop] = val;
 				}
 			}
@@ -47,11 +60,12 @@ var PANDORA = (function() {
 					// Store
 					PANDORA.$window = $(window);
 					PANDORA.$html = $('html,body');
+					PANDORA.$scroll = (PANDORA.BROWSER.webkit) ? PANDORA.$window : PANDORA.$html;
 
 					// Open the box: do the magic
 					PANDORA.opened = true;
 
-					
+
 
 					// Execute callback
 					callback($);
@@ -68,7 +82,9 @@ var PANDORA = (function() {
 		},
 
 		// Utils 
-			parseData: parseData,
-		cssfix: cssfix
+		BROWSER:BROWSER,
+		parseData: parseData,
+		cssfix: cssfix,
+		empty: function() {}
 	}
 })();

@@ -20,7 +20,7 @@ if (!$async){
 			<div id="about-text" class="soft-light slg-bottom">
 				<div class="wrap">
 					<div class="about-col">
-						<?php the_content(); ?>
+						<?php tshow_post_content('me'); ?>
 					</div>					
 				</div>
 			</div>

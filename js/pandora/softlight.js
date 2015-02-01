@@ -126,7 +126,7 @@
 			}, delay);
 		},
 		onScroll = function() {
-			if (length > 0) {console.log('hago')
+			if (length > 0) {
 				var remainingList = [],
 					i;
 				delay = 0;

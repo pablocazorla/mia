@@ -31,6 +31,7 @@
 			}
 			onWindowScroll['asyncFunction' + counter] = callback;
 			++counter;
+			return this;
 		},
 		resize: function(callback) {
 			if(!initialized){
@@ -38,10 +39,12 @@
 			}
 			onWindowResize['asyncFunction' + counter] = callback;
 			++counter;
+			return this;
 		},
 		clearEvents: function() {
 			onWindowResize = {};
 			onWindowScroll = {};
+			return this;
 		}
 	};
 })();

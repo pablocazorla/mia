@@ -26,7 +26,91 @@ PANDORA.open(function($) {
 
 	// Get page data
 	var $pageData,
+		pageMenu,
 		pageId = 'home',
+
+		$header = $('#header-main'),
+
+		HEADER = {
+			limitToHide: 0,
+			isHome: false,
+			sections: ['illustration', 'design', 'blog', 'about-me', 'contact'],
+			backColors: {
+				'illustration': false,
+				'design': true,
+				'blog': true,
+				'about-me': false,
+				'contact': false
+			},
+			current: function(str) {
+				$('.main-menu a').removeClass('current');
+				$('.' + str + '-menu').addClass('current');
+				if (this.backColors[str]) {
+					$header.addClass('white');
+				} else {
+					$header.removeClass('white');
+				}
+			},
+			setCurrentByScroll: function() {
+				var sec = [],
+					i, l = this.sections.length,
+					headerVisible = true;
+				if (this.isHome) {
+					sec.push({
+						'$e': $('#what-i-do'),
+						'name': 'what-i-do'
+					});
+					headerVisible = false;
+				}
+
+
+
+				for (i = 0; i < l; i++) {
+					var $elem = $('#' + this.sections[i]);
+					if ($elem.length > 0) {
+						sec.push({
+							'$e': $elem,
+							'name': this.sections[i]
+						});
+					}
+				}
+
+				var len = sec.length,
+					currentMenu = 'none',
+					newMenu,
+					nearValue,
+					onChangeSec = function() {
+						nearValue = 9999999;
+						newMenu = '';
+						for (var i = 0; i < len; i++) {
+							var top = Math.abs(sec[i]['$e'][0].getBoundingClientRect().top);
+							if (top < nearValue) {
+								nearValue = top;
+								newMenu = sec[i]['name'];
+							}
+						}
+						if (newMenu !== currentMenu) {
+							HEADER.current(newMenu);
+							currentMenu = newMenu;
+						}
+						if (HEADER.isHome) {
+							if (currentMenu === 'what-i-do' && headerVisible) {
+								$header.addClass('hidden');
+								headerVisible = false;
+							}
+
+							if (currentMenu !== 'what-i-do' && !headerVisible) {
+								$header.removeClass('hidden');
+								headerVisible = true;
+							}
+
+						}
+					};
+
+				PANDORA.ASYNC.scroll(onChangeSec).resize(onChangeSec);
+				onChangeSec();
+			}
+		},
 
 		resizeSection = function($sec, marginBottom, callback, minHeight) {
 			var mBottom = marginBottom || 0,
@@ -63,6 +147,37 @@ PANDORA.open(function($) {
 			detect();
 			PANDORA.$window.scroll(detect).resize(detect);
 		},
+		ABOUTME = {
+			init: function() {
+				$('#about-to-contact').show();
+				this.$aboutMe = $('#about-me');
+				this.$aboutMeText = $('#about-text');
+				this.aboutMeMarginBottom = 30;
+				this.aboutMeImgFixer = PANDORA.FIXIMAGE({
+					imageModule: 192 / 94,
+					$image: $('#about-img'),
+					$container: this.$aboutMe
+				});
+				return this;
+			},
+			resize: function() {
+				var self = this;
+				resizeSection(self.$aboutMe, self.aboutMeMarginBottom, function(h) {
+					self.aboutMeImgFixer.adjust();
+
+					var mar = self.$aboutMeText.height() / 2;
+					self.$aboutMeText.css('margin-top', '-' + mar + 'px');
+				});
+				return this;
+			},
+			setEvent : function(){
+				var self = this;
+				PANDORA.ASYNC.resize(function(){
+					self.resize();
+				});
+				return this;
+			}
+		},
 
 		HOMEPAGE = function() {
 			var $presentation = $('#presentation'),
@@ -71,47 +186,36 @@ PANDORA.open(function($) {
 				presentationHandShow = true,
 
 				$illustration = $('#illustration'),
-				$blog = $('#blog'),
+				$blog = $('#blog');
+				ABOUTME.init();
 
-				$aboutMe = $('#about-me'),
-				$aboutMeText = $('#about-text'),
-				aboutMeMarginBottom = 30,
+			var resizeHomeSections = function() {
+				resizeSection($presentation, 20, function(h) {
+					var top = h / 2 - 570;
+					top = (top > 0) ? 0 : top;
+					if (presentationHandShow && top < -presentationHandHeight) {
+						$presentationHand.hide();
+						presentationHandShow = false;
+					}
+					if (!presentationHandShow && top > -presentationHandHeight) {
+						$presentationHand.show();
+						presentationHandShow = true;
+					}
+					$presentationHand.css('top', top + 'px');
+				});
+				resizeSection($illustration, 0, PANDORA.empty, true);
+				resizeSection($blog, 0, PANDORA.empty, true);
+				ABOUTME.resize();
+			};
 
-				aboutMeImgFixer = PANDORA.FIXIMAGE({
-					imageModule: 192 / 94,
-					$image: $('#about-img'),
-					$container: $aboutMe
-				}),
-				resizeHomeSections = function() {
-					resizeSection($presentation, 20, function(h) {
-						var top = h / 2 - 570;
-						top = (top > 0) ? 0 : top;
-						if (presentationHandShow && top < -presentationHandHeight) {
-							$presentationHand.hide();
-							presentationHandShow = false;
-						}
-						if (!presentationHandShow && top > -presentationHandHeight) {
-							$presentationHand.show();
-							presentationHandShow = true;
-						}
-						$presentationHand.css('top', top + 'px');
-					});
-					resizeSection($illustration, 0, PANDORA.empty, true);
-					resizeSection($blog, 0, PANDORA.empty, true);
-					resizeSection($aboutMe, aboutMeMarginBottom, function(h) {
-						aboutMeImgFixer.adjust();
-
-						var mar = $aboutMeText.height() / 2;
-						$aboutMeText.css('margin-top', '-' + mar + 'px');
-					});
-				};
-
+			HEADER.isHome = true;
 			$presentationHand.css('opacity', '1');
 			$presentation.addClass('presentation-visible');
 			$('#about-to-contact').show();
 			resizeHomeSections();
 
 			// Set Menu to local
+			$('.brand').attr('href', '#content-main');
 			var menuList = ['illustration', 'design', 'blog', 'about-me'];
 			for (var i = 0; i < menuList.length; i++) {
 				$('.' + menuList[i] + '-menu').attr('href', '#' + menuList[i]);
@@ -123,8 +227,11 @@ PANDORA.open(function($) {
 		onComplete = function(async) {
 			$pageData = $('#page-data');
 			pageId = $pageData.attr('data-page');
+			pageMenu = $pageData.attr('data-menu');
 
 			var context = (async) ? '#content-main ' : '';
+
+			HEADER.isHome = false;
 
 			PANDORA.SOFTLIGHT.select(context);
 			PANDORA.IMAGESEQUENCE.load();
@@ -135,9 +242,13 @@ PANDORA.open(function($) {
 				case 'home':
 					HOMEPAGE();
 					break;
+				case 'about-me':
+					ABOUTME.init().resize().setEvent();
+					break;
 				default:
 					//
 			}
+			HEADER.setCurrentByScroll();
 			PANDORA.SOFTSCROLL.selectLinks(context, 70);
 		};
 

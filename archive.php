@@ -6,33 +6,34 @@ if (!$async){
 		<?php if ($async){?>
 			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
 		<?php } ?>
-		<div class="invisible" id="page-data" data-menu="blog" data-page="archive"></div>
-<?php desaturateImageStyle(); ?>
-		<header class="header-article header-article-blog-list">
-			<img class="header-article-img desaturate wait-complete" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('large');} ?>"/>
-			<div class="wrap header-article-content">
-				<?php $cat_name = single_cat_title('',false);?>
-				<h1 class="soft-light slg-bottom">
-					<?php if(is_category()):
-						echo $cat_name; 
-					elseif(is_tag()):
-						echo "Tag <i>".$cat_name."</i>"; 
-					elseif(is_author()):
-						echo "Author: <i>".$cat_name."<i>"; 
-					elseif(is_archive()):
-						echo "On archive <i>".$cat_name."<i>";
-					endif; ?>
-				</h1>
-				<div class="red-line soft-light slg-bottom"></div>
-				<?php 
+		<div class="invisible" id="page-data" data-page="blog"></div>
+
+		<section id="blog" class="wrap blog-list">
+		<header class="wrap header-section">
+		<?php $cat_name = single_cat_title('',false);?>
+			<h1 class="soft-light slg-bottom">
+				<?php if(is_category()):
+					echo $cat_name; 
+				elseif(is_tag()):
+					echo "Tag <i>".$cat_name."</i>"; 
+				elseif(is_author()):
+					echo "Author: <i>".$cat_name."<i>"; 
+				elseif(is_archive()):
+					echo "On archive <i>".$cat_name."<i>";
+				endif; ?>
+			</h1>
+			<div class="red-line softlight"></div>
+			<p class="softlight">
+			<?php 
 				if($cat_name != 'Blog'){
 					echo '<p class="subtitle soft-light slg-bottom"><a href="' . pc_category_link('Blog') . '">Blog</a></p>';
+				}else{
+					echo category_description();
 				}
 				?>
-				<p class="cite soft-light slg-bottom"><?php echo category_description(); ?> </p>
-			</div>
-		</header>
-		<section class="wrap blog-list-side soft-light slg-bottom">
+			</p>
+		</header>		
+		<div class="wrap blog-list-side soft-light slg-bottom">
 			<div class="row">
 				<div class="col col-6">
 					<?php include (TEMPLATEPATH . '/menublog.php'); ?>
@@ -41,18 +42,23 @@ if (!$async){
 					<?php get_search_form(); ?>
 				</div>
 			</div>
-		</section>
+		</div>
+
+
+
+
 		<section class="wrap blog-list">
 			<div class="row">
-				<?php if (have_posts()) :?>
-				<?php while (have_posts()) : the_post();?>
-				<div class="col soft-light slg-bottom">
-					<div class="post-in-list" id="post-<?php the_ID();?>">
+			<div class="row">
+	<?php if (have_posts()) :?>
+					<?php while (have_posts()) : the_post();?>
+				<div class="col">
+					<div class="post-in-list softlight" data-softlight="y:0,scale:0.7" id="post-<?php the_ID();?>">
 						<figure>
 							<?php if(has_post_thumbnail()){
-								echo '<img class="srcwait" src="" srcwait="' . url_thumbnail('thumbnail') .'">';
+								echo '<img class="img-sequence" src="" data-src="' . url_thumbnail('thumbnail') .'">';
 								}else{ ?>
-									<img src="<?php bloginfo('template_url'); ?>/img/default-thumbnail.jpg" />		
+									<img class="img-sequence" src="" data-src="<?php bloginfo('template_url'); ?>/img/default-thumbnail.jpg" />		
 								<?php } ?>							
 							<a href="<?php the_permalink(); ?>">
 								<span>More</span>
@@ -78,19 +84,19 @@ if (!$async){
 				</div>				
 				<?php endif; ?>
 			</div>
-		</section>
-		<?php if ( $wp_query->max_num_pages > 1 ){ ?>
-		<nav class="blog-pagination">
-			<div class="wrap clearfix">
-				<div class="blog-pagination-arrow to-left">
-					<?php previous_posts_link('&lt; Previous Posts'); ?>
+			<?php if ( $wp_query->max_num_pages > 1 ){ ?>
+			<nav class="blog-pagination">
+				<div class="wrap clearfix">
+					<div class="blog-pagination-arrow to-left">
+						<?php previous_posts_link('&lt; Previous Posts'); ?>
+					</div>
+					<div class="blog-pagination-arrow to-right">				
+						<?php next_posts_link('Next Posts &gt;');	?>
+					</div>
 				</div>
-				<div class="blog-pagination-arrow to-right">				
-					<?php next_posts_link('Next Posts &gt;');	?>
-				</div>
-			</div>
-		</nav>
-		<?php } ?>
+			</nav>
+			<?php } ?>	
+		</section>		
 	</article>	
 <?php
 if (!$async){

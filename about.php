@@ -10,17 +10,16 @@ if (!$async){
 		<?php if ($async){?>
 			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
 		<?php } ?>
-		<div class="invisible" id="page-data" data-menu="about" data-page="about"></div>
+		<div class="invisible" id="page-data" data-menu="" data-page="about-me"></div>
 		<?php
 		if (have_posts()) : while (have_posts()) : the_post();
-		?>
-		
-		<section class="about-presentation">
+		?>		
+		<section id="about-me">
 			<img id="about-img" class="wait-complete" src="<?php bloginfo('template_url'); ?>/img/about.jpg"/>
-			<div id="about-text" class="soft-light slg-bottom">
+			<div id="about-text">
 				<div class="wrap">
-					<div class="about-col">
-						<?php tshow_post_content('me'); ?>
+					<div class="about-col softlight">
+						<?php the_content(); ?>
 					</div>					
 				</div>
 			</div>

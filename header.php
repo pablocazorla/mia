@@ -37,13 +37,11 @@
 	<?php wp_head(); ?>	
 </head>
 <body>
-	<!--
-	<header id="header-main">
-		<div class="wrap">
-			<a href="<?php bloginfo( 'url' ); ?>" class="brand">
-				
-				<span class="brand-name"><?php bloginfo( 'name' ); ?></span>
-				<span class="brand-description"><?php bloginfo( 'description' ); ?></span>
+
+	<header id="header-main" <?php if(is_home()){echo 'class="hidden"';}?>>
+		<div class="wrap clearfix">
+			<a href="<?php bloginfo( 'url' ); ?>" class="brand no-hash bubble bubble-bottom" title="<?php bloginfo( 'description' ); ?>">				
+				<?php bloginfo( 'name' ); ?>				
 			</a>
 			<?php render_menu(); ?>
 		</div>					
@@ -55,5 +53,5 @@
 		<span></span>
 	</div>
 	
--->
+
 	<div id="content-main">

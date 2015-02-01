@@ -3,6 +3,9 @@ if (!$async){
 	get_header();
 } ?>
 <article class="article-main">
+	<?php if ($async){?>
+		<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
+	<?php } ?>
 	<div class="invisible" id="page-data" data-menu="" data-page="home"></div>
 	<section id="presentation">
 		<img id="presentation-hand" src="<?php bloginfo('template_url'); ?>/img/profile-hand.jpg">
@@ -68,7 +71,7 @@ endif;
 ?>
 		</div>
 		<div class="view-all">
-			<a href="" class="softlight" data-softlight="y:0">View all Illustration</a>
+			<a href="<?php echo get_post_type_archive_link('illustration');?>" class="softlight" data-softlight="y:0">View all Illustration</a>
 		</div>		
 	</section>
 	<section id="design">
@@ -129,7 +132,7 @@ endif;
 ?>
 		</div>
 		<div class="view-all">
-			<a href="" class="softlight" data-softlight="y:0">View all Design</a>
+			<a href="<?php echo get_post_type_archive_link('design');?>" class="softlight" data-softlight="y:0">View all Design</a>
 		</div>		
 	</section>
 	<section id="blog" class="wrap blog-list">
@@ -172,7 +175,7 @@ endif;
 ?>
 		</div>
 		<div class="view-all">
-			<a href="" class="softlight" data-softlight="y:0">View all Blog posts</a>
+			<a href="<?php echo pc_category_link('Blog');?>" class="softlight" data-softlight="y:0">View all Blog posts</a>
 		</div>
 	</section>
 	<section id="about-me">

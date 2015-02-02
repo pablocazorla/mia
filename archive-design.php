@@ -15,6 +15,14 @@ if (!$async){
 			<h1 class="softlight">Design</h1>
 			<div class="red-line softlight"></div>
 			<p class="softlight">Conceptual, fantastic, literary, realistic, functional, games...</p>
+			<div class="gallery-menu soft-light slg-bottom" id="gallery-menu">
+				<?php
+					echo '<span class="gm-btn current">All</span>';
+					$categories = get_categories(array('taxonomy' => 'design','hide_empty' => false));
+					foreach ($categories as $category){
+					echo '<span class="gm-btn">' . $category->name . '</span>';
+				} ?>
+			</div>
 		</header>
 		<div id="design-gallery">
 <?php

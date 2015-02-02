@@ -15,6 +15,27 @@ if (!$async){
 			<h1 class="softlight">Illustration</h1>
 			<div class="red-line softlight"></div>
 			<p class="softlight">Conceptual, fantastic, literary, realistic, functional, games...</p>
+			<div class="gallery-menu soft-light slg-bottom" id="gallery-menu">
+				<?php
+					echo '<span class="gm-btn current">All</span>';
+					$categories = get_categories(array('taxonomy' => 'illustration','hide_empty' => false));
+					foreach ($categories as $category){
+					echo '<span class="gm-btn">' . $category->name . '</span>';
+				} ?>
+			</div>	
+			
+
+
+
+
+
+
+
+
+
+
+
+			
 		</header>
 		<div id="illustration-gallery" class="clearfix">
 <?php $list = new WP_Query('post_type=illustration&posts_per_page=60');

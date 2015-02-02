@@ -15,7 +15,7 @@ if (!$async){
 			<h1 class="softlight">Design</h1>
 			<div class="red-line softlight"></div>
 			<p class="softlight">Conceptual, fantastic, literary, realistic, functional, games...</p>
-			<div class="gallery-menu soft-light slg-bottom" id="gallery-menu">
+			<div class="gallery-menu softlight" id="gallery-menu">
 				<?php
 					echo '<span class="gm-btn current">All</span>';
 					$categories = get_categories(array('taxonomy' => 'design','hide_empty' => false));

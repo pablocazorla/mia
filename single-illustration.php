@@ -7,7 +7,7 @@ if (!$async){
 	<?php if ($async){?>
 		<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
 	<?php } ?>
-	<div class="invisible" id="page-data" data-menu="" data-page="single-illustration"></div>
+	<div class="invisible" id="page-data" data-menu="" data-page="illustration-post"></div>
 <?php 
 if (have_posts()) : while (have_posts()) : the_post();
 $titleShare = get_the_title();
@@ -15,74 +15,40 @@ $descriptionShare = get_the_excerpt();
 $urlImageShare = url_thumbnail('illustration-large');
 $illustrationLink = get_post_type_archive_link('illustration');
 ?>
-	<header class="header-article header-article-illustration-post in-single">		
-		<img class="header-article-img blur wait-complete" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>"/>
-	
-		<div class="wrap header-article-content">
-			<h1 class="soft-light slg-bottom"><?php echo $titleShare;?></h1>
-			<div class="red-line soft-light slg-bottom"></div>
-			<p class="subtitle soft-light slg-bottom"><a href="<?php echo $illustrationLink; ?>">Illustration</a></p>	
+	<section id="illustration-post" class="illustration-post">
+		<header class="header-section">
+			<div class="wrap">
+				<h1 class="softlight">
+					<?php echo $titleShare;?>
+				</h1>
+				<div class="red-line softlight"></div>
+				<p class="softlight">
+					<?php echo $descriptionShare;?>			
+				</p>
+				<nav class="share-nav softlight">	
+					<a href="" class="share link-facebook bubble" title="Share on Facebook" data-share="{'on':'facebook'}"></a><a href="" class="share link-google bubble" title="Share on Google+" data-share="{'on':'google'}"></a><a href="" class="share link-twitter bubble" title="Share on Twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"></a><a href="" class="share link-pinterest bubble" title="Share on Pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"></a>
+				</nav>
+			</div>
+		</header>
+		<div class="wrap">
+			<img class="auto wait illustrator-post-img" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>"/>
 		</div>
-	</header>
-	<figure class="wrap illustration-large">
-		<figcaption>
-			<p class="cite soft-light slg-bottom"><?php echo $descriptionShare;?></p>			
-			<nav class="share-nav soft-light slg-bottom">	
-				<a href="" class="share link-facebook bubble" title="Share on Facebook" data-share="{'on':'facebook'}"></a><a href="" class="share link-google bubble" title="Share on Google+" data-share="{'on':'google'}"></a><a href="" class="share link-twitter bubble" title="Share on Twitter" data-share="{'on':'twitter','description':'I want to share |<?php echo $titleShare; ?>|'}"></a><a href="" class="share link-pinterest bubble" title="Share on Pinterest" data-share="{'on':'pinterest','media':'<?php echo $urlImageShare; ?>','description':'|<?php echo $titleShare; ?>|: <?php echo $descriptionShare; ?>'}"></a>
-			</nav>
-		</figcaption>				
-		<img class="wait-complete soft-light slg-bottom" src="<?php if(has_post_thumbnail()){ echo url_thumbnail('illustration-large');} ?>"/>
-	</figure>
-	<?php if(strlen(get_the_content()) >= 5){ ?>
-	<div class="wrap the-content illustration-content">
-		<?php the_content(); ?>
-	</div>
-	<?php } ?>
-	<nav class="wrap nav-more">
-		<hr/>
-		<h3 class="align-center soft-light slg-bottom">More <a href="<?php echo $illustrationLink; ?>">Illustration</a></h3>	
-		<section class="gallery gallery-nav clearfix">
-			<?php
-				$prev_post = get_previous_post();
-				$srcImgPrev = wp_get_attachment_image_src( get_post_thumbnail_id($prev_post->ID), 'illustration-thumb');
-				$next_post = get_next_post();
-				$srcImgNext = wp_get_attachment_image_src( get_post_thumbnail_id($next_post->ID), 'illustration-thumb');
-			?>
-			<?php if (!empty( $next_post )){ ?>
-			<figure class="soft-light slg-bottom">
-		        <?php 
-				echo '<img class="illustration-thumb-img wait-complete" src="' . $srcImgNext[0] .'">';
-				?>
-				<a href="<?php echo get_permalink($next_post->ID); ?>">
-					<figcaption>
-						<p>Previous:</p>
-						<h2><?php echo get_the_title($next_post->ID); ?></h2>
-					</figcaption>
-				</a>							
-			</figure>
-			<?php } else{ ?>
-				<div class="empty"></div>
-			<?php } ?>
-			<?php if (!empty( $prev_post )){ ?>
-			<figure class="soft-light slg-bottom">
-		        <?php 
-				echo '<img class="illustration-thumb-img wait-complete" src="' . $srcImgPrev[0] .'">';
-				?>
-				<a href="<?php echo get_permalink($prev_post->ID); ?>">
-					<figcaption>
-						<p>Next:</p>
-						<h2><?php echo get_the_title($prev_post->ID); ?></h2>
-					</figcaption>
-				</a>							
-			</figure>
-			<?php } else{ ?>
-				<div class="empty"></div>
-			<?php } ?>	
-		</section>
+		<div class="wrap the-content illustration-content">
+			<?php the_content(); ?>
+		</div>
+<?php endwhile; endif; ?>	
+	</section>
+	<nav class="blog-pagination dark">
+		<div class="wrap clearfix">
+			<div class="blog-pagination-arrow to-left">
+				<?php previous_post_link('&lt; %link'); ?>
+			</div>
+			<div class="blog-pagination-arrow to-right">
+				<?php next_post_link('%link &gt;'); ?>
+			</div>
+		</div>
 	</nav>
-<?php endwhile; endif; ?>
 </article>
-
 <?php
 if (!$async){
 	get_footer();

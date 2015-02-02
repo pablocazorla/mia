@@ -1,48 +1,41 @@
 <?php $async = $_GET['async'];
 if (!$async){
 	get_header();
-} ?>
+} 
+?>
 	<article class="article-main article-blog article-list">
 		<?php if ($async){?>
 			<div id="hidden-title" class="invisible"><?php get_page_title(); ?></div>
 		<?php } ?>
-		<div class="invisible" id="page-data" data-menu="blog" data-page="archive"></div>
-
-		<header class="header-article header-article-blog-list">
-			<img class="header-article-img blur wait-complete" src="<?php bloginfo('template_url'); ?>/img/search.jpg"/>
-			<div class="wrap header-article-content">
-				<?php $cat_name = single_cat_title('',false);?>
-				<h1 class="soft-light slg-bottom">
-					Results of "<?php echo $s; ?>"
-				</h1>
-				<div class="red-line soft-light slg-bottom"></div>
-				<?php 
-					echo '<p class="subtitle soft-light slg-bottom"><a href="' . pc_category_link('Blog') . '">Blog</a></p>';				
-				?>
-				<p class="cite soft-light slg-bottom"><?php echo category_description(); ?> </p>
-			</div>
-		</header>
-		<section class="wrap blog-list-side soft-light slg-bottom">
-			<div class="row">
-				<div class="col col-6">
-					<?php include (TEMPLATEPATH . '/menublog.php'); ?>
-				</div>
-				<div class="col col-6">
-					<?php get_search_form(); ?>
+		<div class="invisible" id="page-data" data-page="search"></div>
+		<section id="search" class="wrap blog-list">
+			<header class="wrap header-section">
+				<h1 class="softlight">Results of "<?php echo $s; ?>"</h1>
+				<div class="red-line softlight"></div>
+				<p class="softlight">
+					<?php echo '<p class="subtitle softlight"><a href="' . pc_category_link('Blog') . '">Blog</a></p>';?>
+				</p>
+			</header>		
+			<div class="blog-list-side softlight">
+				<div class="row">
+					<div class="col col-6">
+						<?php include (TEMPLATEPATH . '/menublog.php'); ?>
+					</div>
+					<div class="col col-6">
+						<?php get_search_form(); ?>
+					</div>
 				</div>
 			</div>
-		</section>
-		<section class="wrap blog-list">
 			<div class="row">
-				<?php if (have_posts()) :?>
-				<?php while (have_posts()) : the_post();?>
-				<div class="col soft-light slg-bottom">
-					<div class="post-in-list" id="post-<?php the_ID();?>">
+	<?php if (have_posts()) :?>
+					<?php while (have_posts()) : the_post();?>
+				<div class="col">
+					<div class="post-in-list softlight" data-softlight="y:0,scale:0.7" id="post-<?php the_ID();?>">
 						<figure>
 							<?php if(has_post_thumbnail()){
-								echo '<img class="srcwait" src="" srcwait="' . url_thumbnail('thumbnail') .'">';
+								echo '<img class="img-sequence" src="" data-src="' . url_thumbnail('thumbnail') .'">';
 								}else{ ?>
-									<img src="<?php bloginfo('template_url'); ?>/img/default-thumbnail.jpg" />		
+									<img class="img-sequence" src="" data-src="<?php bloginfo('template_url'); ?>/img/default-thumbnail.jpg" />		
 								<?php } ?>							
 							<a href="<?php the_permalink(); ?>">
 								<span>More</span>
@@ -63,11 +56,11 @@ if (!$async){
 				</div>
 				<?php endwhile; ?>
 				<?php else :?>
-				<div class="col col-12 soft-light slg-bottom align-center">
-					<h2>Sorry, posts not found.</h2>
+				<div class="col col-12 post-not-found">
+					<h3 class="softlight">Sorry, posts not found...</h3>
 				</div>				
 				<?php endif; ?>
-			</div>
+			</div>			
 		</section>
 		<?php if ( $wp_query->max_num_pages > 1 ){ ?>
 		<nav class="blog-pagination">
@@ -80,7 +73,7 @@ if (!$async){
 				</div>
 			</div>
 		</nav>
-		<?php } ?>
+		<?php } ?>		
 	</article>	
 <?php
 if (!$async){

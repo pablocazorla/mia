@@ -28,18 +28,25 @@ PANDORA.open(function($) {
 	var $pageData,
 		pageMenu,
 		pageId = 'home',
-
+		isHome = false,
+		headerVisible = true,
 		$header = $('#header-main'),
 
 		HEADER = {
 			limitToHide: 0,
-			isHome: false,
-			sections: ['illustration', 'design', 'blog', 'about-me', 'contact'],
+
+			sections: ['illustration', 'illustration-post', 'design', 'design-post', 'blog', 'blog-post', 'error404', 'search', 'about-me', 'page', 'contact'],
 			backColors: {
 				'illustration': false,
+				'illustration-post': false,
 				'design': true,
+				'design-post': true,
 				'blog': true,
+				'search': true,
+				'blog-post': true,
+				'error404': true,
 				'about-me': false,
+				'page': true,
 				'contact': false
 			},
 			current: function(str) {
@@ -53,9 +60,9 @@ PANDORA.open(function($) {
 			},
 			setCurrentByScroll: function() {
 				var sec = [],
-					i, l = this.sections.length,
-					headerVisible = true;
-				if (this.isHome) {
+					i, l = this.sections.length;
+				headerVisible = true;
+				if (isHome) {
 					sec.push({
 						'$e': $('#what-i-do'),
 						'name': 'what-i-do'
@@ -93,7 +100,7 @@ PANDORA.open(function($) {
 							HEADER.current(newMenu);
 							currentMenu = newMenu;
 						}
-						if (HEADER.isHome) {
+						if (isHome) {
 							if (currentMenu === 'what-i-do' && headerVisible) {
 								$header.addClass('hidden');
 								headerVisible = false;
@@ -111,7 +118,16 @@ PANDORA.open(function($) {
 				onChangeSec();
 			}
 		},
+		setBlurStyle = function(bl) {
+			var blur = bl || 4,
+				filter = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="invisible">';
+			filter += '<filter id="blur"> <feGaussianBlur stdDeviation="' + blur + '" /> </filter>';
+			filter += '</svg><style type="text/css">';
+			filter += 'img.blur { filter: url(#blur); -webkit-filter: blur(' + blur + 'px); -moz-filter: blur(' + blur + 'px); filter: blur(' + blur + 'px); filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius="' + blur + '"); }';
+			filter += '</style>';
 
+			$('#content-main').append(filter);
+		},
 		setLocalMenu = (function() {
 			var menuComplete = ['brand', 'illustration', 'design', 'blog', 'about-me'],
 				l = menuComplete.length,
@@ -185,7 +201,17 @@ PANDORA.open(function($) {
 			detect();
 			PANDORA.$window.scroll(detect).resize(detect);
 		},
-
+		setPrettyPrint = function() {
+			var somePre = false;
+			$('pre').not('.no-print').each(function() {
+				var $this = $(this).addClass('prettyprint');
+				$this.text($this.html());
+				somePre = true;
+			});
+			if (somePre) {
+				$.getScript('//google-code-prettify.googlecode.com/svn/loader/run_prettify.js?skin=desert');
+			}
+		},
 		gallery = function() {
 			var $menu = $('#gallery-menu'),
 				$a = $menu.find('.gm-btn'),
@@ -231,14 +257,26 @@ PANDORA.open(function($) {
 			setLocalMenu(['illustration'], true);
 			gallery();
 		},
+		ILLUSTRATIONPOST = function() {
+			// Set Black Dimmer for navigatio arrows
+			$('.blog-pagination-arrow a').attr('data-blank','black');
+		},
 		DESIGN = function() {
 			// Set Menu to local
 			setLocalMenu(['design'], true);
 			gallery();
 		},
+		DESIGNPOST = function() {
+			setBlurStyle();
+			setPrettyPrint();
+		},
 		BLOG = function() {
 			// Set Menu to local
 			setLocalMenu(['blog'], true);
+		},
+		BLOGPOST = function() {
+			setBlurStyle();
+			setPrettyPrint();
 		},
 		ABOUTME = {
 			init: function() {
@@ -303,7 +341,9 @@ PANDORA.open(function($) {
 				ABOUTME.resize();
 			};
 
-			HEADER.isHome = true;
+			isHome = true;
+			headerVisible = false;
+			$header.addClass('hidden');
 			$presentationHand.css('opacity', '1');
 			$presentation.addClass('presentation-visible');
 			$('#about-to-contact').show();
@@ -316,15 +356,18 @@ PANDORA.open(function($) {
 		},
 
 		onComplete = function(async) {
+
 			$pageData = $('#page-data');
 			pageId = $pageData.attr('data-page');
 			pageMenu = $pageData.attr('data-menu');
 
 			var context = (async) ? '#content-main ' : '';
 
-			HEADER.isHome = false;
+			isHome = false;
 
 			PANDORA.SOFTLIGHT.select(context);
+			PANDORA.IMAGEWAITER.select(context);
+			PANDORA.LOADER.setLinks(context);
 			PANDORA.IMAGESEQUENCE.load();
 			setLocalMenu([]);
 
@@ -337,11 +380,20 @@ PANDORA.open(function($) {
 				case 'illustration':
 					ILLUSTRATION();
 					break;
+				case 'illustration-post':
+					ILLUSTRATIONPOST();
+					break;
 				case 'design':
 					DESIGN();
 					break;
+				case 'design-post':
+					DESIGNPOST();
+					break;
 				case 'blog':
 					BLOG();
+					break;
+				case 'blog-post':
+					BLOGPOST();
 					break;
 				case 'about-me':
 					ABOUTME.init().resize().setEvent();
@@ -351,15 +403,19 @@ PANDORA.open(function($) {
 			}
 			HEADER.setCurrentByScroll();
 			PANDORA.SOFTSCROLL.selectLinks(context, 70);
+
 		};
 
 	// FUNCTIONS UNIQUES: syncronic
 	// header, footer
 	PANDORA.SOFTSCROLL.goByHash();
 	goTopBtn();
-
-	// temp , debe estar antes de LOAD
-	PANDORA.ASYNC.clearEvents();
+	PANDORA.LOADER.init().before(function() {
+		// debe estar antes de LOAD
+		PANDORA.ASYNC.clearEvents();
+	}).success(function() {
+		onComplete(true);
+	});
 
 	// FUNCTIONS BY PAGE: asyncronic
 	onComplete(false);

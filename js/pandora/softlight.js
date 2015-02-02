@@ -68,8 +68,8 @@
 			// Add elem
 			objElem.elem = elem;
 
-			var isVisible = test(objElem).visible;
-			if (!isVisible) {
+			var isReady = test(objElem).ready;
+			if (!isReady) {
 				//correction of position
 				objElem.from -= objElem.y;
 				//
@@ -118,10 +118,10 @@
 		},
 		show = function(ob) {
 			setTimeout(function() {
-				ob.elem.style.opacity = '1';
-				ob.elem.style[transformFix] = 'none';
+				ob.elem.style.opacity = '';
+				ob.elem.style[transformFix] = '';
 				setTimeout(function() {
-					ob.elem.style[transitionFix] = 'none';
+					ob.elem.style[transitionFix] = '';
 				}, ob.duration + ob.delay + 50);
 			}, delay);
 		},
@@ -132,8 +132,9 @@
 				delay = 0;
 				for (i = 0; i < length; i++) {
 					var objElem = list[i],
-						isVisible = test(objElem).visible,
-						isReady = test(objElem).ready;
+						testElem = test(objElem),
+						isVisible = testElem.visible,
+						isReady = testElem.ready;
 					if (isVisible) {
 						show(objElem);
 
@@ -162,8 +163,10 @@
 				if (!initialized) {
 					PANDORA.$window.scroll(onScroll).resize(onScroll);
 					initialized = true;
-					onScroll();					
 				}
+				setTimeout(function(){
+					onScroll();
+				},100);	
 			}
 		},
 		forceTest = function(){

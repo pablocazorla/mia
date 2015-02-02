@@ -57,7 +57,7 @@ if ($list->have_posts()): while ($list->have_posts()): $list->the_post(); ?>
 		        <?php if(has_post_thumbnail()){
 					echo '<img class="auto img-sequence" src="" data-src="' . url_thumbnail('illustration-thumb') .'">';
 				} ?>
-				<a href="<?php the_permalink(); ?>">
+				<a href="<?php the_permalink(); ?>" data-blank="black">
 					<figcaption>						
 						<h2><?php the_title(); ?></h2>
 						<p>Concept art</p>
@@ -71,7 +71,7 @@ endif;
 ?>
 		</div>
 		<div class="view-all">
-			<a href="<?php echo get_post_type_archive_link('illustration');?>" class="softlight" data-softlight="y:0">View all Illustration</a>
+			<a href="<?php echo get_post_type_archive_link('illustration');?>" class="softlight" data-softlight="y:0" data-blank="black">View all Illustration</a>
 		</div>		
 	</section>
 	<section id="design">

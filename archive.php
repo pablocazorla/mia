@@ -10,7 +10,7 @@ if (!$async){
 		<section id="blog" class="wrap blog-list">
 			<header class="wrap header-section">
 			<?php $cat_name = single_cat_title('',false);?>
-				<h1 class="soft-light slg-bottom">
+				<h1 class="softlight">
 					<?php if(is_category()):
 						echo $cat_name; 
 					elseif(is_tag()):
@@ -25,14 +25,14 @@ if (!$async){
 				<p class="softlight">
 				<?php 
 					if($cat_name != 'Blog'){
-						echo '<p class="subtitle soft-light slg-bottom"><a href="' . pc_category_link('Blog') . '">Blog</a></p>';
+						echo '<p class="subtitle softlight"><a href="' . pc_category_link('Blog') . '">Blog</a></p>';
 					}else{
 						echo category_description();
 					}
 					?>
 				</p>
 			</header>		
-			<div class="blog-list-side soft-light slg-bottom">
+			<div class="blog-list-side softlight">
 				<div class="row">
 					<div class="col col-6">
 						<?php include (TEMPLATEPATH . '/menublog.php'); ?>

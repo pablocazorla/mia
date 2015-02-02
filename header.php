@@ -40,7 +40,7 @@
 
 	<header id="header-main" <?php if(is_home()){echo 'class="hidden"';}?>>
 		<div class="wrap clearfix">
-			<a href="<?php bloginfo( 'url' ); ?>" class="brand no-hash bubble bubble-bottom" title="<?php bloginfo( 'description' ); ?>">				
+			<a href="<?php bloginfo( 'url' ); ?>" class="brand no-hash bubble bubble-bottom" title="<?php bloginfo( 'description' ); ?>" data-blank="black">				
 				<?php bloginfo( 'name' ); ?>				
 			</a>
 			<?php render_menu(); ?>

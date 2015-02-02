@@ -15,7 +15,7 @@ if (!$async){
 			<h1 class="softlight">Illustration</h1>
 			<div class="red-line softlight"></div>
 			<p class="softlight">Conceptual, fantastic, literary, realistic, functional, games...</p>
-			<div class="gallery-menu soft-light slg-bottom" id="gallery-menu">
+			<div class="gallery-menu softlight" id="gallery-menu">
 				<?php
 					echo '<span class="gm-btn current">All</span>';
 					$categories = get_categories(array('taxonomy' => 'illustration','hide_empty' => false));
@@ -40,7 +40,7 @@ if ( $types && ! is_wp_error( $types ) ) {
 		        <?php if(has_post_thumbnail()){
 					echo '<img class="auto img-sequence" src="" data-src="' . url_thumbnail('illustration-thumb') .'">';
 				} ?>
-				<a href="<?php the_permalink(); ?>">
+				<a href="<?php the_permalink(); ?>" data-blank="black">
 					<figcaption>						
 						<h2><?php the_title(); ?></h2>
 						<p>Concept art</p>

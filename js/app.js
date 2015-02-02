@@ -129,7 +129,7 @@ PANDORA.open(function($) {
 					$('.' + n + '-menu').attr('href', urlCache[n]);
 				}
 			};
-			return function(menuList, noHash) {			
+			return function(menuList, noHash) {
 				if (menuList.length == 0) {
 					recoverUrl();
 				} else {
@@ -185,13 +185,56 @@ PANDORA.open(function($) {
 			detect();
 			PANDORA.$window.scroll(detect).resize(detect);
 		},
+
+		gallery = function() {
+			var $menu = $('#gallery-menu'),
+				$a = $menu.find('.gm-btn'),
+				$figures = $('.gallery-fig'),
+				current = 'all',
+				enabled = true,
+				// functions
+				select = function(cl, $aLink) {
+					if (cl != current && enabled) {
+						enabled = false;
+
+						if (cl == 'all') {
+							$figures.removeClass('hidden');
+						} else {
+							if (current == 'all') {
+								$figures.not('.' + cl).addClass('hidden');
+							} else {
+								$figures.filter('.' + current).addClass('hidden');
+								$figures.filter('.' + cl).removeClass('hidden');
+							}
+						}
+						current = cl;
+						setTimeout(function() {
+							enabled = true;
+							PANDORA.SOFTLIGHT.forceTest();
+						}, 600);
+						$a.removeClass('current');
+						$aLink.addClass('current');
+					}
+				};
+			$a.click(function() {
+				var $this = $(this),
+					cl = $this.text().toLowerCase().replace(/ /g, '-');
+				if (cl.indexOf('all-') != -1) {
+					cl = 'all';
+				}
+				select(cl, $this);
+			});
+		},
+
 		ILLUSTRATION = function() {
 			// Set Menu to local
 			setLocalMenu(['illustration'], true);
+			gallery();
 		},
 		DESIGN = function() {
 			// Set Menu to local
 			setLocalMenu(['design'], true);
+			gallery();
 		},
 		BLOG = function() {
 			// Set Menu to local

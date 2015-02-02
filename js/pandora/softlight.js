@@ -165,7 +165,12 @@
 					onScroll();					
 				}
 			}
+		},
+		forceTest = function(){
+			onScroll();	
 		};
 
 	PANDORA.SOFTLIGHT.select = select;
+	PANDORA.SOFTLIGHT.forceTest = forceTest;
+
 })();

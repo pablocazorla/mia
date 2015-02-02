@@ -500,6 +500,14 @@ img.auto{
 	float: left;width: 33.33333333%;
 	position: relative;
 	overflow: hidden;
+
+	-webkit-transition: all .6s;
+	-moz-transition: all .6s;
+	transition: all .6s;
+}
+.illustration-figure.hidden{
+	opacity: 0 !important;
+	width: 0%;
 }
 .illustration-figure a{
 	display: block;
@@ -512,9 +520,8 @@ img.auto{
 	-webkit-transition: opacity .3s;
 	-moz-transition: opacity .3s;
 	transition: opacity .3s;
-	cursor:default;
+	cursor:pointer;
 }
-.illustration-figure.selected a{cursor:pointer}
 .illustration-figure a:hover{text-decoration: none}
 .illustration-figure a h2{
 	position: absolute;
@@ -538,16 +545,16 @@ img.auto{
 	-webkit-transition: transform .6s ease-out, opacity .3s;
 	-moz-transition: transform .6s ease-out, opacity .3s;
 	transition: transform .6s ease-out, opacity .3s;
-	opacity: .2;
+	opacity: 1;
 
 	/* temp */
 	min-height: 395px
 }
-.illustration-figure.selected img{opacity: 1}
+
 .illustration-figure:hover a h2{bottom: 50%}
 .illustration-figure:hover a p{top: 50%}
-.illustration-figure.selected:hover a{opacity: 1}
-.illustration-figure.selected:hover img{
+.illustration-figure:hover a{opacity: 1}
+.illustration-figure:hover img{
 	-webkit-transform: scale(1.05);
 	-moz-transform: scale(1.05);
 	transform: scale(1.05);
@@ -610,6 +617,10 @@ img.auto{
 	transition: opacity .5s,max-height .5s;
 	overflow: hidden;
 	max-height: 600px
+}
+#design-gallery .gallery-fig.hidden{
+	max-height:0;
+	opacity: 0 !important;
 }
 #design-gallery .gallery-fig.backcolor1{background-color: #756a80;}
 #design-gallery .gallery-fig.backcolor2{background-color: #5a7880;}

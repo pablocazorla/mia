@@ -22,26 +22,21 @@ if (!$async){
 					foreach ($categories as $category){
 					echo '<span class="gm-btn">' . $category->name . '</span>';
 				} ?>
-			</div>	
-			
-
-
-
-
-
-
-
-
-
-
-
-			
+			</div>			
 		</header>
-		<div id="illustration-gallery" class="clearfix">
+		<div id="illustration-gallery" class="gallery clearfix">
 <?php $list = new WP_Query('post_type=illustration&posts_per_page=60');
-if ($list->have_posts()): while ($list->have_posts()): $list->the_post(); ?>
+if ($list->have_posts()): while ($list->have_posts()): $list->the_post();
+$types = get_the_terms( $post->ID, 'illustration' );
+$classType = '';										
+if ( $types && ! is_wp_error( $types ) ) {
+	foreach ( $types as $type ) {
+		$classType = $classType." ".str_replace(" ","-",strtolower($type->name));
+	}
+}
+?>
 
-			<figure class="illustration-figure softlight selected">
+			<figure class="illustration-figure gallery-fig <?php echo $classType;?> softlight">
 		        <?php if(has_post_thumbnail()){
 					echo '<img class="auto img-sequence" src="" data-src="' . url_thumbnail('illustration-thumb') .'">';
 				} ?>

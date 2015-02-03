@@ -281,6 +281,7 @@ PANDORA.open(function($) {
 			PANDORA.SHARE.setLinks(context);
 			setPrettyPrint();
 			PANDORA.VALIDATION.set(context);
+			PANDORA.SOCIALCOMMENTS.set(context);
 		},
 		ABOUTME = {
 			init: function() {

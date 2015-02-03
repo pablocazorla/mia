@@ -26,10 +26,11 @@
 	<script type="text/javascript">
 		ltIE9 = true;
 	</script>
-	<![endif]-->
+	<![endif]-->	
 	<script type="text/javascript">
 		baseURL = "<?php bloginfo( 'url' ); ?>";
 		baseTemplateURL = "<?php bloginfo('template_url'); ?>";
+		//var disqus_developer = 1; // this would set it to developer mode
 	</script>		
 	<?php wp_head(); ?>	
 </head>

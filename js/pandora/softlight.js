@@ -1,7 +1,7 @@
 // PANDORA SOFTLIGHT
 ;
 (function() {
-
+	'use strict';
 	PANDORA.SOFTLIGHT = {
 		delay: 200,
 		defaults: {
@@ -175,5 +175,4 @@
 
 	PANDORA.SOFTLIGHT.select = select;
 	PANDORA.SOFTLIGHT.forceTest = forceTest;
-
 })();

@@ -29,9 +29,9 @@ PANDORA.open(function($) {
 		pageMenu,
 		pageId = 'home',
 		isHome = false,
+		context = '',
 		headerVisible = true,
 		$header = $('#header-main'),
-
 		HEADER = {
 			limitToHide: 0,
 
@@ -260,6 +260,7 @@ PANDORA.open(function($) {
 		ILLUSTRATIONPOST = function() {
 			// Set Black Dimmer for navigatio arrows
 			$('.blog-pagination-arrow a').attr('data-blank','black');
+			PANDORA.SHARE.setLinks(context);
 		},
 		DESIGN = function() {
 			// Set Menu to local
@@ -268,6 +269,7 @@ PANDORA.open(function($) {
 		},
 		DESIGNPOST = function() {
 			setBlurStyle();
+			PANDORA.SHARE.setLinks(context);
 			setPrettyPrint();
 		},
 		BLOG = function() {
@@ -276,7 +278,9 @@ PANDORA.open(function($) {
 		},
 		BLOGPOST = function() {
 			setBlurStyle();
+			PANDORA.SHARE.setLinks(context);
 			setPrettyPrint();
+			PANDORA.VALIDATION.set(context);
 		},
 		ABOUTME = {
 			init: function() {
@@ -361,7 +365,7 @@ PANDORA.open(function($) {
 			pageId = $pageData.attr('data-page');
 			pageMenu = $pageData.attr('data-menu');
 
-			var context = (async) ? '#content-main ' : '';
+			context = (async) ? '#content-main ' : '';
 
 			isHome = false;
 

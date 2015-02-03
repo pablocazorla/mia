@@ -1,13 +1,10 @@
 // FIX IMAGE
 ;
 (function() {
-
-
-
+	'use strict';
 	var fixIm = function(options) {
 		return this.init(options);
 	};
-
 	fixIm.prototype = {
 		init: function(options) {
 			this.ready = false;
@@ -55,7 +52,6 @@
 			return this;
 		}
 	};
-
 	PANDORA.FIXIMAGE = function(options) {
 		return new fixIm(options);
 	}

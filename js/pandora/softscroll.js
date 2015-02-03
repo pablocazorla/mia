@@ -1,6 +1,7 @@
 // PANDORA SOFTSCROLL
 ;
 (function() {
+	'use strict';
 	var moving = false,
 		noHash = false,
 		anim = function(posY, vel, sel) {

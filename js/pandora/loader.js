@@ -1,8 +1,7 @@
 // PANDORA LOADER
 ;
 (function() {
-
-
+	'use strict';
 	var duration = 400, // o show or hide blank
 		blanked = true,
 		initialized = false,

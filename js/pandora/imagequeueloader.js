@@ -1,6 +1,6 @@
 // PANDORA IMAGE QUEUE
 (function() {
-
+	'use strict';
 	var $queue = $(''),
 		classSelection = 'img-sequence',
 		classTransition = 'img-sequence-anim',
@@ -50,7 +50,6 @@
 
 			return this;
 		},
-
 		load: function() {
 			onError = null;
 			onSucess = null;
@@ -67,9 +66,5 @@
 			onError = callback;
 			return this;
 		}
-
-	}
-
-
-
+	};
 })();

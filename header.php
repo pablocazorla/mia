@@ -30,10 +30,7 @@
 	<script type="text/javascript">
 		baseURL = "<?php bloginfo( 'url' ); ?>";
 		baseTemplateURL = "<?php bloginfo('template_url'); ?>";
-
-		var disqus_developer = 1; // this would set it to developer mode
-	</script>
-		
+	</script>		
 	<?php wp_head(); ?>	
 </head>
 <body>

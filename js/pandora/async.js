@@ -6,7 +6,6 @@
 		onWindowResize = {},
 		onWindowScroll = {},
 		counter = 0,
-
 		init = function() {
 			// Set window events
 			PANDORA.$window.resize(function() {

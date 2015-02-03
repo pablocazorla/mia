@@ -1,16 +1,15 @@
 // PANDORA IMAGE WAITER
 ;
 (function() {
-	PANDORA.IMAGEWAITER = {};
-
+	'use strict';
 	var classSelection = 'wait',
 		transitionFix = PANDORA.cssfix('transition'),
 
-		show = function(node){
+		show = function(node) {
 			node.style.opacity = '';
-			setTimeout(function(){
+			setTimeout(function() {
 				node.style[transitionFix] = '';
-			},500);
+			}, 500);
 		},
 
 		select = function(context) {
@@ -22,10 +21,10 @@
 				node.style.opacity = '0';
 				node.style[transitionFix] = 'opacity .4s';
 
-				if(node.complete){
+				if (node.complete) {
 					show(node);
-				}else{
-					$this.load(function(){
+				} else {
+					$this.load(function() {
 						show(this);
 					});
 				}
@@ -34,5 +33,7 @@
 			});
 		};
 
-	PANDORA.IMAGEWAITER.select = select;
+	PANDORA.IMAGEWAITER = {
+		select: select
+	};
 })();

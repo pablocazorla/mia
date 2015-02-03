@@ -40,6 +40,9 @@
 		<script src="<?php bloginfo('template_url'); ?>/js/pandora/imagewaiter.js" type="text/javascript"></script>
 		<script src="<?php bloginfo('template_url'); ?>/js/pandora/softscroll.js" type="text/javascript"></script>
 		<script src="<?php bloginfo('template_url'); ?>/js/pandora/loader.js" type="text/javascript"></script>
+		<script src="<?php bloginfo('template_url'); ?>/js/pandora/share.js" type="text/javascript"></script>
+		<script src="<?php bloginfo('template_url'); ?>/js/pandora/socialcomments.js" type="text/javascript"></script>
+		<script src="<?php bloginfo('template_url'); ?>/js/pandora/validation.js" type="text/javascript"></script>
 		<script src="<?php bloginfo('template_url'); ?>/js/app.js" type="text/javascript"></script>	
 	</body>
 </html>

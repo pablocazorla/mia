@@ -219,6 +219,92 @@ fieldset.error .errorMessage{color:#D00;font-size: 14px;line-height: 20px;displa
 .share-nav a.link-pinterest{background-position: -335px 0;}
 .share-nav a.link-pinterest:hover{background-position: -335px -25px;}
 
+
+/* TABS */
+
+.tab-button-container{
+	height:50px;line-height:50px;
+	font-size: 18px;
+	border-bottom: solid 1px #CCC;
+	margin: 15px 0;
+}
+.tab-button-container .tab-button{
+	float:left;height:50px;
+	padding: 0 20px; text-align: center;min-width: 120px;
+	background-color: #E2E2E2;
+	border: solid 1px #CCC;
+	box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.15) inset;
+	border-radius: 3px 3px 0 0;
+	margin: 0 5px 0 0;
+	cursor: pointer;
+	color: #666;
+}
+.tab-button-container .tab-button:hover{
+	opacity: .8;
+}
+.tab-button-container .tab-button.current{
+	background-color: #FFF;
+	box-shadow: none;
+	border-bottom: solid 1px #FFF;
+	cursor: default;
+	color: #111;
+}
+.tab-button-container .tab-button.current:hover{
+	opacity: 1;
+}
+
+.tab-button .icon-tab{
+	display: none;
+}
+
+.tab{
+	display: none;
+	min-height: 350px;
+}
+.tab.current{
+	display: block;
+}
+
+.tab-button.goo-plus .icon-tab{
+	display: inline-block;
+	width:25px;height: 25px;
+	background-position: -285px 0;
+	margin-right: 6px;
+	position: relative;
+	top:8px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* SPRITE ***************************************************/
 
 .wid-icon,
@@ -227,7 +313,8 @@ fieldset.error .errorMessage{color:#D00;font-size: 14px;line-height: 20px;displa
 .arrow-bottom,
 #goto-top,
 input.search-submit,
-.share-nav a{
+.share-nav a,
+.tab-button .icon-tab{
 	background-image: url('img/sprite.png');
 	background-repeat: no-repeat; 
 }
@@ -1148,6 +1235,15 @@ input.search-submit{
 
 #clearFields{
 	font-size: 16px;line-height: 36px;margin-left:30px;
+}
+
+.google-plus-loading{
+	text-align: center;
+	padding: 50px 0 150px;
+}
+.google-plus-loading h4{
+	font-weight: normal;
+	color: #666;
 }
 
 

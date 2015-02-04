@@ -39,6 +39,7 @@
 		<script src="<?php bloginfo('template_url'); ?>/js/pandora/imagequeueloader.js" type="text/javascript"></script>
 		<script src="<?php bloginfo('template_url'); ?>/js/pandora/imagewaiter.js" type="text/javascript"></script>
 		<script src="<?php bloginfo('template_url'); ?>/js/pandora/softscroll.js" type="text/javascript"></script>
+		<script src="<?php bloginfo('template_url'); ?>/js/pandora/tabs.js" type="text/javascript"></script>
 		<script src="<?php bloginfo('template_url'); ?>/js/pandora/loader.js" type="text/javascript"></script>
 		<script src="<?php bloginfo('template_url'); ?>/js/pandora/share.js" type="text/javascript"></script>
 		<script src="<?php bloginfo('template_url'); ?>/js/pandora/socialcomments.js" type="text/javascript"></script>

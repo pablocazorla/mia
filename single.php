@@ -43,10 +43,17 @@ $blogLink = pc_category_link('Blog');
 					</div>
 					<div class="blog-post-comments" id="comments">
 						<hr class="hr-grey"/>
-						<div class="tabs">
-							<div  class="tab" id="googleCommentsContainer"></div>
-							<div class="tab" id="disqus_thread"></div>
-							<div class="tab"><?php comments_template(); ?></div>							
+						<div id="commentTabs">
+							<div class="tab" data-tabname="Comments" data-tabtitle="Comments by Form"><?php comments_template(); ?></div>
+							<div  class="tab" data-tabname="Google+" data-tabclass="goo-plus" data-tabtitle="Comments in Google+">
+								<div id="googleCommentsContainer">
+									<div class="google-plus-loading">
+										<h4>Loading comments in Google+ .....</h4>
+									</div>	
+								</div>
+															
+							</div>
+							<!--div class="tab" id="disqus_thread"></div-->														
 						</div>					
 					</div>
 				</div>

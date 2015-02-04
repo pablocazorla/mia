@@ -88,3 +88,25 @@ var PANDORA = (function() {
 		empty: function() {}
 	}
 })();
+
+/* Bubble Plugin
+ * @author: Pablo Cazorla
+ * @date: 20/01/2015
+ */
+(function($) {
+	$.fn.bubble = function() {
+		return this.each(function() {
+			var $this = $(this).addClass('bubble'),
+				title = $this.attr('title');
+
+			if (typeof title !== 'undefined' && title !== '') {
+				var position = $this.css('position'),
+					$msg = $('<span class="bubble-msg">' + title + '</span>');
+				$this.attr('title', '').append($msg);
+				if (position === 'static') {
+					$this.css('position', 'relative');
+				}
+			}
+		});
+	};
+})(jQuery);

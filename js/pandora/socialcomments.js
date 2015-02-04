@@ -4,6 +4,7 @@
 
 	var initialized = false,
 		context = '',
+		tabs = null,
 		disqusComments = function(url) {
 			if (typeof DISQUS !== 'undefined') {
 				var idPost = $('.article-main').attr('data-id');
@@ -22,27 +23,52 @@
 				(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 			}
 		},
-		googleComments = function(){
-			var idContainer = 'googleCommentsContainer',
-				w = $('#'+idContainer).width();
-			gapi.comments.render(idContainer, {
-			    href: window.location,
-			    width: w,
-			    first_party_property: 'BLOGGER',
-			    view_type: 'FILTERED_POSTMOD'
-			});
+		googleComments = {
+			loadedApi: false,
+			loadedComments: false,
+
+			init: function() {
+				var self = this;
+				this.loadedComments = false;
+				if (!this.loadedApi) {
+					$.getScript('https://apis.google.com/js/plusone.js', function() {
+						self.loadedApi = true;
+						self.setTabEvent();
+					});
+				} else {
+					self.setTabEvent();
+				}
+			},
+			setTabEvent: function() {
+				var self = this;
+				tabs.button[1].click(function() {
+					if (!self.loadedComments) {
+						self.loadComments();
+						self.loadedComments = true;
+					}
+				});
+			},
+			loadComments: function() {
+				var idContainer = 'googleCommentsContainer',
+					w = $('#' + idContainer).width();
+				gapi.comments.render(idContainer, {
+					href: window.location,
+					width: w,
+					first_party_property: 'BLOGGER',
+					view_type: 'FILTERED_POSTMOD'
+				});
+			}
 		};
 
 	PANDORA.SOCIALCOMMENTS = {
 		set: function(ctx) {
 			context = ctx || '';
 
+			tabs = PANDORA.TABS('commentTabs');
+			
+
 			setTimeout(function() {
-				if (!initialized) {
-					$.getScript('https://apis.google.com/js/plusone.js', googleComments);
-				}else{
-					googleComments();
-				}
+				googleComments.init();			
 				//disqusComments();
 			}, 400);
 

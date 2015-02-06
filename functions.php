@@ -96,9 +96,6 @@ add_image_size( 'illustration-large', 1200, 15000, false);
 add_image_size( 'design-thumb', 522, 309, array( 'center', 'top' ));
 add_image_size( 'design-large', 1200, 15000, false );
 
-/* Sketch image size */
-add_image_size( 'sketchbook-image', 540, 620, array( 'center', 'top' ) );
-
 /* URL THUMBNAILS */
 function url_thumbnail($tamagno){
     $src = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), $tamagno);
@@ -210,54 +207,7 @@ function create_illustration_taxonomies() {
 add_action( 'init', 'create_illustration_taxonomies', 0 );
 
 /***********************************************
-* CUSTOM TYPE: SKETCH
-***********************************************/
-function create_sketch_type() {
-  $args = array(
-    'labels' => array(
-      'name' => 'Sketches',
-      'singular_name' => 'Sketch'
-    ),
-    'public' => true,
-    'publicly_queryable' => true,
-    'show_ui' => true, 
-    'show_in_menu' => true, 
-    'query_var' => true,
-    'rewrite' => true,
-    'capability_type' => 'post',
-    'has_archive' => true, 
-    'hierarchical' => false,
-    'show_tagcloud' => false,
-    'show_in_nav_menus' => true,
-    'menu_position' => 5,
-    'menu_icon' => 'dashicons-edit',
-    'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields' )
-  ); 
-  register_post_type('sketch',$args);
-}
-add_action( 'init', 'create_sketch_type' );
-
-// Sketch Types
-function create_sketch_taxonomies() {
-    register_taxonomy(
-        'sketch',
-        'sketch',
-        array(
-            'labels' => array(
-                'name' => 'Sketch Types',
-                'singular_name' => 'Sketch Type'
-            ),
-            'show_ui' => true,
-            'show_tagcloud' => false,
-            'hierarchical' => true,
-            'show_in_nav_menus' => true
-        )
-    );
-}
-add_action( 'init', 'create_sketch_taxonomies', 0 );
-
-/***********************************************
-* CUSTOM TYPE: DESING
+* CUSTOM TYPE: DESIGN
 ***********************************************/
 function create_design_type() {
   $args = array(

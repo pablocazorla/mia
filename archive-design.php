@@ -14,7 +14,7 @@ if (!$async){
 		<header class="wrap header-section">
 			<h1 class="softlight">Design</h1>
 			<div class="red-line softlight"></div>
-			<p class="softlight">Conceptual, fantastic, literary, realistic, functional, games...</p>
+			<p class="softlight">UI/UX, web, infographics, applications...</p>
 			<div class="gallery-menu softlight" id="gallery-menu">
 				<?php
 					echo '<span class="gm-btn current">All</span>';

@@ -78,7 +78,7 @@ endif;
 		<header class="wrap header-section">
 			<h1 class="softlight">Design</h1>
 			<div class="red-line softlight"></div>
-			<p class="softlight">Conceptual, fantastic, literary, realistic, functional, games...</p>
+			<p class="softlight">UI/UX, web, infographics, applications...</p>
 		</header>
 		<div id="design-gallery">
 <?php
@@ -141,7 +141,7 @@ endif;
 		<header class="wrap header-section">
 			<h1 class="softlight">Blog</h1>
 			<div class="red-line softlight"></div>
-			<p class="softlight">Conceptual, fantastic, literary, realistic, functional, games...</p>
+			<p class="softlight">Ideas, resources, news, tutoriales, discussion...</p>
 		</header>
 		<div class="row">
 <?php 

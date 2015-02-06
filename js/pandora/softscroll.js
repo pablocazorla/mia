@@ -1,5 +1,5 @@
 // PANDORA SOFTSCROLL
-;
+
 (function() {
 	'use strict';
 	var moving = false,

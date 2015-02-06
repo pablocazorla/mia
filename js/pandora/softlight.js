@@ -1,5 +1,5 @@
 // PANDORA SOFTLIGHT
-;
+
 (function() {
 	'use strict';
 	PANDORA.SOFTLIGHT = {
@@ -117,6 +117,7 @@
 			$(elem).removeClass(PANDORA.SOFTLIGHT.defaults.classSelection);
 		},
 		show = function(ob) {
+
 			setTimeout(function() {
 				ob.elem.style.opacity = '';
 				ob.elem.style[transformFix] = '';
@@ -166,7 +167,7 @@
 				}
 				setTimeout(function(){
 					onScroll();
-				},100);	
+				},200);	
 			}
 		},
 		forceTest = function(){

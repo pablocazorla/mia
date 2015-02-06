@@ -1,5 +1,5 @@
 // SOCIALCOMMENTS
-;
+
 (function() {
 
 	var initialized = false,

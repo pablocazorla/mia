@@ -14,7 +14,7 @@ var PANDORA = (function() {
 		BROWSER.mozilla = /mozilla/.test(ua) && !/webkit/.test(ua);
 		BROWSER.webkit = /webkit/.test(ua);
 		BROWSER.opera = /opera/.test(ua);
-		BROWSER.msie = /msie/.test(ua);
+		BROWSER.msie = /msie/.test(ua) || /trident/.test(ua);
 		BROWSER.ios = (ua.match(/ipad/i) || ua.match(/iphone/i) || ua.match(/ipod/i));
 		BROWSER.android = ua.match(/android/i);
 

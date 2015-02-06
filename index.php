@@ -103,25 +103,27 @@ if ( $types && ! is_wp_error( $types ) ) {
 ?>
 
 			<div class="gallery-fig softlight <?php echo ' backcolor'.$backCol; echo $classType; if($alt < 0){ echo ' alt';}?>" data-softlight="rotateY:90,from:-20">
-				<div class="wrap clearfix design-pod">
-					<div class="design-box design-image">
-						<?php if($classType == ' webdesign'){ ?>
-						<img class="design-pc" src="<?php bloginfo('template_url'); ?>/img/design-pc.png"/>
-						<?php }?>
-						<figure class="<?php if($classType == ' webdesign'){echo 'wd-figure';}?>">
-					        <?php if(has_post_thumbnail()){
-							echo '<img class="design-thumb-img img-sequence" src="" data-src="' . url_thumbnail('design-thumb') .'">';
-							} ?>
-							<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" >
-								<figcaption><span>More</span></figcaption>
-							</a>							
-						</figure>										
-					</div>
-					<div class="design-box design-gap"></div>
-					<div class="design-box design-text">
-						<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-						<p class="design-category"><?php echo $className;?></p>
-						<?php the_excerpt();?>
+				<div class="wrap">
+					<div class="clearfix design-pod">
+						<div class="design-box design-image">
+							<?php if($classType == ' webdesign'){ ?>
+							<img class="design-pc" src="<?php bloginfo('template_url'); ?>/img/design-pc.png"/>
+							<?php }?>
+							<figure class="<?php if($classType == ' webdesign'){echo 'wd-figure';}?>">
+						        <?php if(has_post_thumbnail()){
+								echo '<img class="design-thumb-img img-sequence" src="" data-src="' . url_thumbnail('design-thumb') .'">';
+								} ?>
+								<a href="<?php the_permalink(); ?>" rel="<?php the_ID();?>" >
+									<figcaption><span>More</span></figcaption>
+								</a>							
+							</figure>										
+						</div>
+						<div class="design-box design-gap"></div>
+						<div class="design-box design-text">
+							<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+							<p class="design-category"><?php echo $className;?></p>
+							<?php the_excerpt();?>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -142,9 +144,11 @@ endif;
 			<p class="softlight">Conceptual, fantastic, literary, realistic, functional, games...</p>
 		</header>
 		<div class="row">
-<?php $list = new WP_Query('posts_per_page=3');
+<?php 
+$order = 1;
+$list = new WP_Query('posts_per_page=3');
 if ($list->have_posts()): while ($list->have_posts()): $list->the_post(); ?>
-			<div class="col">
+			<div class="col col-num-<?php echo $order; ++$order;?>">
 				<div class="post-in-list softlight" data-softlight="y:0,scale:0.7" id="post-<?php the_ID();?>">
 					<figure>
 						<?php if(has_post_thumbnail()){

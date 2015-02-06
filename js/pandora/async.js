@@ -1,5 +1,5 @@
 // PANDORA ASYNC
-;
+
 (function() {
 	'use strict';
 	var initialized = false,

@@ -17,7 +17,10 @@
 	<meta name="copyright" content="Designed by Pablo Cazorla - All rights reserved - <?php echo date('Y'); ?>." />
 
 	<link href='http://fonts.googleapis.com/css?family=Raleway:300,400' rel='stylesheet' type='text/css'>
-	<link href="<?php bloginfo('template_url'); ?>/style.css" rel="stylesheet" type="text/css" />	
+	<link href="<?php bloginfo('template_url'); ?>/style.min.php" rel="stylesheet" type="text/css" />
+	<noscript>	
+		<link href="<?php bloginfo('template_url'); ?>/noscript.css" rel="stylesheet" type="text/css" />
+	</noscript>
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 	
 	<link rel="shortcut icon" href="<?php bloginfo('template_url'); ?>/favicon.ico" />	
@@ -30,12 +33,13 @@
 	<script type="text/javascript">
 		baseURL = "<?php bloginfo( 'url' ); ?>";
 		baseTemplateURL = "<?php bloginfo('template_url'); ?>";
-		//var disqus_developer = 1; // this would set it to developer mode
 	</script>		
 	<?php wp_head(); ?>	
 </head>
 <body>
-
+	<noscript>	
+		<div class="noscript-message">Please, enable javascript in your browser, in order to get a better experience.</div>
+	</noscript>
 	<header id="header-main" <?php if(is_home()){echo 'class="hidden"';}?>>
 		<div class="wrap clearfix">
 			<a href="<?php bloginfo( 'url' ); ?>" class="brand no-hash bubble bubble-bottom" title="<?php bloginfo( 'description' ); ?>" data-blank="black">				
@@ -50,6 +54,5 @@
 		<span></span>
 		<span></span>
 	</div>
-	
-
+	<div id="res-menu-dimmer"></div>
 	<div id="content-main">

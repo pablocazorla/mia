@@ -9,6 +9,7 @@
 		currentUrl = window.location.href,
 		pushSt = (typeof history !== 'undefined' && typeof history.pushState !== 'undefined'),
 		blackDimmer = false,
+		isIE = PANDORA.BROWSER.msie,
 
 		// Stores
 		$blank, $loader, $mainContent,
@@ -56,6 +57,7 @@
 					}
 					currentUrl = url;
 					hideBlank();
+					
 					// On Complete
 					if (typeof onSuccess === 'function') {
 						onSuccess();
@@ -72,7 +74,7 @@
 					onBefore();
 				}
 				showBlank();
-				if (pushSt && url.indexOf(hostUrl) !== -1) {
+				if (pushSt && url.indexOf(hostUrl) !== -1 && !isIE) {
 					changed = false;
 					$.ajax({
 						url: url + s + 'async=1',
@@ -94,7 +96,6 @@
 			}
 			return this;
 		};
-
 
 	PANDORA.LOADER = {
 		init: function() {

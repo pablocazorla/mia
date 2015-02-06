@@ -12,7 +12,6 @@ PANDORA.open(function($) {
 		$header = $('#header-main'),
 		HEADER = {
 			limitToHide: 0,
-
 			sections: ['illustration', 'illustration-post', 'design', 'design-post', 'blog', 'blog-post', 'error404', 'search', 'about-me', 'page', 'contact'],
 			backColors: {
 				'illustration': false,
@@ -26,6 +25,16 @@ PANDORA.open(function($) {
 				'about-me': false,
 				'page': true,
 				'contact': false
+			},
+			setResposive: function() {
+				var $dimm = $('#res-menu-dimmer');
+				$('#res-menu-btn').click(function() {
+					$header.add($dimm).addClass('res-show');
+				});
+				$dimm.add($header.find('a')).click(function() {
+					$header.add($dimm).removeClass('res-show');
+				});
+				return this;
 			},
 			current: function(str) {
 				$('.main-menu a').removeClass('current');
@@ -47,9 +56,6 @@ PANDORA.open(function($) {
 					});
 					headerVisible = false;
 				}
-
-
-
 				for (i = 0; i < l; i++) {
 					var $elem = $('#' + this.sections[i]);
 					if ($elem.length > 0) {
@@ -59,7 +65,6 @@ PANDORA.open(function($) {
 						});
 					}
 				}
-
 				var len = sec.length,
 					currentMenu = 'none',
 					newMenu,
@@ -91,7 +96,6 @@ PANDORA.open(function($) {
 
 						}
 					};
-
 				PANDORA.ASYNC.scroll(onChangeSec).resize(onChangeSec);
 				onChangeSec();
 			}
@@ -179,17 +183,27 @@ PANDORA.open(function($) {
 			detect();
 			PANDORA.$window.scroll(detect).resize(detect);
 		},
-		setPrettyPrint = function() {
-			var somePre = false;
-			$('pre').not('.no-print').each(function() {
-				var $this = $(this).addClass('prettyprint');
-				$this.text($this.html());
-				somePre = true;
-			});
-			if (somePre) {
-				$.getScript('//google-code-prettify.googlecode.com/svn/loader/run_prettify.js?skin=desert');
-			}
-		},
+		setPrettyPrint = (function() {
+			var loadedPrettify = false;
+			return function() {
+				var somePre = false;
+				$('pre').not('.no-print').each(function() {
+					var $this = $(this).addClass('prettyprint');
+					$this.text($this.html());
+					somePre = true;
+				});
+				if (somePre) {
+					if(!loadedPrettify){
+						console.log('Cargo');
+						$.getScript('//google-code-prettify.googlecode.com/svn/loader/run_prettify.js?skin=desert',function(){
+							loadedPrettify = true;
+						});						
+					}else{
+						//prettyPrint();
+					}					
+				}
+			};
+		})(),
 		gallery = function() {
 			var $menu = $('#gallery-menu'),
 				$a = $menu.find('.gm-btn'),
@@ -237,7 +251,7 @@ PANDORA.open(function($) {
 		},
 		ILLUSTRATIONPOST = function() {
 			// Set Black Dimmer for navigatio arrows
-			$('.blog-pagination-arrow a').attr('data-blank','black');
+			$('.blog-pagination-arrow a').attr('data-blank', 'black');
 			PANDORA.SHARE.setLinks(context);
 		},
 		DESIGN = function() {
@@ -384,9 +398,12 @@ PANDORA.open(function($) {
 				default:
 					//
 			}
-			HEADER.setCurrentByScroll();
+			HEADER.setResposive().setCurrentByScroll();
 			PANDORA.SOFTSCROLL.selectLinks(context, 70);
 
+			if (async && typeof ga === 'function') {
+				ga('send', 'pageview');
+			}
 		};
 
 	// FUNCTIONS UNIQUES: syncronic
@@ -402,7 +419,4 @@ PANDORA.open(function($) {
 
 	// FUNCTIONS BY PAGE: asyncronic
 	onComplete(false);
-
-
-
 });

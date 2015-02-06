@@ -89,7 +89,7 @@ if ( function_exists( 'add_theme_support' ) )
 add_theme_support( 'post-thumbnails' );
 
 /* Illustration image sizes */
-add_image_size( 'illustration-thumb', 635, 320, array( 'center', 'top' ));
+add_image_size( 'illustration-thumb', 635, 395, array( 'center', 'top' ));
 add_image_size( 'illustration-large', 1200, 15000, false);
 
 /* Design image size */

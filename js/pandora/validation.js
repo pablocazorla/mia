@@ -1,5 +1,5 @@
 // VALIDATION
-;
+
 (function() {
 
 	'use strict';

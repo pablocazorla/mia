@@ -1,5 +1,5 @@
 // FIX IMAGE
-;
+
 (function() {
 	'use strict';
 	var fixIm = function(options) {

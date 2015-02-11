@@ -1424,7 +1424,11 @@ PANDORA.open(function($) {
 			PANDORA.SOFTSCROLL.selectLinks(context, 70);
 
 			if (async && typeof ga === 'function') {
-				ga('send', 'pageview');
+				var location = window.location.pathname + window.location.search;
+				ga('send', 'pageview', {
+					'page': location,
+					'title': document.title
+				});
 			}
 		};
 

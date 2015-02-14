@@ -627,6 +627,11 @@ var PANDORA = (function() {
 		blackDimmer = false,
 		isIE = PANDORA.BROWSER.msie,
 
+		getCleanUrl = function() {
+			return window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+		},
+		cleanUrl,
+
 		// Stores
 		$blank, $loader, $mainContent,
 
@@ -650,8 +655,9 @@ var PANDORA = (function() {
 		},
 		onSuccess = null,
 		onBefore = null,
-		load = function(url) {
-			var timer = null,
+		load = function(url, back) {
+			var isBack = back || false,
+				timer = null,
 				changed = false,
 				hash = null,
 				s = (url.indexOf('?') === -1) ? '?' : '&',
@@ -667,12 +673,18 @@ var PANDORA = (function() {
 					} else {
 						document.title = title;
 					}
-					history.pushState(null, title, url);
+					if (!isBack) {
+						history.pushState({
+							path: url
+						}, title, url);
+					}
 					if (hash !== null) {
 						url += '#' + hash;
 					}
 					currentUrl = url;
 					hideBlank();
+
+					cleanUrl = getCleanUrl();
 
 					// On Complete
 					if (typeof onSuccess === 'function') {
@@ -716,6 +728,25 @@ var PANDORA = (function() {
 	PANDORA.LOADER = {
 		init: function() {
 			if (!initialized) {
+				cleanUrl = getCleanUrl();
+				var initialUrl = window.location.href,
+					hasChangeHash = (function() {
+						var originalHash = window.location.hash;
+
+						return function() {
+							var newHash = window.location.hash,
+								newCleanUrl = getCleanUrl();
+							if (newHash !== originalHash && newCleanUrl === cleanUrl) {
+								originalHash = newHash;
+								cleanUrl = getCleanUrl();
+								return true;
+							} else {
+								cleanUrl = getCleanUrl();
+								return false;
+							}
+						};
+					})();
+
 				$blank = $('#blank-dimmer');
 				$loader = $('#loader-line').addClass('to70');
 				$mainContent = $('#content-main');
@@ -723,6 +754,20 @@ var PANDORA = (function() {
 					hideBlank();
 				}, 400);
 				initialized = true;
+				if (pushSt && !isIE) {
+					PANDORA.$window.bind('popstate', function(event) {
+						var state = event.originalEvent.state;
+						if (state) {
+							PANDORA.LOADER.load(state.path, true);
+						} else {
+							var changedHash = hasChangeHash();
+							if (!changedHash) {
+								window.location.href = initialUrl;
+							}
+						}
+
+					});
+				}
 			}
 			return this;
 		},

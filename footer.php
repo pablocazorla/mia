@@ -6,6 +6,18 @@
 					<h2 class="softlight">Get in touch!</h2>
 					<p class="softlight">Please send me a message via email if you have any questions, idea, or comment for me.</p>
 					<p class="softlight"><a href="mailto:contact@pcazorla.com" target="_blank" class="button big bubble" title="Send me an e-mail"><span class="em-icon"></span>contact@pcazorla.com</a></p>
+
+
+
+<div id="nubelo-profile-widget"></div>
+
+
+
+
+
+
+
+
 				</div>
 			</div>
 			<div class="contact-links">
@@ -36,6 +48,7 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script>window.$ || document.write('<script src="<?php bloginfo('template_url'); ?>/js/libs/jquery-1.9.1.min.js"><\/script>')</script>
 		<script src="<?php bloginfo('template_url'); ?>/js/appcomp.min.php" type="text/javascript"></script>
+		<script src="http://www.nubelo.com/widget.js/referral/widget/pablo-cazorla/1/white"></script>
 		<script>
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

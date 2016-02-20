@@ -6,18 +6,7 @@
 					<h2 class="softlight">Get in touch!</h2>
 					<p class="softlight">Please send me a message via email if you have any questions, idea, or comment for me.</p>
 					<p class="softlight"><a href="mailto:contact@pcazorla.com" target="_blank" class="button big bubble" title="Send me an e-mail"><span class="em-icon"></span>contact@pcazorla.com</a></p>
-
-
-
-<div id="nubelo-profile-widget"></div>
-
-
-
-
-
-
-
-
+				<div id="nubelo-profile-widget"></div>
 				</div>
 			</div>
 			<div class="contact-links">
@@ -43,7 +32,12 @@
 		</div>
 		<div id="loader-line">
 			<div class="loader-line-range"></div>
-		</div>				
+		</div>
+
+		<div id="cookie-policy">
+			This site uses cookies to provide statistics that help me give you the best experience of use. <a href="javascript:void(0);"><strong>It's OK</strong></a>
+		</div>
+
 		<?php wp_footer(); ?>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script>window.$ || document.write('<script src="<?php bloginfo('template_url'); ?>/js/libs/jquery-1.9.1.min.js"><\/script>')</script>

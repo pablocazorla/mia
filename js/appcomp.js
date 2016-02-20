@@ -1387,7 +1387,7 @@ PANDORA.open(function($) {
 			ABOUTME.init();
 
 			var resizeHomeSections = function() {
-				resizeSection($presentation, 20, function(h) {
+				resizeSection($presentation, 40, function(h) {
 					var top = h / 2 - 570;
 					top = (top > 0) ? 0 : top;
 					if (presentationHandShow && top < -presentationHandHeight) {
@@ -1490,4 +1490,46 @@ PANDORA.open(function($) {
 
 	// FUNCTIONS BY PAGE: asyncronic
 	onComplete(false);
+});
+
+jQuery('document').ready(function() {
+
+	var $banner = jQuery('#cookie-policy');
+
+
+	function getCookie(c_name) {
+		var c_value = document.cookie;
+		var c_start = c_value.indexOf(" " + c_name + "=");
+		if (c_start == -1) {
+			c_start = c_value.indexOf(c_name + "=");
+		}
+		if (c_start == -1) {
+			c_value = null;
+		} else {
+			c_start = c_value.indexOf("=", c_start) + 1;
+			var c_end = c_value.indexOf(";", c_start);
+			if (c_end == -1) {
+				c_end = c_value.length;
+			}
+			c_value = unescape(c_value.substring(c_start, c_end));
+		}
+		return c_value;
+	}
+
+	function setCookie(c_name, value, exdays) {
+		var exdate = new Date();
+		exdate.setDate(exdate.getDate() + exdays);
+		var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+		document.cookie = c_name + "=" + c_value;
+	}
+
+	if (getCookie('cookie-policy') != "1") {
+		$banner.fadeIn(400);
+	}
+
+	function setCookiePolicy() {
+		setCookie('cookie-policy', '1', 365);
+		$banner.fadeOut(400);
+	}
+	$banner.click(setCookiePolicy);
 });

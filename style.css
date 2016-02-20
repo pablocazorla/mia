@@ -1362,6 +1362,21 @@ input.search-submit{
 	padding: 25px 0;
 }
 
+/* COOKIE POLICY *************************************************/
+#cookie-policy{
+	display: none;
+	position: fixed;z-index:10000;
+	bottom: 0;left: 0;right: 0;
+	background-color: #222;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.3em;
+  text-align: center;
+  padding: 10px 20px 0;
+  height: 38px;
+  cursor: pointer;
+}
+
 /* IE COMPATIBILITY ************************************/
 
 .ie-lt-9 .illustration-figure a,
